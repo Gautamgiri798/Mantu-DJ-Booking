@@ -104,7 +104,9 @@ model GalleryItem {
   id         String   @id @default(cuid())
   title      String
   category   String // Weddings, Receptions, Parties, Birthdays, Corporate, Other
-  imageUrl   String
+  imageUrl   String // Image URL or Video poster/thumbnail
+  mediaType  String   @default("IMAGE") // IMAGE, VIDEO
+  videoUrl   String?  // YouTube link, video embed, or MP4 URL
   eventDate  String?
   location   String?
   isFeatured Boolean  @default(false)

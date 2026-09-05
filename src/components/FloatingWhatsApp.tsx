@@ -583,11 +583,11 @@ export default function FloatingWhatsApp({
                     type="button"
                     onClick={() => {
                       setShowAttachmentMenu(false);
-                      handleUserSend('Can you send customer reviews & videos?');
+                      handleUserSend('Can you send performance videos & photos?');
                     }}
                     className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-purple-950/50 text-zinc-200 hover:text-purple-300 transition-colors"
                   >
-                    ⭐ Verified Reviews & Videos
+                    🎥 Performance Videos & Photos
                   </button>
                 </div>
               )}

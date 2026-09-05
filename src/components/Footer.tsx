@@ -102,18 +102,8 @@ export default function Footer({
                 </Link>
               </li>
               <li>
-                <Link href="/videos" className="hover:text-purple-400 transition-colors">
-                  Performance Videos
-                </Link>
-              </li>
-              <li>
                 <Link href="/availability" className="text-emerald-400 hover:underline">
                   Check Date Availability
-                </Link>
-              </li>
-              <li>
-                <Link href="/reviews" className="hover:text-purple-400 transition-colors">
-                  Client Reviews
                 </Link>
               </li>
             </ul>

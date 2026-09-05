@@ -150,22 +150,13 @@ export default async function ContactPage() {
             </h4>
             <div className="flex items-center gap-3">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/awaraboy458/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-semibold"
               >
                 <InstagramIcon className="w-4 h-4 text-pink-400" />
-                <span>@djmantu_official</span>
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs font-semibold"
-              >
-                <YoutubeIcon className="w-4 h-4 text-red-500" />
-                <span>DJ Mantu Official YouTube</span>
+                <span>@awaraboy458</span>
               </a>
             </div>
           </div>

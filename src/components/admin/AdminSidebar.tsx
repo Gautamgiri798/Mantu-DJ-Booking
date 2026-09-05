@@ -11,7 +11,6 @@ import {
   Layers,
   Package,
   Image as ImageIcon,
-  MessageSquareQuote,
   Settings,
   LogOut,
   Disc3,
@@ -48,7 +47,6 @@ export default function AdminSidebar({
     { href: '/admin/services', label: 'Services', icon: Layers },
     { href: '/admin/packages', label: 'Packages', icon: Package },
     { href: '/admin/gallery', label: 'Gallery', icon: ImageIcon },
-    { href: '/admin/reviews', label: 'Reviews', icon: MessageSquareQuote },
     { href: '/admin/settings', label: 'Website Settings', icon: Settings },
   ];
 

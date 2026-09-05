@@ -28,7 +28,6 @@ import {
   getCachedServices,
   getCachedPackages,
   getCachedGallery,
-  getCachedVideos,
 } from '@/lib/data';
 import { WhatsAppIcon } from '@/components/SocialIcons';
 
@@ -36,11 +35,10 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   // Fetch cached dynamic content (Redis with in-memory fallback)
-  const [services, packages, galleryItems, videos, settingsMap] = await Promise.all([
+  const [services, packages, galleryItems, settingsMap] = await Promise.all([
     getCachedServices(6),
     getCachedPackages(4),
-    getCachedGallery(6),
-    getCachedVideos(3),
+    getCachedGallery(9),
     getWebsiteSettingsMap(),
   ]);
 
@@ -473,87 +471,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 6. FEATURED PORTFOLIO GALLERY */}
+      {/* 6. FEATURED PORTFOLIO & MEDIA GALLERY */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
             <span className="text-xs uppercase font-extrabold tracking-widest text-purple-400">
-              Live Crowd Vibes
+              Live Atmosphere & Footage
             </span>
             <h2 className="text-3xl sm:text-5xl font-black text-white mt-1">
-              Event Moments & Dance Floors
+              Event Moments & Live Action
             </h2>
           </div>
           <Link
             href="/gallery"
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-400 hover:text-purple-300"
           >
-            <span>View Full Gallery ({galleryItems.length}+ Photos)</span>
+            <span>Explore Full Gallery ({galleryItems.length}+ Media)</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
         <GalleryLightbox items={galleryItems} />
-      </section>
-
-      {/* 7. PERFORMANCE VIDEO REELS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-          <div>
-            <span className="text-xs uppercase font-extrabold tracking-widest text-pink-400">
-              See the Energy in Action
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white mt-1">
-              Performance Video Showcase
-            </h2>
-          </div>
-          <Link
-            href="/videos"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-400 hover:text-purple-300"
-          >
-            <span>Watch All Videos</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {videos.map((vid) => (
-            <div
-              key={vid.id}
-              className="group relative rounded-3xl overflow-hidden glass-panel border border-white/10 hover:border-pink-500/40 transition-all duration-300"
-            >
-              <div className="relative aspect-video w-full overflow-hidden">
-                <Image
-                  src={vid.thumbnail || 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7'}
-                  alt={vid.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center z-10">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-purple-600 to-pink-600 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                    <Play className="w-6 h-6 fill-current translate-x-0.5" />
-                  </div>
-                </div>
-
-                {vid.duration && (
-                  <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/80 text-[10px] font-bold text-zinc-300 z-20">
-                    {vid.duration}
-                  </span>
-                )}
-              </div>
-
-              <div className="p-5">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-pink-400">
-                  {vid.eventType}
-                </span>
-                <h3 className="text-sm font-bold text-white mt-1 line-clamp-2">
-                  {vid.title}
-                </h3>
-              </div>
-            </div>
-          ))}
-        </div>
       </section>
 
 

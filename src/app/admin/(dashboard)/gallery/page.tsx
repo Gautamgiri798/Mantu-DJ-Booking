@@ -15,6 +15,8 @@ export default async function AdminGalleryPage() {
     title: i.title,
     category: i.category,
     imageUrl: i.imageUrl,
+    mediaType: i.mediaType,
+    videoUrl: i.videoUrl,
     eventDate: i.eventDate,
     location: i.location,
     isFeatured: i.isFeatured,
@@ -30,7 +32,7 @@ export default async function AdminGalleryPage() {
           Gallery Management
         </h1>
         <p className="text-xs sm:text-sm text-zinc-400">
-          Upload event photos, categorize by weddings, parties, or corporate events, and curate your visual portfolio.
+          Upload event photos and showcase videos, categorize by weddings, parties, or corporate events, and curate your visual portfolio.
         </p>
       </div>
 
