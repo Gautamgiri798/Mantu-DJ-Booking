@@ -46,14 +46,14 @@ export default function RootLayout({
               image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7',
               '@id': 'http://localhost:3000',
               url: 'http://localhost:3000',
-              telephone: '+919861098765',
+              telephone: '+916372174006',
               priceRange: '₹15,000 - ₹75,000',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Civil Township',
-                addressLocality: 'Rourkela',
+                streetAddress: 'Brajrajnagar',
+                addressLocality: 'Jharsuguda',
                 addressRegion: 'Odisha',
-                postalCode: '769004',
+                postalCode: '768216',
                 addressCountry: 'IN',
               },
               geo: {

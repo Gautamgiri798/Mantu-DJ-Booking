@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Phone, MessageSquare, Mail, Calendar, Sparkles } from 'lucide-react';
+import { Phone, MessageSquare } from 'lucide-react';
 import prisma from '@/lib/prisma';
 import { formatDate, createWhatsAppLink, formatCurrency } from '@/lib/utils';
 
@@ -72,16 +72,21 @@ export default async function AdminCustomersPage() {
                 <div className="space-y-1.5 pt-3 text-xs text-zinc-400">
                   <p className="flex items-center gap-2">
                     <Phone className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                    <a href={`tel:${c.phone}`} className="hover:text-white transition-colors">
+                    <a href={`tel:${c.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-white transition-colors">
                       {c.phone}
                     </a>
                   </p>
-                  {c.email && (
-                    <p className="flex items-center gap-2">
-                      <Mail className="w-3.5 h-3.5 text-pink-400 shrink-0" />
-                      <span className="truncate">{c.email}</span>
-                    </p>
-                  )}
+                  <p className="flex items-center gap-2">
+                    <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <a
+                      href={createWhatsAppLink(c.whatsapp || c.phone, `Hello ${c.name}, DJ Mantu here.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-400 hover:text-emerald-300 transition-colors"
+                    >
+                      WhatsApp Chat
+                    </a>
+                  </p>
                 </div>
 
                 {/* Booking History Snippet */}

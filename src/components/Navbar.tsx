@@ -14,8 +14,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({
-  phone = '+91 98610 98765',
-  whatsapp = '+91 98610 98765',
+  phone = '+91 6372174006',
+  whatsapp = '+91 6372174006',
   djName = 'DJ MANTU',
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);

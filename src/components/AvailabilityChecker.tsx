@@ -23,7 +23,7 @@ interface AvailabilityCheckerProps {
 }
 
 export default function AvailabilityChecker({
-  whatsapp = '+91 98610 98765',
+  whatsapp = '+91 6372174006',
   defaultDate,
   compact = false,
 }: AvailabilityCheckerProps) {

@@ -1,25 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
-import { Disc3, Phone, Mail, MapPin, MessageSquare, Lock } from 'lucide-react';
-import { InstagramIcon, YoutubeIcon } from '@/components/SocialIcons';
+import { Disc3, Phone, MapPin, MessageSquare, Lock } from 'lucide-react';
+import { InstagramIcon, YoutubeIcon, WhatsAppIcon } from '@/components/SocialIcons';
 import { createWhatsAppLink } from '@/lib/utils';
 
 interface FooterProps {
   djName?: string;
   phone?: string;
   whatsapp?: string;
-  email?: string;
   address?: string;
-  serviceAreas?: string;
 }
 
 export default function Footer({
   djName = 'DJ Mantu',
-  phone = '+91 98610 98765',
-  whatsapp = '+91 98610 98765',
-  email = 'bookings@djmantu.com',
-  address = 'Civil Township, Rourkela, Odisha 769004',
-  serviceAreas = 'Rourkela, Sundargarh, Sambalpur, Jharsuguda, Bhubaneswar, Cuttack & all Eastern India',
+  phone = '+91 6372174006',
+  whatsapp = '+91 6372174006',
+  address = 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216',
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const waLink = createWhatsAppLink(whatsapp, 'Hello DJ Mantu, I want to enquire about DJ booking.');
@@ -170,21 +166,15 @@ export default function Footer({
               </a>
             </p>
             <p className="flex items-start gap-2.5">
-              <Mail className="w-4 h-4 text-pink-400 shrink-0 mt-0.5" />
-              <a href={`mailto:${email}`} className="hover:text-white transition-colors break-all">
-                {email}
+              <WhatsAppIcon className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <a href={waLink} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                WhatsApp: {whatsapp}
               </a>
             </p>
             <p className="flex items-start gap-2.5">
               <MapPin className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
               <span>{address}</span>
             </p>
-            <div className="pt-2">
-              <span className="text-xs uppercase tracking-wider text-zinc-500 font-semibold block mb-1">
-                Active Service Hub:
-              </span>
-              <p className="text-xs text-zinc-400 leading-normal">{serviceAreas}</p>
-            </div>
           </div>
         </div>
 

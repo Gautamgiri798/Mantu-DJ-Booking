@@ -9,7 +9,7 @@ export const revalidate = 10;
 export default async function AvailabilityPage() {
   const settingsMap = await getWebsiteSettingsMap();
 
-  const whatsapp = settingsMap['whatsapp'] || '+91 98610 98765';
+  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
 
   const waWaitlistLink = createWhatsAppLink(

@@ -30,13 +30,12 @@ async function main() {
       value:
         'Electrifying live DJ performances, arena-grade JBL sound, intelligent moving beam lights, and cinematic low-lying dry ice fog for Weddings, Receptions, Sangeets & Grand Parties.',
     },
-    { key: 'phone', value: '+91 98610 98765' },
-    { key: 'whatsapp', value: '+91 98610 98765' },
-    { key: 'email', value: 'bookings@djmantu.com' },
-    { key: 'address', value: 'Civil Township, Rourkela, Odisha 769004' },
+    { key: 'phone', value: '+91 6372174006' },
+    { key: 'whatsapp', value: '+91 6372174006' },
+    { key: 'address', value: 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216' },
     {
       key: 'service_areas',
-      value: 'Rourkela, Sundargarh, Sambalpur, Jharsuguda, Bhubaneswar, Cuttack & across Odisha / Eastern India',
+      value: 'Jharsuguda, Brajrajnagar, Sambalpur, Rourkela, Sundargarh, Bhubaneswar, Cuttack & across Odisha / Western India',
     },
     { key: 'experience_years', value: '10+' },
     { key: 'events_completed', value: '650+' },

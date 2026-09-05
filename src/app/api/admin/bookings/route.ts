@@ -44,15 +44,30 @@ export async function PATCH(request: NextRequest) {
       data: {
         status: status || existing.status,
         adminNotes: adminNotes !== undefined ? adminNotes : existing.adminNotes,
-        totalAmount: totalAmount !== undefined ? (totalAmount ? Number(totalAmount) : null) : existing.totalAmount,
+        totalAmount:
+          totalAmount !== undefined && totalAmount !== null && !isNaN(Number(totalAmount))
+            ? Number(totalAmount)
+            : totalAmount === null
+            ? null
+            : existing.totalAmount,
         venue: venue || existing.venue,
         city: city || existing.city,
+      },
+      include: {
+        customer: true,
+        package: true,
       },
     });
 
     // Synchronize availability calendar status
     if (status) {
-      if (status === 'CONFIRMED') {
+      // Free up any stale availability record for another date
+      await prisma.availability.updateMany({
+        where: { bookingId: existing.id, NOT: { date: existing.dateString } },
+        data: { bookingId: null },
+      });
+
+      if (status === 'CONFIRMED' || status === 'COMPLETED') {
         await prisma.availability.upsert({
           where: { date: existing.dateString },
           update: {
@@ -74,7 +89,7 @@ export async function PATCH(request: NextRequest) {
             bookingId: existing.id,
           },
         });
-      } else if (status === 'PENDING') {
+      } else if (status === 'PENDING' || status === 'CONTACTED') {
         await prisma.availability.upsert({
           where: { date: existing.dateString },
           update: {
@@ -95,7 +110,13 @@ export async function PATCH(request: NextRequest) {
     // Invalidate availability cache for this date
     await invalidateAvailabilityCache(existing.dateString);
 
-    return NextResponse.json({ success: true, booking: updated });
+    const formatted = {
+      ...updated,
+      eventDate: updated.eventDate.toISOString(),
+      createdAt: updated.createdAt.toISOString(),
+    };
+
+    return NextResponse.json({ success: true, booking: formatted });
   } catch (error) {
     console.error('Error updating booking:', error);
     return NextResponse.json({ error: 'Failed to update booking' }, { status: 500 });

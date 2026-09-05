@@ -119,14 +119,14 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
           <Phone className="w-4 h-4 text-emerald-400" /> Direct Contact & WhatsApp Line
         </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
             <label className="font-semibold text-zinc-300 block mb-1">WhatsApp Booking Number</label>
             <input
               type="text"
               value={settings['whatsapp'] || ''}
               onChange={(e) => handleChange('whatsapp', e.target.value)}
-              placeholder="+91 98610 98765"
+              placeholder="+91 6372174006"
               className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
@@ -137,18 +137,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['phone'] || ''}
               onChange={(e) => handleChange('phone', e.target.value)}
-              placeholder="+91 98610 98765"
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
-            />
-          </div>
-
-          <div>
-            <label className="font-semibold text-zinc-300 block mb-1">Official Email</label>
-            <input
-              type="email"
-              value={settings['email'] || ''}
-              onChange={(e) => handleChange('email', e.target.value)}
-              placeholder="bookings@djmantu.com"
+              placeholder="+91 6372174006"
               className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
@@ -168,6 +157,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['address'] || ''}
               onChange={(e) => handleChange('address', e.target.value)}
+              placeholder="Brajrajnagar, Jharsuguda, Odisha, Pin - 768216"
               className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
             />
           </div>

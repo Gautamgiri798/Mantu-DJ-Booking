@@ -42,7 +42,7 @@ const BUDGET_TIERS = [
   'Custom Budget / Need Consultation',
 ];
 
-function BookingWizardContent({ packages, whatsappNumber = '+91 98610 98765', djName = 'DJ Mantu' }: BookingWizardProps) {
+function BookingWizardContent({ packages, whatsappNumber = '+91 6372174006', djName = 'DJ Mantu' }: BookingWizardProps) {
   const searchParams = useSearchParams();
 
   const [step, setStep] = useState<number>(1);
@@ -311,17 +311,6 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. 9876543210"
                   value={formData.whatsapp}
                   onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-zinc-300 block mb-1">Email Address</label>
-                <input
-                  type="email"
-                  placeholder="e.g. rahul@gmail.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>

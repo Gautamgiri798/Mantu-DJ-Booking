@@ -4,21 +4,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Search,
-  Filter,
   Eye,
   MessageSquare,
   Phone,
-  Calendar,
-  MapPin,
-  Clock,
   CheckCircle,
-  XCircle,
-  AlertCircle,
-  Edit,
   Trash2,
   X,
   Loader2,
-  Sparkles,
 } from 'lucide-react';
 import { formatCurrency, formatDate, createWhatsAppLink, BOOKING_STATUSES } from '@/lib/utils';
 
@@ -61,11 +53,20 @@ interface Props {
 
 export default function BookingManagementTable({ initialBookings }: Props) {
   const router = useRouter();
+  const [prevInitialBookings, setPrevInitialBookings] = useState(initialBookings);
   const [bookings, setBookings] = useState<AdminBookingItem[]>(initialBookings);
+
+  if (prevInitialBookings !== initialBookings) {
+    setPrevInitialBookings(initialBookings);
+    setBookings(initialBookings);
+  }
+
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [activeBooking, setActiveBooking] = useState<AdminBookingItem | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   // Edit fields for drawer
   const [statusInput, setStatusInput] = useState('');
@@ -77,11 +78,16 @@ export default function BookingManagementTable({ initialBookings }: Props) {
     setStatusInput(b.status);
     setAdminNotesInput(b.adminNotes || '');
     setTotalAmountInput(b.totalAmount ? String(b.totalAmount) : '');
+    setSaveSuccess(false);
+    setSaveError(null);
   };
 
   const handleUpdate = async () => {
     if (!activeBooking) return;
     setIsUpdating(true);
+    setSaveSuccess(false);
+    setSaveError(null);
+
     try {
       const res = await fetch('/api/admin/bookings', {
         method: 'PATCH',
@@ -96,16 +102,29 @@ export default function BookingManagementTable({ initialBookings }: Props) {
 
       if (res.ok) {
         const data = await res.json();
+        const updatedBooking = data.booking || {
+          ...activeBooking,
+          status: statusInput,
+          adminNotes: adminNotesInput,
+          totalAmount: totalAmountInput ? Number(totalAmountInput) : null,
+        };
+
         setBookings((prev) =>
-          prev.map((b) => (b.id === activeBooking.id ? { ...b, ...data.booking } : b))
+          prev.map((b) => (b.id === activeBooking.id ? { ...b, ...updatedBooking } : b))
         );
-        setActiveBooking((prev) => (prev ? { ...prev, ...data.booking } : null));
+        setActiveBooking((prev) => (prev ? { ...prev, ...updatedBooking } : null));
+        setSaveSuccess(true);
         router.refresh();
+
+        setTimeout(() => {
+          setSaveSuccess(false);
+        }, 3000);
       } else {
-        alert('Failed to update booking status.');
+        const err = await res.json().catch(() => ({}));
+        setSaveError(err.error || 'Failed to update booking status.');
       }
     } catch {
-      alert('Error updating booking.');
+      setSaveError('Network error updating booking.');
     } finally {
       setIsUpdating(false);
     }
@@ -343,27 +362,25 @@ export default function BookingManagementTable({ initialBookings }: Props) {
               <h4 className="text-base font-bold text-white">{activeBooking.customer.name}</h4>
               <div className="flex items-center gap-4 text-xs text-zinc-300">
                 <a
-                  href={`tel:${activeBooking.customer.phone}`}
-                  className="flex items-center gap-1 hover:text-purple-400"
+                  href={`tel:${activeBooking.customer.phone.replace(/[^0-9+]/g, '')}`}
+                  className="flex items-center gap-1.5 hover:text-purple-400 font-medium transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-purple-400" />
                   <span>{activeBooking.customer.phone}</span>
                 </a>
-                {activeBooking.customer.whatsapp && (
-                  <a
-                    href={createWhatsAppLink(activeBooking.customer.whatsapp, 'Hello from DJ Mantu')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-emerald-400"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>WhatsApp</span>
-                  </a>
-                )}
+                <a
+                  href={createWhatsAppLink(
+                    activeBooking.customer.whatsapp || activeBooking.customer.phone,
+                    `Hello ${activeBooking.customer.name}, DJ Mantu here regarding your booking (${activeBooking.bookingCode}) for ${activeBooking.eventType} on ${activeBooking.dateString}.`
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </a>
               </div>
-              {activeBooking.customer.email && (
-                <p className="text-xs text-zinc-400">Email: {activeBooking.customer.email}</p>
-              )}
             </div>
 
             {/* Event Specs */}
@@ -461,14 +478,32 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                 />
               </div>
 
+              {saveError && (
+                <p className="text-xs font-semibold text-rose-400 bg-rose-950/40 border border-rose-800/60 px-3 py-2 rounded-xl">
+                  {saveError}
+                </p>
+              )}
+
               <div className="flex items-center gap-3 pt-2">
                 <button
                   onClick={handleUpdate}
                   disabled={isUpdating}
-                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
+                  className={`flex-1 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all duration-200 ${
+                    saveSuccess
+                      ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/50'
+                      : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white'
+                  }`}
                 >
                   {isUpdating ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Saving...</span>
+                    </>
+                  ) : saveSuccess ? (
+                    <>
+                      <CheckCircle className="w-4 h-4 text-white animate-in zoom-in-50 duration-200" />
+                      <span>Saved Successfully!</span>
+                    </>
                   ) : (
                     <span>Save Changes</span>
                   )}

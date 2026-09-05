@@ -45,8 +45,8 @@ export default async function HomePage() {
   ]);
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
-  const whatsapp = settingsMap['whatsapp'] || '+91 98610 98765';
-  const phone = settingsMap['phone'] || '+91 98610 98765';
+  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
+  const phone = settingsMap['phone'] || '+91 6372174006';
 
   const waBookingLink = createWhatsAppLink(
     whatsapp,

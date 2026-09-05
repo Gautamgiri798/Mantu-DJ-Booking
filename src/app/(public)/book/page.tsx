@@ -15,7 +15,7 @@ export default async function BookPage() {
     getWebsiteSettingsMap(),
   ]);
 
-  const whatsapp = settingsMap['whatsapp'] || '+91 98610 98765';
+  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
 
   const packagesData: PackageData[] = packages.map((p) => ({

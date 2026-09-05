@@ -3,7 +3,6 @@ import Link from 'next/link';
 import {
   Phone,
   MessageSquare,
-  Mail,
   MapPin,
   CalendarCheck,
   Disc3,
@@ -18,13 +17,12 @@ export default async function ContactPage() {
   const settingsMap = await getWebsiteSettingsMap();
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
-  const phone = settingsMap['phone'] || '+91 98610 98765';
-  const whatsapp = settingsMap['whatsapp'] || '+91 98610 98765';
-  const email = settingsMap['email'] || 'bookings@djmantu.com';
-  const address = settingsMap['address'] || 'Civil Township, Rourkela, Odisha 769004';
+  const phone = settingsMap['phone'] || '+91 6372174006';
+  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
+  const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
   const serviceAreas =
     settingsMap['service_areas'] ||
-    'Rourkela, Sundargarh, Sambalpur, Jharsuguda, Bhubaneswar, Cuttack & across Eastern India';
+    'Jharsuguda, Brajrajnagar, Sambalpur, Rourkela, Sundargarh, Bhubaneswar, Cuttack & across Western India';
 
   const waLink = createWhatsAppLink(whatsapp, `Hello ${djName}, I would like to get in touch regarding an event.`);
 
@@ -39,7 +37,7 @@ export default async function ContactPage() {
           Get in Touch with {djName}
         </h1>
         <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-          Have questions about sound logistics, customized playlists, travel requirements, or package inclusions? Reach out directly via WhatsApp, phone, or email.
+          Have questions about sound logistics, customized playlists, travel requirements, or package inclusions? Reach out directly via WhatsApp or phone call.
         </p>
       </div>
 
@@ -90,22 +88,7 @@ export default async function ContactPage() {
             </div>
           </a>
 
-          {/* Email Card */}
-          <a
-            href={`mailto:${email}`}
-            className="p-6 rounded-3xl glass-panel border border-white/10 hover:border-pink-500/40 transition-all flex items-start gap-4 group"
-          >
-            <div className="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 border border-pink-500/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-              <Mail className="w-6 h-6" />
-            </div>
-            <div>
-              <span className="text-xs uppercase font-bold text-pink-400 tracking-wider">
-                Corporate & Contracts
-              </span>
-              <h3 className="text-lg font-bold text-white mt-0.5">Email Inquiries</h3>
-              <p className="text-xs text-zinc-400 mt-1">{email}</p>
-            </div>
-          </a>
+
 
           {/* Base Location */}
           <div className="p-6 rounded-3xl glass-panel border border-white/10 space-y-3">
