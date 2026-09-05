@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getAdminSession } from '@/lib/auth';
 import { invalidatePackagesCache } from '@/lib/data';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   const session = await getAdminSession();
@@ -37,6 +38,7 @@ export async function POST(request: NextRequest) {
     });
 
     await invalidatePackagesCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, package: pkg });
   } catch (error) {
     console.error('Create package error:', error);
@@ -62,12 +64,13 @@ export async function PUT(request: NextRequest) {
         features: Array.isArray(features) ? JSON.stringify(features) : features,
         equipment,
         suitableFor,
-        isPopular: !!isPopular,
-        isActive: isActive !== undefined ? isActive : true,
+        isPopular,
+        isActive,
       },
     });
 
     await invalidatePackagesCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, package: updated });
   } catch (error) {
     console.error('Update package error:', error);
@@ -86,6 +89,7 @@ export async function DELETE(request: NextRequest) {
 
     await prisma.package.delete({ where: { id } });
     await invalidatePackagesCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, message: 'Package deleted' });
   } catch (error) {
     console.error('Delete package error:', error);

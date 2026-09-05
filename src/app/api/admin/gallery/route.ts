@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getAdminSession } from '@/lib/auth';
 import { invalidateGalleryCache } from '@/lib/data';
+import { revalidatePath } from 'next/cache';
+import { unlink } from 'fs/promises';
+import path from 'path';
 
 function extractYouTubeThumbnail(url?: string | null): string | null {
   if (!url) return null;
@@ -38,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     if (isVideo) {
       if (!videoUrl?.trim()) {
-        return NextResponse.json({ error: 'Video URL is required for video items' }, { status: 400 });
+        return NextResponse.json({ error: 'Video file or URL is required for video items' }, { status: 400 });
       }
 
       if (!finalImageUrl) {
@@ -47,7 +50,7 @@ export async function POST(request: NextRequest) {
       }
     } else {
       if (!finalImageUrl) {
-        return NextResponse.json({ error: 'Image URL is required for photo items' }, { status: 400 });
+        return NextResponse.json({ error: 'Photo file or URL is required for photo items' }, { status: 400 });
       }
     }
 
@@ -64,6 +67,7 @@ export async function POST(request: NextRequest) {
     });
 
     await invalidateGalleryCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, item });
   } catch (error) {
     console.error('Create gallery item error:', error);
@@ -80,8 +84,26 @@ export async function DELETE(request: NextRequest) {
     const id = searchParams.get('id');
     if (!id) return NextResponse.json({ error: 'ID required' }, { status: 400 });
 
+    const existing = await prisma.galleryItem.findUnique({ where: { id } });
+    if (existing) {
+      // Clean up uploaded files if local
+      const itemRecord = existing as { imageUrl?: string | null; videoUrl?: string | null };
+      const filesToDelete = [itemRecord.imageUrl, itemRecord.videoUrl].filter(
+        (u): u is string => Boolean(u && u.startsWith('/uploads/'))
+      );
+      for (const fileRel of filesToDelete) {
+        try {
+          const diskPath = path.join(process.cwd(), 'public', fileRel);
+          await unlink(diskPath);
+        } catch {
+          // Ignore if file doesn't exist
+        }
+      }
+    }
+
     await prisma.galleryItem.delete({ where: { id } });
     await invalidateGalleryCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, message: 'Gallery item deleted' });
   } catch (error) {
     console.error('Delete gallery item error:', error);

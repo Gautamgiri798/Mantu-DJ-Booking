@@ -11,7 +11,6 @@ import {
   Music4,
   Flame,
   CheckCircle,
-  Play,
   MapPin,
   HeartHandshake,
   Users,
@@ -43,8 +42,12 @@ export default async function HomePage() {
   ]);
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
+  const tagline = settingsMap['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
+  const heroTitle = settingsMap['hero_title'] || 'Turn Every Moment Into An Unforgettable Memory';
+  const heroSubtitle = settingsMap['hero_subtitle'] || 'Concert sound engineering, intelligent moving beam lights, and cinematic dry ice low fog tailored for Weddings, Sangeets & Mega Events in Rourkela and across Eastern India.';
   const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
   const phone = settingsMap['phone'] || '+91 6372174006';
+  const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
 
   const waBookingLink = createWhatsAppLink(
     whatsapp,
@@ -77,7 +80,7 @@ export default async function HomePage() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
             </span>
             <span className="font-extrabold uppercase tracking-widest text-[11px] text-zinc-200">
-              Eastern India’s Premier Event DJ
+              {tagline}
             </span>
             <span className="w-1 h-1 rounded-full bg-zinc-600 hidden sm:inline-block" />
             <span className="text-[11px] font-bold text-pink-400 uppercase tracking-wider hidden sm:inline-block">
@@ -86,21 +89,13 @@ export default async function HomePage() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-[-0.03em] leading-[1.06] text-white font-heading">
-            Turn Every Moment <br className="hidden sm:inline" />
-            Into An{' '}
-            <span className="relative inline-block">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-pink-400 to-amber-200 drop-shadow-[0_0_35px_rgba(236,72,153,0.35)]">
-                Unforgettable
-              </span>
-            </span>{' '}
-            Memory
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-[-0.03em] leading-[1.06] text-white font-heading whitespace-pre-line">
+            {heroTitle}
           </h1>
 
           {/* Subtitle */}
           <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-zinc-300 font-normal leading-relaxed">
-            Concert sound engineering, intelligent moving beam lights, and cinematic dry ice low fog tailored for{' '}
-            <strong className="text-white font-semibold">Weddings, Sangeets & Mega Events</strong> in Rourkela and across Eastern India.
+            {heroSubtitle}
           </p>
 
           {/* CTAs - Luxury Concert Control Deck */}
@@ -117,7 +112,7 @@ export default async function HomePage() {
               <div className="w-6 h-6 rounded-full bg-black/40 border border-white/30 flex items-center justify-center shrink-0 shadow-inner group-hover:rotate-180 transition-transform duration-700">
                 <Disc3 className="w-3.5 h-3.5 text-pink-200" />
               </div>
-              <span>Book DJ Mantu</span>
+              <span>Book {djName}</span>
               <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0 group-hover:translate-x-1 group-hover:bg-white/30 transition-all">
                 <ArrowRight className="w-3 h-3 text-white" />
               </div>
@@ -166,7 +161,9 @@ export default async function HomePage() {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
                   </span>
                   <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span className="font-semibold text-white tracking-wide">Rourkela</span>
+                  <span className="font-semibold text-white tracking-wide">
+                    {address.split(',')[0] || 'Jharsuguda'}
+                  </span>
                   <span className="text-zinc-400 font-medium">· Pan-Odisha</span>
                 </div>
 

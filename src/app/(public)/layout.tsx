@@ -12,6 +12,7 @@ export default async function PublicLayout({
   const settingsMap = await getWebsiteSettingsMap();
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
+  const tagline = settingsMap['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
   const phone = settingsMap['phone'] || '+91 6372174006';
   const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
   const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
@@ -23,6 +24,7 @@ export default async function PublicLayout({
       <FloatingWhatsApp whatsapp={whatsapp} djName={djName} />
       <Footer
         djName={djName}
+        tagline={tagline}
         phone={phone}
         whatsapp={whatsapp}
         address={address}

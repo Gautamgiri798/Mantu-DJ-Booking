@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getAdminSession } from '@/lib/auth';
 import { invalidateServicesCache } from '@/lib/data';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   const session = await getAdminSession();
@@ -35,6 +36,7 @@ export async function POST(request: NextRequest) {
     });
 
     await invalidateServicesCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, service });
   } catch (error) {
     console.error('Create service error:', error);
@@ -64,6 +66,7 @@ export async function PUT(request: NextRequest) {
     });
 
     await invalidateServicesCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, service: updated });
   } catch (error) {
     console.error('Update service error:', error);
@@ -82,6 +85,7 @@ export async function DELETE(request: NextRequest) {
 
     await prisma.service.delete({ where: { id } });
     await invalidateServicesCache();
+    revalidatePath('/', 'layout');
     return NextResponse.json({ success: true, message: 'Service deleted' });
   } catch (error) {
     console.error('Delete service error:', error);

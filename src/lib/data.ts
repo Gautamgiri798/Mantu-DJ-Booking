@@ -126,6 +126,7 @@ export async function getCachedReviews(limit?: number): Promise<Review[]> {
    ========================================================================= */
 
 export async function invalidateSettingsCache(): Promise<void> {
+  await cacheDel('settings:map');
   await cacheDel('settings:*');
 }
 

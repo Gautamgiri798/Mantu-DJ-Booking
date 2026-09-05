@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { getAdminSession } from '@/lib/auth';
 import { invalidateSettingsCache } from '@/lib/data';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   try {
@@ -36,14 +37,17 @@ export async function POST(request: NextRequest) {
       if (typeof value === 'string') {
         await prisma.websiteSetting.upsert({
           where: { key },
-          update: { value },
-          create: { key, value },
+          update: { value: value.trim() },
+          create: { key, value: value.trim() },
         });
       }
     }
 
-    // Invalidate cached website settings
+    // Invalidate cached website settings in Redis and memory
     await invalidateSettingsCache();
+
+    // Revalidate Next.js cache for the entire site immediately
+    revalidatePath('/', 'layout');
 
     return NextResponse.json({ success: true, message: 'Settings saved successfully' });
   } catch (error) {

@@ -6,6 +6,7 @@ import { createWhatsAppLink } from '@/lib/utils';
 
 interface FooterProps {
   djName?: string;
+  tagline?: string;
   phone?: string;
   whatsapp?: string;
   address?: string;
@@ -13,12 +14,13 @@ interface FooterProps {
 
 export default function Footer({
   djName = 'DJ Mantu',
+  tagline = "Rourkela's Premier DJ & Event Sound Specialist",
   phone = '+91 6372174006',
   whatsapp = '+91 6372174006',
   address = 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216',
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
-  const waLink = createWhatsAppLink(whatsapp, 'Hello DJ Mantu, I want to enquire about DJ booking.');
+  const waLink = createWhatsAppLink(whatsapp, `Hello ${djName}, I want to enquire about DJ booking.`);
 
   return (
     <footer className="bg-[#050508] border-t border-zinc-800/80 pt-16 pb-12 text-zinc-400">
@@ -37,7 +39,7 @@ export default function Footer({
                   {djName}
                 </span>
                 <span className="text-[10px] uppercase font-semibold tracking-widest text-cyan-400 block mt-0.5">
-                  Sound & Event Production
+                  {tagline}
                 </span>
               </div>
             </Link>
