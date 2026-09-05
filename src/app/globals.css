@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #08080c;
+    --bg-surface: #111118;
+    --bg-surface-elevated: #181822;
+    --border-subtle: #242436;
+    --primary: #8b5cf6;
+    --secondary: #ec4899;
+    --accent: #22d3ee;
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Outfit', 'Plus Jakarta Sans', -apple-system, sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Custom Nightlife Utilities */
+.glass-panel {
+  background: rgba(17, 17, 24, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(24, 24, 34, 0.85);
+  border-color: rgba(139, 92, 246, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -8px rgba(139, 92, 246, 0.15);
+}
+
+.glass-nav {
+  background: rgba(8, 8, 12, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.text-gradient-neon {
+  background: linear-gradient(135deg, #a78bfa 0%, #ec4899 50%, #22d3ee 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple-pink {
+  background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 50%, #d97706 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-purple {
+  box-shadow: 0 0 25px -3px rgba(139, 92, 246, 0.45);
+}
+
+.glow-pink {
+  box-shadow: 0 0 25px -3px rgba(236, 72, 153, 0.45);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 25px -3px rgba(34, 211, 238, 0.45);
+}
+
+.glow-gold {
+  box-shadow: 0 0 25px -3px rgba(245, 158, 11, 0.45);
+}
+
+/* Luxury Card Shimmer & Gradients */
+.luxury-card-glow {
+  position: relative;
+}
+
+.luxury-card-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.luxury-card-popular-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(180deg, rgba(168, 85, 247, 0.8) 0%, rgba(236, 72, 153, 0.5) 50%, rgba(34, 211, 238, 0.3) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Sound Wave Equalizer Keyframes */
+@keyframes eqBar1 {
+  0%, 100% { height: 6px; }
+  50% { height: 28px; }
+}
+
+@keyframes eqBar2 {
+  0%, 100% { height: 18px; }
+  50% { height: 8px; }
+}
+
+@keyframes eqBar3 {
+  0%, 100% { height: 10px; }
+  50% { height: 32px; }
+}
+
+@keyframes eqBar4 {
+  0%, 100% { height: 24px; }
+  50% { height: 12px; }
+}
+
+@keyframes eqBar5 {
+  0%, 100% { height: 8px; }
+  50% { height: 26px; }
+}
+
+.animate-eq-1 { animation: eqBar1 0.75s ease-in-out infinite; }
+.animate-eq-2 { animation: eqBar2 0.6s ease-in-out infinite; }
+.animate-eq-3 { animation: eqBar3 0.9s ease-in-out infinite; }
+.animate-eq-4 { animation: eqBar4 0.7s ease-in-out infinite; }
+.animate-eq-5 { animation: eqBar5 0.8s ease-in-out infinite; }
+
+/* Micro Equalizer for Badges */
+@keyframes miniEq1 { 0%, 100% { height: 3px; } 50% { height: 13px; } }
+@keyframes miniEq2 { 0%, 100% { height: 11px; } 50% { height: 4px; } }
+@keyframes miniEq3 { 0%, 100% { height: 5px; } 50% { height: 14px; } }
+@keyframes miniEq4 { 0%, 100% { height: 13px; } 50% { height: 6px; } }
+@keyframes miniEq5 { 0%, 100% { height: 4px; } 50% { height: 12px; } }
+
+.animate-mini-eq-1 { animation: miniEq1 0.7s ease-in-out infinite; }
+.animate-mini-eq-2 { animation: miniEq2 0.55s ease-in-out infinite; }
+.animate-mini-eq-3 { animation: miniEq3 0.85s ease-in-out infinite; }
+.animate-mini-eq-4 { animation: miniEq4 0.65s ease-in-out infinite; }
+.animate-mini-eq-5 { animation: miniEq5 0.75s ease-in-out infinite; }
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08080c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #242436;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8b5cf6;
+}

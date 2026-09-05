@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("OWNER")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Customer {
+  id        String    @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  whatsapp  String?
+  notes     String?
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  bookingCode   String        @unique // e.g. DJ-2026-001
+  customerId    String
+  customer      Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  eventType     String // Wedding, Reception, Party, Birthday, Corporate, College, Sangeet, Private, Other
+  eventDate     DateTime
+  dateString    String // YYYY-MM-DD for fast date indexing & lookups
+  startTime     String // e.g. "19:00"
+  endTime       String? // e.g. "23:30"
+  venue         String
+  city          String        @default("Rourkela")
+  guestCount    Int?
+  budgetRange   String? // e.g. "₹20,000 - ₹30,000"
+  status        String        @default("PENDING") // PENDING, CONTACTED, CONFIRMED, COMPLETED, CANCELLED, REJECTED
+  packageId     String?
+  package       Package?      @relation(fields: [packageId], references: [id])
+  services      String? // JSON string array of selected service IDs or names
+  totalAmount   Float?
+  customerNotes String?
+  adminNotes    String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  availability  Availability?
+}
+
+model Availability {
+  id        String   @id @default(cuid())
+  date      String   @unique // "YYYY-MM-DD"
+  status    String   @default("AVAILABLE") // AVAILABLE, PENDING, BOOKED, BLOCKED
+  reason    String? // e.g. "Private event", "Booked: Sangeet ceremony"
+  bookingId String?  @unique
+  booking   Booking? @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  category      String // Party, Wedding, Reception, Corporate, Sound, Lighting, Special Effects
+  description   String
+  priceStarting Float?
+  features      String // JSON string array
+  iconName      String? // Lucide icon identifier
+  imageUrl      String?
+  isActive      Boolean  @default(true)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Package {
+  id            String    @id @default(cuid())
+  name          String
+  slug          String    @unique
+  price         Float
+  durationHours Int       @default(4)
+  description   String
+  features      String // JSON array string
+  equipment     String // Summary of included sound/lights/mics/effects
+  suitableFor   String // e.g. "Weddings, Receptions & Sangeet"
+  isPopular     Boolean   @default(false)
+  isActive      Boolean   @default(true)
+  order         Int       @default(0)
+  bookings      Booking[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model GalleryItem {
+  id         String   @id @default(cuid())
+  title      String
+  category   String // Weddings, Receptions, Parties, Birthdays, Corporate, Other
+  imageUrl   String
+  eventDate  String?
+  location   String?
+  isFeatured Boolean  @default(false)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+}
+
+model VideoItem {
+  id        String   @id @default(cuid())
+  title     String
+  eventType String
+  videoUrl  String
+  platform  String   @default("youtube") // youtube, instagram, upload
+  thumbnail String?
+  duration  String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  customerName String
+  eventType    String
+  rating       Int      @default(5)
+  comment      String
+  eventDate    String?
+  photoUrl     String?
+  isPublished  Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model WebsiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
