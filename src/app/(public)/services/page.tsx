@@ -5,14 +5,23 @@ import {
   CheckCircle2,
   ArrowRight,
   CalendarCheck,
+  Phone,
 } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils';
-import { getCachedServices } from '@/lib/data';
+import { createWhatsAppLink } from '@/lib/utils';
+import { WhatsAppIcon } from '@/components/SocialIcons';
+import { getCachedServices, getWebsiteSettingsMap } from '@/lib/data';
 
 export const revalidate = 60;
 
 export default async function ServicesPage() {
-  const services = await getCachedServices();
+  const [services, settingsMap] = await Promise.all([
+    getCachedServices(),
+    getWebsiteSettingsMap(),
+  ]);
+
+  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
+  const phone = settingsMap['phone'] || '+91 6372174006';
+  const djName = settingsMap['dj_name'] || 'DJ Mantu';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
@@ -91,27 +100,40 @@ export default async function ServicesPage() {
 
                 <div className="pt-4 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-4">
                   <div>
-                    <span className="text-[10px] uppercase text-zinc-500 block">Starting At</span>
-                    <span className="text-xl sm:text-2xl font-black text-white">
-                      {service.priceStarting ? formatCurrency(service.priceStarting) : 'Custom Quotation'}
+                    <span className="text-[10px] uppercase text-emerald-400 font-bold block">Details & Pricing</span>
+                    <span className="text-base sm:text-lg font-extrabold text-white">
+                      Contact for Full Details
                     </span>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
-                    <Link
-                      href={`/availability?eventType=${encodeURIComponent(service.title)}`}
-                      className="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 text-xs font-bold flex items-center justify-center gap-1.5 min-h-11 active:bg-zinc-800"
+                    <a
+                      href={createWhatsAppLink(
+                        whatsapp,
+                        `Hello ${djName}, I would like complete details and pricing for "${service.title}".`
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/40 min-h-11 transition-all"
                     >
-                      <CalendarCheck className="w-4 h-4 text-purple-400" />
-                      <span>Check Date</span>
-                    </Link>
+                      <WhatsAppIcon className="w-4 h-4" />
+                      <span>WhatsApp for Details</span>
+                    </a>
+
+                    <a
+                      href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
+                      className="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 min-h-11 transition-all"
+                    >
+                      <Phone className="w-4 h-4 text-cyan-400" />
+                      <span>Call for Details</span>
+                    </a>
 
                     <Link
-                      href={`/book?service=${encodeURIComponent(service.id)}&eventType=${encodeURIComponent(service.title)}`}
-                      className="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg flex items-center justify-center gap-1.5 min-h-11 active:scale-98 transition-all"
+                      href={`/availability?eventType=${encodeURIComponent(service.title)}`}
+                      className="px-3.5 py-3 rounded-xl bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800 text-xs font-medium flex items-center justify-center gap-1.5 min-h-11 transition-all"
                     >
-                      <span>Book Now</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <CalendarCheck className="w-4 h-4 text-purple-400" />
+                      <span className="hidden sm:inline">Check Date</span>
                     </Link>
                   </div>
                 </div>

@@ -14,7 +14,7 @@ import {
   Loader2,
   ShieldCheck,
 } from 'lucide-react';
-import { EVENT_CATEGORIES, formatCurrency, createWhatsAppLink } from '@/lib/utils';
+import { EVENT_CATEGORIES, createWhatsAppLink } from '@/lib/utils';
 import { PackageData } from '@/components/PackageCard';
 
 interface BookingWizardProps {
@@ -35,11 +35,12 @@ const AVAILABLE_SERVICES = [
 ];
 
 const BUDGET_TIERS = [
-  '₹15,000 – ₹25,000 (Party / Small Gathering)',
-  '₹25,000 – ₹45,000 (Club Vibe / Reception)',
-  '₹45,000 – ₹75,000 (Royal Wedding / Sangeet)',
-  '₹75,000+ (Grand Arena Festival)',
-  'Custom Budget / Need Consultation',
+  'Discuss on WhatsApp / Phone Call',
+  'Private Party / Small Gathering',
+  'Club Vibe / Youth Reception',
+  'Grand Royal Wedding / Sangeet',
+  'Mega Arena Festival / Stadium Setup',
+  'Custom Requirements & Consultation',
 ];
 
 function BookingWizardContent({ packages, whatsappNumber = '+91 6372174006', djName = 'DJ Mantu' }: BookingWizardProps) {
@@ -461,8 +462,8 @@ Please confirm availability and discuss next steps.`;
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-white">{pkg.name}</span>
-                        <span className="text-xs font-extrabold text-purple-300">
-                          {formatCurrency(pkg.price)}
+                        <span className="text-xs font-semibold text-emerald-400">
+                          Details on WhatsApp / Call
                         </span>
                       </div>
                       <span className="text-[11px] text-zinc-500 block mt-0.5">
@@ -510,22 +511,22 @@ Please confirm availability and discuss next steps.`;
           </div>
         )}
 
-        {/* Step 4: Budget & Review */}
+        {/* Step 4: Discussion & Review */}
         {step === 4 && (
           <div className="space-y-5 animate-in fade-in duration-200">
             <div>
               <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-purple-400" /> Budget & Special Requirements
+                <ShieldCheck className="w-5 h-5 text-purple-400" /> Event Details & Special Requests
               </h3>
               <p className="text-xs text-zinc-400 mt-1">
-                Final step: Tell us your approximate budget and any song or entry preferences.
+                Final step: Select your celebration scale and specify any song or entry preferences.
               </p>
             </div>
 
             <div className="space-y-4">
               <div>
                 <label className="text-xs font-semibold text-zinc-300 block mb-1">
-                  Expected Budget Range
+                  Celebration Scale / Discussion Preference
                 </label>
                 <select
                   value={formData.budgetRange}

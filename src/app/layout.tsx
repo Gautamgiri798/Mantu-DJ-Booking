@@ -65,7 +65,7 @@ export default function RootLayout({
               '@id': 'http://localhost:3000',
               url: 'http://localhost:3000',
               telephone: '+916372174006',
-              priceRange: '₹15,000 - ₹75,000',
+              priceRange: 'Contact for details',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Brajrajnagar',

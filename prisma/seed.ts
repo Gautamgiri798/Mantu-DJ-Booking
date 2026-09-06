@@ -85,10 +85,10 @@ async function main() {
         'Complete high-decibel mobile baraat sound truck, traditional dhol-synth fusion, romantic bridal entry cues, and energetic sangeet night party beats.',
       priceStarting: 35000,
       features: JSON.stringify([
-        'Mobile sound setup for high-energy Baraat procession',
-        'Bridal and groom grand entry musical choreography',
+        'Laptop setup for high-energy Baraat procession',
+        'Grand entry music for bride and groom',
         'Sangeet and cocktail party dancefloor programming',
-        'Bollywood, Rajasthani, Punjabi, and Odia festive hits',
+        'Bollywood, Sambalpuri, Chhattisgarhi, Nagpuri, Punjabi, and Odia festive hits',
       ]),
       iconName: 'HeartHandshake',
       imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80',

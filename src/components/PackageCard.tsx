@@ -10,8 +10,10 @@ import {
   Crown,
   Flame,
   Zap,
+  Phone,
 } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils';
+import { createWhatsAppLink } from '@/lib/utils';
+import { WhatsAppIcon } from '@/components/SocialIcons';
 
 export interface PackageData {
   id: string;
@@ -28,9 +30,22 @@ export interface PackageData {
 
 interface PackageCardProps {
   pkg: PackageData;
+  whatsappNumber?: string;
+  phoneNumber?: string;
+  djName?: string;
 }
 
-export default function PackageCard({ pkg }: PackageCardProps) {
+export default function PackageCard({
+  pkg,
+  whatsappNumber = '+91 6372174006',
+  phoneNumber = '+91 6372174006',
+  djName = 'DJ Mantu',
+}: PackageCardProps) {
+  const cleanPhone = phoneNumber.replace(/[^0-9+]/g, '');
+  const waLink = createWhatsAppLink(
+    whatsappNumber,
+    `Hello ${djName}, I am interested in the "${pkg.name}" package. Please share complete package details and quotation.`
+  );
   let featureList: string[] = [];
   try {
     featureList = JSON.parse(pkg.features);
@@ -166,34 +181,33 @@ export default function PackageCard({ pkg }: PackageCardProps) {
             <TierIcon className="w-3 h-3 shrink-0" />
             <span>{tierConfig.pillTag}</span>
           </div>
-          <span className="text-[10px] text-zinc-500 font-mono tracking-wider">
+          <span className="text-[10px] text-zinc-400 font-mono tracking-wider font-semibold">
             ALL-INCLUSIVE
           </span>
         </div>
 
         {/* Package Title & Short Description */}
         <div className="border-b border-white/[0.08] pb-5">
-          <h3 className="text-2xl font-black text-white tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-300 transition-all font-heading">
+          <h3 className="text-2xl font-black text-white tracking-tight font-heading group-hover:text-white transition-colors">
             {pkg.name}
           </h3>
-          <p className="text-xs text-zinc-400 mt-1.5 line-clamp-2 min-h-8 leading-relaxed">
+          <p className="text-xs text-zinc-300 mt-1.5 line-clamp-2 min-h-8 leading-relaxed">
             {pkg.description}
           </p>
 
-          {/* Pricing Block */}
+          {/* Details & Pricing Inquiry Block */}
           <div className="mt-4 pt-3 border-t border-white/5">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 block mb-0.5">
-              Investment Starting From
+            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 block mb-0.5">
+              Pricing & Custom Quote
             </span>
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-heading">
-                {formatCurrency(pkg.price)}
+              <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading">
+                Contact for Details
               </span>
-              <span className="text-xs text-zinc-400 font-semibold">/ event</span>
             </div>
-            <div className="flex items-center gap-1.5 mt-1.5 text-[11px] text-emerald-400">
+            <div className="flex items-center gap-1.5 mt-1.5 text-[11px] text-zinc-300">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Full setup, transport & sound engineer</span>
+              <span>Full setup, transport & sound engineer included</span>
             </div>
           </div>
 
@@ -202,9 +216,9 @@ export default function PackageCard({ pkg }: PackageCardProps) {
             <div className="flex items-center justify-between bg-white/[0.03] border border-white/[0.06] rounded-xl px-3 py-2 text-[11px]">
               <div className="flex items-center gap-2">
                 <Clock className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                <span className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">Performance Duration</span>
+                <span className="text-zinc-300 text-[10px] font-bold uppercase tracking-wider">Performance Duration</span>
               </div>
-              <span className="text-zinc-100 font-extrabold">{pkg.durationHours} Hours Live Set</span>
+              <span className="text-white font-extrabold">{pkg.durationHours} Hours Live Set</span>
             </div>
           </div>
         </div>
@@ -214,7 +228,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
           {featureList.map((feature, idx) => (
             <div
               key={idx}
-              className="flex items-start gap-2.5 text-xs text-zinc-300 leading-snug"
+              className="flex items-start gap-2.5 text-xs text-zinc-200 leading-snug"
             >
               <span
                 className={`flex items-center justify-center w-4 h-4 rounded-full shrink-0 mt-0.5 border ${tierConfig.checkBg}`}
@@ -228,18 +242,36 @@ export default function PackageCard({ pkg }: PackageCardProps) {
 
       </div>
 
-      {/* Booking CTA Button */}
-      <div className="pt-6 mt-6 border-t border-white/[0.08]">
-        <Link
-          href={`/book?package=${encodeURIComponent(pkg.id)}`}
-          className={`w-full py-3.5 px-5 rounded-2xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 ${tierConfig.ctaClass}`}
+      {/* Contact on WhatsApp or Call CTAs */}
+      <div className="pt-6 mt-6 border-t border-white/[0.08] space-y-2.5">
+        <a
+          href={waLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-3.5 px-4 rounded-2xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/40 hover:scale-[1.02] transition-all duration-300"
         >
-          <span>Request This Package</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </Link>
-        <p className="text-center text-[10px] text-zinc-500 mt-2">
-          Custom hours or extra effects can be added
-        </p>
+          <WhatsAppIcon className="w-4 h-4 shrink-0" />
+          <span>Contact on WhatsApp</span>
+        </a>
+
+        <a
+          href={`tel:${cleanPhone}`}
+          className="w-full py-2.5 px-4 rounded-2xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-zinc-700/80 hover:border-zinc-500 transition-all duration-300"
+        >
+          <Phone className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+          <span>Call for Full Details</span>
+        </a>
+
+        <div className="flex items-center justify-between pt-1 px-1">
+          <Link
+            href={`/book?package=${encodeURIComponent(pkg.id)}`}
+            className="text-[10px] text-zinc-400 hover:text-purple-300 underline underline-offset-4 flex items-center gap-1 transition-colors"
+          >
+            <span>Or submit inquiry form</span>
+            <ArrowRight className="w-3 h-3" />
+          </Link>
+          <span className="text-[10px] text-zinc-500">Customizable</span>
+        </div>
       </div>
     </div>
   );

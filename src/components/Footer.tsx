@@ -95,7 +95,7 @@ export default function Footer({
               </li>
               <li>
                 <Link href="/packages" className="hover:text-purple-400 transition-colors">
-                  Pricing & Packages
+                  Event Packages
                 </Link>
               </li>
               <li>

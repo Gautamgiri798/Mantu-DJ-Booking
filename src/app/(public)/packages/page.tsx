@@ -1,5 +1,5 @@
 import React from 'react';
-import { HelpCircle, MessageSquare, Sparkles, ShieldCheck, Volume2, Zap, Sliders } from 'lucide-react';
+import { HelpCircle, MessageSquare, Sparkles, ShieldCheck, Volume2, Zap, Sliders, Phone } from 'lucide-react';
 import PackageCard from '@/components/PackageCard';
 import { createWhatsAppLink } from '@/lib/utils';
 import { getWebsiteSettingsMap, getCachedPackages } from '@/lib/data';
@@ -13,11 +13,12 @@ export default async function PackagesPage() {
   ]);
 
   const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
+  const phone = settingsMap['phone'] || '+91 6372174006';
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
 
   const waQuoteLink = createWhatsAppLink(
     whatsapp,
-    `Hello ${djName}, I am reviewing your event packages on your website and would like a custom quotation.`
+    `Hello ${djName}, I am reviewing your event packages on your website and would like full details and a custom quotation.`
   );
 
   return (
@@ -30,7 +31,7 @@ export default async function PackagesPage() {
       <div className="text-center space-y-4 max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/15 via-purple-500/15 to-cyan-500/15 border border-pink-500/30 text-pink-300 text-[11px] font-extrabold uppercase tracking-widest backdrop-blur-md shadow-[0_0_20px_rgba(236,72,153,0.2)]">
           <Sparkles className="w-3.5 h-3.5 text-pink-400 animate-pulse" />
-          <span>Clear & Upfront Pricing · 100% Setup Guaranteed</span>
+          <span>VIP Concert Audio & Lighting · 100% Setup Guaranteed</span>
         </div>
 
         <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight font-heading">
@@ -38,7 +39,7 @@ export default async function PackagesPage() {
         </h1>
 
         <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-          Select from our battle-tested sound and lighting packages. All setups include concert audio engineering, dedicated lighting operators, 100% live hardware redundancy, and complete venue sound management.
+          Select from our battle-tested sound and lighting packages. All setups include concert audio engineering, dedicated lighting operators, 100% live hardware redundancy, and complete venue sound management. Contact on WhatsApp or call for full details.
         </p>
       </div>
 
@@ -47,7 +48,7 @@ export default async function PackagesPage() {
         <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
           <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
           <div className="text-left">
-            <p className="text-xs font-bold text-white leading-none">Zero Hidden Charges</p>
+            <p className="text-xs font-bold text-white leading-none">All-Inclusive Setups</p>
             <p className="text-[10px] text-zinc-500 mt-0.5">Setup & transport in radius</p>
           </div>
         </div>
@@ -77,7 +78,13 @@ export default async function PackagesPage() {
       {/* Package Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7 items-stretch">
         {packages.map((pkg) => (
-          <PackageCard key={pkg.id} pkg={pkg} />
+          <PackageCard
+            key={pkg.id}
+            pkg={pkg}
+            whatsappNumber={whatsapp}
+            phoneNumber={phone}
+            djName={djName}
+          />
         ))}
       </div>
 
@@ -96,21 +103,21 @@ export default async function PackagesPage() {
           <div className="p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800 space-y-2">
             <h4 className="font-bold text-purple-300 text-base">Intimate Celebrations (Up to 150 Guests)</h4>
             <p className="text-zinc-400 leading-relaxed">
-              If you are hosting a birthday party, family anniversary, or small cocktail evening in a banquet hall or villa, the <strong>Essential Party (₹15,000)</strong> delivers crisp audio and punchy bass without overpowering the room.
+              If you are hosting a birthday party, family anniversary, or small cocktail evening in a banquet hall or villa, the <strong>Essential Party</strong> delivers crisp audio and punchy bass without overpowering the room.
             </p>
           </div>
 
           <div className="p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800 space-y-2">
             <h4 className="font-bold text-pink-300 text-base">Receptions & Sangeet (Up to 400 Guests)</h4>
             <p className="text-zinc-400 leading-relaxed">
-              For high-energy wedding receptions or youth sangeets, choose the <strong>Premium Club Vibe (₹25,000)</strong> with moving head beams and dual 18-inch subwoofers for chest-thumping bass.
+              For high-energy wedding receptions or youth sangeets, choose the <strong>Premium Club Vibe</strong> with moving head beams and dual 18-inch subwoofers for chest-thumping bass.
             </p>
           </div>
 
           <div className="p-5 rounded-2xl bg-zinc-950/60 border border-zinc-800 space-y-2">
             <h4 className="font-bold text-cyan-300 text-base">Grand Royal Weddings (500+ Guests)</h4>
             <p className="text-zinc-400 leading-relaxed">
-              For grand destination weddings, our <strong>Royal Wedding Extravaganza (₹45,000)</strong> includes concert line arrays, dry ice cloud fog for couple entries, cold sparkular pyros, and trussing.
+              For grand destination weddings, our <strong>Royal Wedding Extravaganza</strong> includes concert line arrays, dry ice cloud fog for couple entries, cold sparkular pyros, and trussing.
             </p>
           </div>
         </div>
@@ -118,19 +125,29 @@ export default async function PackagesPage() {
         {/* CTA Bar */}
         <div className="pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs text-zinc-400">
-            <HelpCircle className="w-4 h-4 text-purple-400" />
+            <HelpCircle className="w-4 h-4 text-purple-400 shrink-0" />
             <span>Need custom hours, extra microphones, or special entry effects?</span>
           </div>
 
-          <a
-            href={waQuoteLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-colors"
-          >
-            <MessageSquare className="w-4 h-4" />
-            <span>Chat for Custom Quotation</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={waQuoteLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-colors shadow-lg shadow-emerald-950/40"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>Contact on WhatsApp</span>
+            </a>
+
+            <a
+              href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
+              className="px-5 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-zinc-500 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-colors"
+            >
+              <Phone className="w-4 h-4 text-cyan-400" />
+              <span>Call for Details</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -148,11 +148,11 @@ export default function FloatingWhatsApp({
         botResponse = {
           id: `bot-${msgCounterRef.current}`,
           sender: 'bot',
-          text: `Our transparent packages start from ₹25,000 for private parties to comprehensive concert sound and lighting for royal weddings.\n\nWould you like an instant custom quote on WhatsApp?`,
+          text: `We customize every concert sound and intelligent lighting setup to match your exact venue and celebration scale.\n\nPlease contact us directly on WhatsApp or call us for complete package details and custom quotes!`,
           time: formatTime(),
           whatsappLink: createWhatsAppLink(
             whatsapp,
-            `Hello ${djName}, I would like a custom quote for an event. Here are my preliminary details: ${text}`
+            `Hello ${djName}, I would like full package details and pricing for an event. Here are my preliminary details: ${text}`
           ),
         };
       } else if (lower.includes('package') || lower.includes('sound') || lower.includes('light')) {

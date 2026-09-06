@@ -43,7 +43,7 @@ export default async function AboutPage() {
     { title: 'Crowd-Reading Mastery', desc: 'Every set is custom-crafted in real time by observing guest energy, age demographics, and mood.' },
     { title: 'Zero Equipment Failure', desc: 'Dual backup audio mixers, spare amplifiers, and voltage stabilizers come standard with every gig.' },
     { title: 'Punctual & Disciplined Setup', desc: 'Sound checks completed at least 90 minutes before guest arrival so everything is seamless.' },
-    { title: 'Transparent All-Inclusive Pricing', desc: 'No hidden transportation charges or surprise cables fees. What we quote is what you pay.' },
+    { title: 'Transparent All-Inclusive Setups', desc: 'No hidden transportation charges or surprise cable fees. Full clarity and dedicated engineering on every event.' },
   ];
 
   return (
