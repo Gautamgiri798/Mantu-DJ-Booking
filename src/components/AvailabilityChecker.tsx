@@ -89,15 +89,15 @@ export default function AvailabilityChecker({
       <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/25 via-fuchsia-600/20 to-cyan-600/25 blur-2xl rounded-3xl pointer-events-none -z-10" />
 
       {/* Main Luxury Glass Terminal Card */}
-      <div className="relative rounded-3xl bg-zinc-950/90 border border-white/15 backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.15)] p-6 sm:p-8 overflow-hidden">
+      <div className="relative rounded-2xl sm:rounded-3xl bg-zinc-950/90 border border-white/15 backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.15)] p-4 sm:p-8 overflow-hidden">
         {/* Top ambient highlight line */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent" />
 
 
-        <form onSubmit={checkAvailability} className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <form onSubmit={checkAvailability} className="space-y-5 sm:space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
             {/* 1. Event Type Select */}
-            <div className="space-y-2 text-left">
+            <div className="space-y-1.5 sm:space-y-2 text-left">
               <label className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-pink-400" />
                 <span>Event Type</span>
@@ -109,7 +109,7 @@ export default function AvailabilityChecker({
                     setEventType(e.target.value);
                     setResult(null);
                   }}
-                  className="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-purple-500 focus:bg-zinc-900 focus:ring-2 focus:ring-purple-500/20 text-white font-medium text-sm transition-all cursor-pointer shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]"
+                  className="w-full appearance-none px-4 py-3.5 pr-10 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-purple-500 focus:bg-zinc-900 focus:ring-2 focus:ring-purple-500/20 text-white font-medium text-base sm:text-sm transition-all cursor-pointer shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] min-h-12"
                 >
                   {EVENT_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat} className="bg-zinc-900 text-white">
@@ -122,7 +122,7 @@ export default function AvailabilityChecker({
             </div>
 
             {/* 2. Date Picker */}
-            <div className="space-y-2 text-left">
+            <div className="space-y-1.5 sm:space-y-2 text-left">
               <label className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-purple-400" />
                 <span>Select Event Date</span>
@@ -136,12 +136,12 @@ export default function AvailabilityChecker({
                   setResult(null);
                 }}
                 required
-                className="w-full px-4 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-purple-500 focus:bg-zinc-900 focus:ring-2 focus:ring-purple-500/20 text-white font-medium text-sm transition-all [color-scheme:dark] shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]"
+                className="w-full px-4 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-purple-500 focus:bg-zinc-900 focus:ring-2 focus:ring-purple-500/20 text-white font-medium text-base sm:text-sm transition-all [color-scheme:dark] shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] min-h-12"
               />
             </div>
 
             {/* 3. Event City / Location */}
-            <div className="space-y-2 text-left">
+            <div className="space-y-1.5 sm:space-y-2 text-left">
               <label className="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Host City / Venue</span>
@@ -153,9 +153,9 @@ export default function AvailabilityChecker({
                   setLocation(e.target.value);
                   setResult(null);
                 }}
-                placeholder="e.g. Rourkela, Bhubaneswar"
+                placeholder="e.g. Rourkela, Jharsuguda"
                 required
-                className="w-full px-4 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-cyan-500 focus:bg-zinc-900 focus:ring-2 focus:ring-cyan-500/20 text-white font-medium text-sm transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] placeholder:text-zinc-500"
+                className="w-full px-4 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-purple-500 focus:bg-zinc-900 focus:ring-2 focus:ring-purple-500/20 text-white font-medium text-base sm:text-sm transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] min-h-12"
               />
             </div>
           </div>

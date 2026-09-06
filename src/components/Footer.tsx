@@ -23,7 +23,7 @@ export default function Footer({
   const waLink = createWhatsAppLink(whatsapp, `Hello ${djName}, I want to enquire about DJ booking.`);
 
   return (
-    <footer className="bg-[#050508] border-t border-zinc-800/80 pt-16 pb-12 text-zinc-400">
+    <footer className="bg-[#050508] border-t border-zinc-800/80 pt-16 pb-[calc(3rem+env(safe-area-inset-bottom,0px))] text-zinc-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-zinc-800/60">
           {/* Brand Col */}

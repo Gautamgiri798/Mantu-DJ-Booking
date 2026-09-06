@@ -61,7 +61,7 @@ export default function AdminSidebar({
   };
 
   const navLinksContent = (
-    <div className="flex flex-col justify-between h-full py-5 px-4 space-y-6">
+    <div className="flex flex-col justify-between h-full py-5 px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] space-y-6">
       <div className="space-y-6">
         {/* Brand */}
         <div className="flex items-center justify-between px-2">
@@ -152,7 +152,7 @@ export default function AdminSidebar({
       </aside>
 
       {/* Mobile Header Bar */}
-      <div className="md:hidden sticky top-0 z-40 bg-[#0c0c12] border-b border-zinc-800 px-4 py-3 flex items-center justify-between">
+      <div className="md:hidden sticky top-0 z-40 bg-[#0c0c12] border-b border-zinc-800 px-4 py-3 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] flex items-center justify-between">
         <Link href="/admin" className="flex items-center gap-2">
           <Disc3 className="w-5 h-5 text-purple-400" />
           <span className="font-extrabold text-sm text-white">DJ Mantu Admin</span>
@@ -165,11 +165,18 @@ export default function AdminSidebar({
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Backdrop & Menu */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-[57px] bg-[#0c0c12] z-30 p-2">
-          {navLinksContent}
-        </div>
+        <>
+          <div
+            onClick={() => setMobileOpen(false)}
+            className="md:hidden fixed inset-0 top-[calc(3.5rem+env(safe-area-inset-top,0px))] bg-black/70 backdrop-blur-sm z-30 animate-in fade-in duration-200"
+            aria-hidden="true"
+          />
+          <div className="md:hidden fixed inset-y-0 left-0 top-[calc(3.5rem+env(safe-area-inset-top,0px))] w-72 max-w-[85vw] bg-[#0c0c12] border-r border-zinc-800 z-40 overflow-y-auto pb-[calc(2rem+env(safe-area-inset-bottom,0px))] animate-in slide-in-from-left duration-250 shadow-2xl">
+            {navLinksContent}
+          </div>
+        </>
       )}
     </>
   );

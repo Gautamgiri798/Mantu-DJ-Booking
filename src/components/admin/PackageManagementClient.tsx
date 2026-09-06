@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Plus, Edit, Trash2, Check, Sparkles, Loader2, X, Clock } from 'lucide-react';
+import { Plus, Edit, Trash2, Check, Loader2, X } from 'lucide-react';
 import { formatCurrency } from '@/lib/utils';
 import { PackageData } from '@/components/PackageCard';
 
@@ -151,14 +151,14 @@ export default function PackageManagementClient({ initialPackages }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-white">Event Packages ({packages.length})</h2>
           <p className="text-xs text-zinc-400">Set pricing, duration, features, and promote best-sellers</p>
         </div>
         <button
           onClick={openCreateModal}
-          className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg"
+          className="w-full sm:w-auto min-h-11 justify-center px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-purple-900/30"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Package</span>
@@ -244,10 +244,10 @@ export default function PackageManagementClient({ initialPackages }: Props) {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="relative max-w-lg w-full rounded-3xl glass-panel border border-white/20 p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200">
+          <div className="relative max-w-lg w-full max-h-[92vh] overflow-y-auto rounded-3xl glass-panel border border-white/20 p-5 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-200">
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-white"
+              className="absolute top-4 right-4 text-zinc-400 hover:text-white p-1"
             >
               <X className="w-5 h-5" />
             </button>
@@ -265,11 +265,11 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Royal Wedding Extravaganza"
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="font-semibold text-zinc-300 block mb-1">Price (₹)</label>
                   <input
@@ -278,7 +278,7 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                     placeholder="e.g. 25000"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                   />
                 </div>
 
@@ -290,7 +290,7 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                     placeholder="e.g. 5"
                     value={formData.durationHours}
                     onChange={(e) => setFormData({ ...formData, durationHours: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                   />
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                   placeholder="e.g. Weddings, Receptions & Sangeet (Up to 400 Guests)"
                   value={formData.suitableFor}
                   onChange={(e) => setFormData({ ...formData, suitableFor: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -313,7 +313,7 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                   placeholder="e.g. 4x Tops, 2x Subs, 4x Moving Heads, Fog Machine"
                   value={formData.equipment}
                   onChange={(e) => setFormData({ ...formData, equipment: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -324,7 +324,7 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                   required
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 resize-none"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 resize-none"
                 />
               </div>
 
@@ -334,7 +334,7 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                   rows={3}
                   value={formData.featuresText}
                   onChange={(e) => setFormData({ ...formData, featuresText: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 resize-none"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 resize-none"
                 />
               </div>
 
@@ -345,9 +345,9 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                     id="isPopular"
                     checked={formData.isPopular}
                     onChange={(e) => setFormData({ ...formData, isPopular: e.target.checked })}
-                    className="rounded border-zinc-700 text-purple-600 focus:ring-purple-500"
+                    className="rounded border-zinc-700 text-purple-600 focus:ring-purple-500 w-4 h-4"
                   />
-                  <label htmlFor="isPopular" className="text-zinc-300 font-semibold cursor-pointer">
+                  <label htmlFor="isPopular" className="text-zinc-300 font-semibold cursor-pointer select-none">
                     Highlight as Most Popular ⭐
                   </label>
                 </div>
@@ -357,7 +357,7 @@ export default function PackageManagementClient({ initialPackages }: Props) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
+                  className="w-full py-3.5 min-h-12 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
                 >
                   {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>Save Package</span>}
                 </button>

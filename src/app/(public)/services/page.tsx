@@ -97,10 +97,10 @@ export default async function ServicesPage() {
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
                     <Link
                       href={`/availability?eventType=${encodeURIComponent(service.title)}`}
-                      className="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 text-xs font-bold flex items-center gap-1.5"
+                      className="flex-1 sm:flex-initial px-4 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 text-xs font-bold flex items-center justify-center gap-1.5 min-h-11 active:bg-zinc-800"
                     >
                       <CalendarCheck className="w-4 h-4 text-purple-400" />
                       <span>Check Date</span>
@@ -108,7 +108,7 @@ export default async function ServicesPage() {
 
                     <Link
                       href={`/book?service=${encodeURIComponent(service.id)}&eventType=${encodeURIComponent(service.title)}`}
-                      className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg flex items-center gap-1.5"
+                      className="flex-1 sm:flex-initial px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg flex items-center justify-center gap-1.5 min-h-11 active:scale-98 transition-all"
                     >
                       <span>Book Now</span>
                       <ArrowRight className="w-3.5 h-3.5" />

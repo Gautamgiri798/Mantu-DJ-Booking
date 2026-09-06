@@ -12,6 +12,19 @@
     --accent: #22d3ee;
     --text-main: #ffffff;
     --text-muted: #a1a1aa;
+
+    /* Safe Area Insets for iOS & Android with dynamic navigation bars */
+    --sat: env(safe-area-inset-top, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -19,11 +32,32 @@
     color: var(--text-main);
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
+    touch-action: manipulation;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
   }
 
   h1, h2, h3, h4, .font-heading {
     font-family: 'Outfit', 'Plus Jakarta Sans', -apple-system, sans-serif;
     letter-spacing: -0.02em;
+  }
+
+  /* Prevent iOS Safari auto-zoom on focus while keeping Android inputs legible */
+  @media (max-width: 640px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Invert calendar icon in dark mode for iOS and WebKit */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+  }
+
+  /* Tap highlight removal across all interactive elements */
+  a, button, input, select, textarea {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 

@@ -53,7 +53,7 @@ export default function PackageCard({ pkg }: PackageCardProps) {
   const tierConfig = isPopular
     ? {
         cardClass:
-          'border-2 border-purple-500/80 bg-gradient-to-b from-purple-950/40 via-zinc-900/95 to-zinc-950 shadow-[0_0_50px_-10px_rgba(168,85,247,0.35)] scale-[1.02] lg:-translate-y-2 z-10',
+          'border-2 border-purple-500/80 bg-gradient-to-b from-purple-950/40 via-zinc-900/95 to-zinc-950 shadow-[0_0_50px_-10px_rgba(168,85,247,0.35)] md:scale-[1.02] lg:-translate-y-2 z-10',
         badgeClass: 'text-purple-400 bg-purple-500/10 border-purple-500/30',
         accentGlow: 'from-purple-500 via-pink-500 to-cyan-400',
         checkBg: 'bg-purple-500/20 text-purple-300 border-purple-500/40',

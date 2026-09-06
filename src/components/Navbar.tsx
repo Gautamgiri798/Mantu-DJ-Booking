@@ -30,6 +30,18 @@ export default function Navbar({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock background scroll when mobile drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
@@ -47,7 +59,7 @@ export default function Navbar({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
         scrolled ? 'glass-nav py-3' : 'bg-transparent py-5'
       }`}
     >
@@ -126,77 +138,92 @@ export default function Navbar({
           <div className="lg:hidden flex items-center gap-2">
             <Link
               href="/book"
-              className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-md active:scale-95 transition-transform"
             >
               Book
             </Link>
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen((prev) => !prev);
+              }}
               aria-label="Toggle Navigation Menu"
-              className="p-2 rounded-xl glass-panel text-zinc-200 hover:text-white"
+              aria-expanded={isOpen}
+              className="relative z-50 w-11 h-11 rounded-xl glass-panel text-zinc-200 hover:text-white flex items-center justify-center active:scale-95 transition-all cursor-pointer touch-manipulation"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5 h-5 pointer-events-none" /> : <Menu className="w-5 h-5 pointer-events-none" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Backdrop & Menu */}
       {isOpen && (
-        <div className="lg:hidden glass-panel border-b border-white/10 px-4 pt-3 pb-6 mt-2 animate-in slide-in-from-top-2 duration-200">
-          <nav className="flex flex-col gap-1">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-2.5 rounded-xl text-base font-medium flex items-center justify-between ${
-                    isActive
-                      ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
-                      : 'text-zinc-200 hover:bg-white/5'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  {link.href === '/availability' && (
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                      Live Check
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
+        <>
+          {/* Backdrop: Behind the header and drawer */}
+          <div
+            onClick={() => setIsOpen(false)}
+            className="lg:hidden fixed inset-0 z-40 bg-black/75 backdrop-blur-md animate-in fade-in duration-200"
+            aria-hidden="true"
+          />
 
-          <div className="mt-4 pt-4 border-t border-zinc-800 flex flex-col gap-2.5">
-            <Link
-              href="/book"
-              onClick={() => setIsOpen(false)}
-              className="w-full text-center py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-950"
-            >
-              Book Event Now
-            </Link>
-            <div className="grid grid-cols-2 gap-2">
-              <a
-                href={`tel:${phone}`}
-                className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold bg-zinc-900 border border-zinc-800 text-zinc-200"
+          {/* Drawer Menu: Elevated with z-50 */}
+          <div className="lg:hidden relative z-50 glass-panel border-b border-white/10 px-4 pt-3 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] mt-1.5 max-h-[calc(100dvh-5rem)] overflow-y-auto animate-in slide-in-from-top-2 duration-200 shadow-2xl">
+            <nav className="flex flex-col gap-1">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`px-4 py-3 rounded-xl text-sm font-semibold flex items-center justify-between min-h-[44px] transition-colors ${
+                      isActive
+                        ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
+                        : 'text-zinc-200 hover:bg-white/5 active:bg-white/10'
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {link.href === '/availability' && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">
+                        Live Check
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="mt-4 pt-4 border-t border-zinc-800 flex flex-col gap-2.5">
+              <Link
+                href="/book"
+                onClick={() => setIsOpen(false)}
+                className="w-full min-h-12 flex items-center justify-center rounded-xl font-bold text-sm bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-950 active:scale-98 transition-all"
               >
-                <Phone className="w-4 h-4 text-purple-400" />
-                <span>Call DJ</span>
-              </a>
-              <a
-                href={waLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-semibold bg-emerald-950/40 border border-emerald-800/40 text-emerald-300"
-              >
-                <WhatsAppIcon className="w-4 h-4 text-emerald-400" />
-                <span>WhatsApp</span>
-              </a>
+                Book Event Now
+              </Link>
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={`tel:${phone}`}
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-semibold bg-zinc-900 border border-zinc-800 text-zinc-200 min-h-[44px] active:bg-zinc-800"
+                >
+                  <Phone className="w-4 h-4 text-purple-400" />
+                  <span>Call DJ</span>
+                </a>
+                <a
+                  href={waLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-semibold bg-emerald-950/40 border border-emerald-800/40 text-emerald-300 min-h-[44px] active:bg-emerald-950/70"
+                >
+                  <WhatsAppIcon className="w-4 h-4 text-emerald-400" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

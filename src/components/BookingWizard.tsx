@@ -243,10 +243,10 @@ Please confirm availability and discuss next steps.`;
   }
 
   return (
-    <div className="max-w-3xl mx-auto rounded-3xl glass-panel border border-white/10 p-6 sm:p-10 shadow-2xl">
+    <div className="max-w-3xl mx-auto rounded-2xl sm:rounded-3xl glass-panel border border-white/10 p-4 sm:p-10 shadow-2xl">
       {/* Step Progress Bar */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider mb-2">
+      <div className="mb-6 sm:mb-8">
+        <div className="flex items-center justify-between text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2">
           <span className={step >= 1 ? 'text-purple-400' : 'text-zinc-500'}>1. Contact</span>
           <span className={step >= 2 ? 'text-purple-400' : 'text-zinc-500'}>2. Event</span>
           <span className={step >= 3 ? 'text-purple-400' : 'text-zinc-500'}>3. Services</span>
@@ -284,7 +284,7 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. Rahul Sharma"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -298,7 +298,7 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. 9876543210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -311,7 +311,7 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. 9876543210"
                   value={formData.whatsapp}
                   onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
             </div>
@@ -338,7 +338,7 @@ Please confirm availability and discuss next steps.`;
                 <select
                   value={formData.eventType}
                   onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 >
                   {EVENT_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
@@ -355,7 +355,7 @@ Please confirm availability and discuss next steps.`;
                   required
                   value={formData.eventDate}
                   onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
                 />
               </div>
 
@@ -365,7 +365,7 @@ Please confirm availability and discuss next steps.`;
                   type="time"
                   value={formData.startTime}
                   onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
                 />
               </div>
 
@@ -375,7 +375,7 @@ Please confirm availability and discuss next steps.`;
                   type="time"
                   value={formData.endTime}
                   onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
                 />
               </div>
 
@@ -389,7 +389,7 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. Hotel Radhika Regency Banquet Hall"
                   value={formData.venue}
                   onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -400,7 +400,7 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. Rourkela"
                   value={formData.city}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -411,7 +411,7 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. 300"
                   value={formData.guestCount}
                   onChange={(e) => setFormData({ ...formData, guestCount: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
             </div>
@@ -530,7 +530,7 @@ Please confirm availability and discuss next steps.`;
                 <select
                   value={formData.budgetRange}
                   onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 >
                   {BUDGET_TIERS.map((tier) => (
                     <option key={tier} value={tier}>{tier}</option>
@@ -547,7 +547,7 @@ Please confirm availability and discuss next steps.`;
                   placeholder="e.g. Specific bridal entry track, groom baraat preferences, low fog timing, language preferences (Hindi, Punjabi, Odia, English)..."
                   value={formData.customerNotes}
                   onChange={(e) => setFormData({ ...formData, customerNotes: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 resize-none"
                 />
               </div>
 
@@ -572,25 +572,25 @@ Please confirm availability and discuss next steps.`;
         )}
 
         {/* Footer Navigation Buttons */}
-        <div className="mt-8 pt-6 border-t border-zinc-800 flex items-center justify-between gap-4">
+        <div className="mt-8 pt-6 border-t border-zinc-800 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {step > 1 ? (
             <button
               type="button"
               onClick={handleBack}
-              className="px-5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center justify-center gap-2 min-h-12 active:bg-zinc-700"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back</span>
             </button>
           ) : (
-            <div />
+            <div className="hidden sm:block" />
           )}
 
           {step < 4 ? (
             <button
               type="button"
               onClick={handleNext}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-purple-950"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-purple-950 min-h-12 active:scale-98 transition-all"
             >
               <span>Continue</span>
               <ArrowRight className="w-4 h-4" />
@@ -599,7 +599,7 @@ Please confirm availability and discuss next steps.`;
             <button
               type="submit"
               disabled={loading}
-              className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-xl shadow-emerald-950/80 transition-all hover:scale-105"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-emerald-950/80 transition-all hover:scale-102 active:scale-98 min-h-12"
             >
               {loading ? (
                 <>

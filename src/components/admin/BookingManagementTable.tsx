@@ -205,8 +205,100 @@ export default function BookingManagementTable({ initialBookings }: Props) {
         </div>
       </div>
 
-      {/* Main Table */}
-      <div className="rounded-3xl glass-panel border border-white/10 overflow-hidden shadow-2xl">
+      {/* Mobile Cards View (md:hidden) */}
+      <div className="md:hidden space-y-3">
+        {filteredBookings.length === 0 ? (
+          <div className="rounded-2xl glass-panel border border-white/10 p-8 text-center text-zinc-500 text-xs">
+            No bookings found matching your filters.
+          </div>
+        ) : (
+          filteredBookings.map((b) => {
+            const waNumber = b.customer.whatsapp || b.customer.phone;
+            const waLink = createWhatsAppLink(
+              waNumber,
+              `Hello ${b.customer.name}, DJ Mantu here regarding your booking (${b.bookingCode}) for ${b.eventType} on ${b.dateString}...`
+            );
+            const statusObj = BOOKING_STATUSES.find((s) => s.value === b.status);
+
+            return (
+              <div
+                key={b.id}
+                onClick={() => openDrawer(b)}
+                className="p-4 rounded-2xl glass-panel border border-white/10 space-y-3 active:bg-white/5 transition-colors cursor-pointer shadow-lg"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <h4 className="font-bold text-sm text-white">{b.customer.name}</h4>
+                    <div className="flex items-center gap-2 text-[11px] text-zinc-400 mt-0.5">
+                      <span className="font-mono text-purple-300 font-bold">{b.bookingCode}</span>
+                      <span>•</span>
+                      <span>{b.eventType}</span>
+                    </div>
+                  </div>
+                  <span
+                    className={`inline-block text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border shrink-0 ${
+                      statusObj?.color || 'bg-zinc-800 text-zinc-400'
+                    }`}
+                  >
+                    {b.status}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-zinc-800/80">
+                  <div>
+                    <span className="text-[10px] text-zinc-500 block">Date & Time</span>
+                    <span className="font-semibold text-zinc-200 block">{formatDate(b.eventDate)}</span>
+                    <span className="text-[10px] text-zinc-400">{b.startTime}</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-zinc-500 block">Venue</span>
+                    <span className="font-semibold text-zinc-200 block truncate">{b.venue}</span>
+                    <span className="text-[10px] text-cyan-400">{b.city}</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-zinc-800/80 text-xs">
+                  <div>
+                    <span className="text-[10px] text-zinc-500 block">Quote Amount</span>
+                    <span className="font-black text-white">
+                      {b.totalAmount ? formatCurrency(b.totalAmount) : b.budgetRange || 'Pending'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                    <a
+                      href={`tel:${b.customer.phone.replace(/[^0-9+]/g, '')}`}
+                      className="p-2 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 active:bg-zinc-700"
+                      title="Call Host"
+                    >
+                      <Phone className="w-4 h-4 text-purple-400" />
+                    </a>
+                    <a
+                      href={waLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-xl bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 active:bg-emerald-900"
+                      title="WhatsApp Host"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                    </a>
+                    <button
+                      onClick={() => openDrawer(b)}
+                      className="px-3 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs flex items-center gap-1.5 active:bg-purple-500"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Details</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
+      </div>
+
+      {/* Main Desktop Table (hidden on mobile, visible on md+) */}
+      <div className="hidden md:block rounded-3xl glass-panel border border-white/10 overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-zinc-300">
             <thead className="bg-zinc-950/80 uppercase text-[10px] font-bold text-zinc-400 tracking-wider border-b border-zinc-800">
@@ -337,7 +429,7 @@ export default function BookingManagementTable({ initialBookings }: Props) {
       {/* Booking Details / Edit Drawer */}
       {activeBooking && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-end">
-          <div className="relative w-full max-w-lg h-full bg-[#0d0d14] border-l border-zinc-800 p-6 sm:p-8 overflow-y-auto space-y-6 animate-in slide-in-from-right duration-300">
+          <div className="relative w-full max-w-full sm:max-w-lg h-full bg-[#0d0d14] border-l border-zinc-800 p-4 sm:p-8 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto space-y-6 animate-in slide-in-from-right duration-300">
             {/* Close */}
             <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
               <div>

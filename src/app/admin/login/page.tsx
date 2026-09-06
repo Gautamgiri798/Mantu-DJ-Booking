@@ -96,9 +96,9 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@djmantu.com"
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full pl-10 pr-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 transition-colors"
               />
-              <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-3.5" />
+              <Mail className="w-4 h-4 text-zinc-500 absolute left-3.5 top-4" />
             </div>
           </div>
 
@@ -113,16 +113,16 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full pl-10 pr-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 transition-colors"
               />
-              <Lock className="w-4 h-4 text-zinc-500 absolute left-3.5 top-3.5" />
+              <Lock className="w-4 h-4 text-zinc-500 absolute left-3.5 top-4" />
             </div>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-purple-950 transition-all flex items-center justify-center gap-2 hover:scale-[1.02]"
+            className="w-full py-3.5 min-h-12 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-purple-950 transition-all flex items-center justify-center gap-2 hover:scale-[1.02]"
           >
             {loading ? (
               <>

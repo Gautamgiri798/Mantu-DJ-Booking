@@ -246,73 +246,83 @@ export default function FloatingWhatsApp({
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-auto select-none font-sans">
+    <div className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] right-[calc(1rem+env(safe-area-inset-right,0px))] sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none font-sans">
       {/* =========================================================================
           VIEW 1: EXPANDED FULL CHATBOT WINDOW (Matching Reference Image)
           ========================================================================= */}
       {viewState === 'EXPANDED' && (
-        <div className="mb-3 w-[92vw] sm:w-[390px] h-[580px] sm:h-[620px] max-h-[85vh] rounded-[28px] bg-[#0b0e14] border border-white/10 shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_40px_rgba(139,92,246,0.18)] backdrop-blur-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-250">
-          {/* Header Bar */}
-          <div className="relative bg-gradient-to-r from-[#121622] via-[#161a29] to-[#121622] px-4 py-3.5 border-b border-white/[0.08] flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-3">
-              {/* DJ Avatar with glowing electric purple halo */}
-              <div className="relative shrink-0">
-                <div className="w-12 h-12 rounded-full overflow-hidden p-[2px] bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-400 shadow-[0_0_18px_rgba(168,85,247,0.5)]">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-zinc-900 relative">
-                    <Image
-                      src="/images/dj-avatar.jpg"
-                      alt={djName}
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                      priority
-                    />
+        <>
+          {/* Mobile backdrop to dismiss when tapping outside on small screens */}
+          <div
+            onClick={() => setViewState('BUTTON')}
+            className="sm:hidden fixed inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-auto -z-10 animate-in fade-in duration-150"
+            aria-hidden="true"
+          />
+
+          <div className="pointer-events-auto mb-2 sm:mb-3 w-[calc(100vw-2rem)] sm:w-[390px] h-130 sm:h-[620px] max-h-[calc(100dvh-5.5rem)] rounded-3xl sm:rounded-[28px] bg-[#0b0e14] border border-white/10 shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_40px_rgba(139,92,246,0.18)] backdrop-blur-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-250">
+            {/* Header Bar */}
+            <div className="relative bg-gradient-to-r from-[#121622] via-[#161a29] to-[#121622] px-4 py-3.5 border-b border-white/[0.08] flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                {/* DJ Avatar with glowing electric purple halo */}
+                <div className="relative shrink-0">
+                  <div className="w-12 h-12 rounded-full overflow-hidden p-[2px] bg-gradient-to-tr from-purple-600 via-pink-500 to-indigo-400 shadow-[0_0_18px_rgba(168,85,247,0.5)]">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-zinc-900 relative">
+                      <Image
+                        src="/images/dj-avatar.jpg"
+                        alt={djName}
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-cover"
+                        priority
+                      />
+                    </div>
                   </div>
+                  {/* Online Indicator Badge */}
+                  <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-[#121622] rounded-full shadow-[0_0_8px_#34d399]" />
                 </div>
-                {/* Online Indicator Badge */}
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-[#121622] rounded-full shadow-[0_0_8px_#34d399]" />
+
+                {/* DJ Info */}
+                <div className="text-left">
+                  <div className="flex items-center gap-1.5">
+                    <h3 className="font-black text-sm text-white tracking-wide font-heading">
+                      {djName}
+                    </h3>
+                    {/* Verified Green Badge */}
+                    <div className="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center text-[9px] font-bold text-black">
+                      ✓
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-emerald-400 mt-0.5">
+                    <span>Online</span>
+                  </div>
+                  <p className="text-[10px] text-zinc-400 line-clamp-1 leading-tight mt-0.5">
+                    Professional DJ for Weddings, Parties & Special Events
+                  </p>
+                </div>
               </div>
 
-              {/* DJ Info */}
-              <div className="text-left">
-                <div className="flex items-center gap-1.5">
-                  <h3 className="font-black text-sm text-white tracking-wide font-heading">
-                    {djName}
-                  </h3>
-                  {/* Verified Green Badge */}
-                  <div className="w-3.5 h-3.5 rounded-full bg-emerald-500 flex items-center justify-center text-[9px] font-bold text-black">
-                    ✓
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 text-[11px] font-medium text-emerald-400 mt-0.5">
-                  <span>Online</span>
-                </div>
-                <p className="text-[10px] text-zinc-400 line-clamp-1 leading-tight mt-0.5">
-                  Professional DJ for Weddings, Parties & Special Events
-                </p>
+              {/* Header Control Buttons */}
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setViewState('MINIMIZED')}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-colors touch-manipulation cursor-pointer"
+                  title="Minimize chat"
+                  aria-label="Minimize chat"
+                >
+                  <Minus className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewState('BUTTON')}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-colors touch-manipulation cursor-pointer"
+                  title="Close chat"
+                  aria-label="Close chat"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
             </div>
-
-            {/* Header Control Buttons */}
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => setViewState('MINIMIZED')}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
-                title="Minimize chat"
-                aria-label="Minimize chat"
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setViewState('BUTTON')}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
-                title="Close chat"
-                aria-label="Close chat"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
 
           {/* Chat Messages Canvas */}
           <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3.5 text-left custom-scrollbar bg-gradient-to-b from-[#0b0e14] via-[#0e111a] to-[#0b0e14] relative">
@@ -368,8 +378,9 @@ export default function FloatingWhatsApp({
                 {msg.actionMenu && (
                   <div className="w-full mt-3 pl-8 pr-1 space-y-2">
                     <button
+                      type="button"
                       onClick={() => handleActionClick('AVAILABILITY')}
-                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-purple-950/40 border border-white/[0.08] hover:border-purple-500/40 transition-all text-left group cursor-pointer shadow-sm"
+                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-purple-950/40 border border-white/[0.08] hover:border-purple-500/40 transition-all text-left group cursor-pointer shadow-sm touch-manipulation active:scale-[0.98]"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center text-pink-400 shrink-0">
@@ -386,8 +397,9 @@ export default function FloatingWhatsApp({
                     </button>
 
                     <button
+                      type="button"
                       onClick={() => handleActionClick('QUOTE')}
-                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-purple-950/40 border border-white/[0.08] hover:border-purple-500/40 transition-all text-left group cursor-pointer shadow-sm"
+                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-purple-950/40 border border-white/[0.08] hover:border-purple-500/40 transition-all text-left group cursor-pointer shadow-sm touch-manipulation active:scale-[0.98]"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
@@ -404,8 +416,9 @@ export default function FloatingWhatsApp({
                     </button>
 
                     <button
+                      type="button"
                       onClick={() => handleActionClick('PACKAGES')}
-                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-purple-950/40 border border-white/[0.08] hover:border-purple-500/40 transition-all text-left group cursor-pointer shadow-sm"
+                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-purple-950/40 border border-white/[0.08] hover:border-purple-500/40 transition-all text-left group cursor-pointer shadow-sm touch-manipulation active:scale-[0.98]"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
@@ -422,8 +435,9 @@ export default function FloatingWhatsApp({
                     </button>
 
                     <button
+                      type="button"
                       onClick={() => handleActionClick('TALK')}
-                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-emerald-950/40 border border-white/[0.08] hover:border-emerald-500/40 transition-all text-left group cursor-pointer shadow-sm"
+                      className="w-full flex items-center justify-between p-2.5 rounded-2xl bg-[#131722] hover:bg-emerald-950/40 border border-white/[0.08] hover:border-emerald-500/40 transition-all text-left group cursor-pointer shadow-sm touch-manipulation active:scale-[0.98]"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center text-pink-400 shrink-0">
@@ -522,9 +536,10 @@ export default function FloatingWhatsApp({
               const isActive = activePill.toLowerCase() === pill.toLowerCase();
               return (
                 <button
+                  type="button"
                   key={pill}
                   onClick={() => handlePillClick(pill)}
-                  className={`text-[11px] px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer font-medium shrink-0 ${
+                  className={`text-[11px] px-3 py-1 rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer font-medium shrink-0 touch-manipulation active:scale-95 ${
                     isActive
                       ? 'bg-[#7c3aed] text-white shadow-[0_0_12px_rgba(124,58,237,0.5)] font-bold'
                       : 'bg-[#1c2130] text-zinc-300 hover:text-white hover:bg-[#252b3e] border border-white/5'
@@ -599,7 +614,7 @@ export default function FloatingWhatsApp({
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 bg-[#161a25] border border-white/10 rounded-full px-4 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/30"
+                className="flex-1 bg-[#161a25] border border-white/10 rounded-full px-4 py-2 text-base sm:text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/30"
               />
 
               {/* Purple Gradient Send Button */}
@@ -622,13 +637,14 @@ export default function FloatingWhatsApp({
             </div>
           </div>
         </div>
+      </>
       )}
 
       {/* =========================================================================
           VIEW 2: MINIMIZED VIEW (When Collapsed - Teaser Card in Reference Image)
           ========================================================================= */}
       {viewState === 'MINIMIZED' && (
-        <div className="mb-3 w-76 sm:w-80 rounded-2xl bg-[#0d1017]/95 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_30px_rgba(139,92,246,0.15)] backdrop-blur-2xl p-4 text-left animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div className="pointer-events-auto mb-3 w-76 sm:w-80 rounded-2xl bg-[#0d1017]/95 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_30px_rgba(139,92,246,0.15)] backdrop-blur-2xl p-4 text-left animate-in fade-in slide-in-from-bottom-4 duration-200">
           {/* Top Bar */}
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
             <div className="flex items-center gap-2.5">
@@ -657,8 +673,9 @@ export default function FloatingWhatsApp({
             </div>
 
             <button
+              type="button"
               onClick={() => setViewState('BUTTON')}
-              className="text-zinc-400 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors"
+              className="text-zinc-400 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors touch-manipulation cursor-pointer"
               aria-label="Close teaser"
             >
               <X className="w-4 h-4" />
@@ -676,8 +693,9 @@ export default function FloatingWhatsApp({
 
           {/* CTA Button */}
           <button
+            type="button"
             onClick={openExpandedChat}
-            className="w-full py-2.5 px-4 rounded-xl bg-linear-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-extrabold text-xs shadow-[0_0_20px_rgba(139,92,246,0.35)] flex items-center justify-center gap-2 transition-all cursor-pointer"
+            className="w-full py-2.5 px-4 rounded-xl bg-linear-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-extrabold text-xs shadow-[0_0_20px_rgba(139,92,246,0.35)] flex items-center justify-center gap-2 transition-all cursor-pointer touch-manipulation active:scale-95"
           >
             <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
             <span>Chat on WhatsApp</span>
@@ -692,25 +710,27 @@ export default function FloatingWhatsApp({
       {/* =========================================================================
           VIEW 3: FLOATING BUTTON (On all pages - Matching Reference Image)
           ========================================================================= */}
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="pointer-events-auto flex flex-col items-center gap-1.5">
         {/* Main Floating Trigger Icon */}
         <button
-          onClick={() => {
-            if (viewState === 'BUTTON') {
-              openExpandedChat();
-            } else {
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (viewState === 'EXPANDED') {
               setViewState('BUTTON');
+            } else {
+              openExpandedChat();
             }
           }}
           aria-label="Open Chat with DJ"
-          className="group relative w-14 h-14 sm:w-15 sm:h-15 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.45),0_0_25px_rgba(37,211,102,0.25)] hover:shadow-[0_12px_40px_rgba(37,211,102,0.65),0_0_35px_rgba(37,211,102,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+          className="group relative w-14 h-14 sm:w-15 sm:h-15 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.45),0_0_25px_rgba(37,211,102,0.25)] hover:shadow-[0_12px_40px_rgba(37,211,102,0.65),0_0_35px_rgba(37,211,102,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer touch-manipulation"
         >
           {viewState === 'EXPANDED' ? (
-            <div className="w-full h-full rounded-full bg-zinc-900 border border-purple-500/40 flex items-center justify-center text-white shadow-inner">
+            <div className="pointer-events-none w-full h-full rounded-full bg-zinc-900 border border-purple-500/40 flex items-center justify-center text-white shadow-inner">
               <X className="w-6 h-6 text-purple-400 group-hover:rotate-90 transition-transform duration-200" />
             </div>
           ) : (
-            <div className="relative w-full h-full">
+            <div className="pointer-events-none relative w-full h-full">
               {/* WhatsApp Green Gradient Circle */}
               <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#128C7E] via-[#25D366] to-[#25D366] flex items-center justify-center shadow-inner">
                 <WhatsAppIcon className="w-8 h-8 text-white drop-shadow-md" />
@@ -729,8 +749,12 @@ export default function FloatingWhatsApp({
         {/* Pill Label: 'Chat with DJ' */}
         {viewState === 'BUTTON' && (
           <button
-            onClick={openExpandedChat}
-            className="px-3.5 py-1 rounded-full bg-[#121620]/95 hover:bg-[#181e2c] border border-white/10 text-[11px] font-bold text-white tracking-wide shadow-lg backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              openExpandedChat();
+            }}
+            className="px-3.5 py-1 rounded-full bg-[#121620]/95 hover:bg-[#181e2c] border border-white/10 text-[11px] font-bold text-white tracking-wide shadow-lg backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer touch-manipulation"
           >
             Chat with DJ
           </button>

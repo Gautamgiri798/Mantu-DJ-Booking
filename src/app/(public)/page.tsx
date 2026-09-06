@@ -89,21 +89,21 @@ export default async function HomePage() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-[-0.03em] leading-[1.06] text-white font-heading whitespace-pre-line">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-[-0.03em] leading-[1.08] sm:leading-[1.06] text-white font-heading whitespace-pre-line px-1">
             {heroTitle}
           </h1>
 
           {/* Subtitle */}
-          <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-zinc-300 font-normal leading-relaxed">
+          <p className="max-w-2xl mx-auto text-sm sm:text-lg md:text-xl text-zinc-300 font-normal leading-relaxed px-2">
             {heroSubtitle}
           </p>
 
           {/* CTAs - Luxury Concert Control Deck */}
-          <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4 pt-4 max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 pt-4 max-w-xs sm:max-w-4xl mx-auto w-full">
             {/* 1. Primary Action: Book DJ Mantu */}
             <Link
               href="/book"
-              className="group relative inline-flex items-center justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider text-white whitespace-nowrap bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 hover:from-violet-500 hover:via-fuchsia-500 hover:to-pink-400 shadow-[0_0_40px_rgba(217,70,239,0.6),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:shadow-[0_0_55px_rgba(217,70,239,0.9)] hover:scale-[1.03] active:scale-95 transition-all duration-300 border border-white/30 overflow-hidden"
+              className="group relative inline-flex items-center justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-black text-xs sm:text-sm uppercase tracking-wider text-white whitespace-nowrap bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 hover:from-violet-500 hover:via-fuchsia-500 hover:to-pink-400 shadow-[0_0_40px_rgba(217,70,239,0.6),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:shadow-[0_0_55px_rgba(217,70,239,0.9)] hover:scale-[1.02] active:scale-95 transition-all duration-300 border border-white/30 overflow-hidden w-full sm:w-auto"
             >
               {/* Animated Sheen Sweep */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
@@ -121,7 +121,7 @@ export default async function HomePage() {
             {/* 2. Secondary Action: Check Availability */}
             <Link
               href="/availability"
-              className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider text-white whitespace-nowrap bg-gradient-to-b from-white/[0.12] to-white/[0.04] hover:from-white/[0.18] hover:to-white/[0.08] border border-white/25 hover:border-purple-400/70 shadow-[0_8px_30px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:shadow-[0_0_35px_rgba(168,85,247,0.45)] backdrop-blur-2xl hover:scale-[1.03] active:scale-95 transition-all duration-300"
+              className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider text-white whitespace-nowrap bg-gradient-to-b from-white/[0.12] to-white/[0.04] hover:from-white/[0.18] hover:to-white/[0.08] border border-white/25 hover:border-purple-400/70 shadow-[0_8px_30px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:shadow-[0_0_35px_rgba(168,85,247,0.45)] backdrop-blur-2xl hover:scale-[1.02] active:scale-95 transition-all duration-300 w-full sm:w-auto"
             >
               <div className="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0 group-hover:bg-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.3)] transition-colors">
                 <CalendarCheck className="w-3.5 h-3.5 text-purple-300" />
@@ -137,7 +137,7 @@ export default async function HomePage() {
               href={waBookingLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider text-emerald-300 whitespace-nowrap bg-gradient-to-b from-emerald-500/20 to-emerald-950/60 hover:from-emerald-500/30 hover:to-emerald-900/70 border border-emerald-500/50 hover:border-emerald-400 shadow-[0_8px_30px_rgba(0,0,0,0.6),0_0_25px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.6)] backdrop-blur-2xl hover:scale-[1.03] active:scale-95 transition-all duration-300"
+              className="group relative inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:py-4 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider text-emerald-300 whitespace-nowrap bg-gradient-to-b from-emerald-500/20 to-emerald-950/60 hover:from-emerald-500/30 hover:to-emerald-900/70 border border-emerald-500/50 hover:border-emerald-400 shadow-[0_8px_30px_rgba(0,0,0,0.6),0_0_25px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.6)] backdrop-blur-2xl hover:scale-[1.02] active:scale-95 transition-all duration-300 w-full sm:w-auto"
             >
               <div className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-400/40 shrink-0 group-hover:bg-emerald-500/30 transition-colors">
                 <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-300" />
@@ -147,15 +147,15 @@ export default async function HomePage() {
           </div>
 
           {/* Unified Floating VIP Credential Console */}
-          <div className="relative pt-6 flex items-center justify-center">
+          <div className="relative pt-6 flex items-center justify-center w-full">
             {/* Ambient Multi-Hue Stage Backlight */}
             <div className="absolute inset-0 max-w-3xl mx-auto h-14 bg-gradient-to-r from-cyan-500/20 via-purple-600/25 to-pink-600/20 blur-2xl rounded-full pointer-events-none" />
 
             {/* Glowing Border Wrap */}
-            <div className="relative z-10 p-[1px] rounded-3xl sm:rounded-full bg-gradient-to-r from-cyan-500/30 via-purple-500/30 to-pink-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
-              <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-1 divide-y sm:divide-y-0 sm:divide-x divide-white/10 rounded-3xl sm:rounded-full bg-zinc-950/90 backdrop-blur-2xl px-4 sm:px-6 py-3 sm:py-2.5 text-xs text-zinc-300">
+            <div className="relative z-10 p-[1px] rounded-2xl sm:rounded-full bg-gradient-to-r from-cyan-500/30 via-purple-500/30 to-pink-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)] w-full max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex items-center justify-center gap-2 sm:gap-1 divide-y sm:divide-y-0 sm:divide-x divide-white/10 rounded-2xl sm:rounded-full bg-zinc-950/90 backdrop-blur-2xl px-3 sm:px-6 py-2.5 text-xs text-zinc-300">
                 {/* 1. Location & Tour Radar */}
-                <div className="flex items-center gap-2 px-3 sm:px-4 py-1">
+                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-1.5">
                   <span className="flex h-2 w-2 relative">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
@@ -168,7 +168,7 @@ export default async function HomePage() {
                 </div>
 
                 {/* 2. Rating & Stars */}
-                <div className="flex items-center gap-2 px-3 sm:px-4 py-1">
+                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-1.5">
                   <div className="flex items-center gap-0.5">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
@@ -181,7 +181,7 @@ export default async function HomePage() {
                 </div>
 
                 {/* 3. Stage Experience */}
-                <div className="flex items-center gap-2 px-3 sm:px-4 py-1">
+                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-1.5">
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-400/40 text-purple-300 font-black text-[11px] shadow-[0_0_12px_rgba(168,85,247,0.3)]">
                     <ShieldCheck className="w-3 h-3 text-purple-300" />
                     <span>10+ Years</span>
@@ -190,7 +190,7 @@ export default async function HomePage() {
                 </div>
 
                 {/* 4. Live Equalizer Concert Acoustics */}
-                <div className="hidden lg:flex items-center gap-2.5 px-3 sm:px-4 py-1">
+                <div className="flex items-center justify-center sm:justify-start gap-2.5 px-3 sm:px-4 py-1.5">
                   {/* Live Animated Equalizer */}
                   <div className="flex items-end gap-[3px] h-3.5 px-1 py-0.5 shrink-0">
                     <span className="w-1 bg-pink-400 rounded-full animate-mini-eq-1 shadow-[0_0_6px_rgba(244,114,182,0.8)]" />
@@ -203,7 +203,7 @@ export default async function HomePage() {
                     <Volume2 className="w-3 h-3 text-pink-300" />
                     <span>JBL & Pioneer</span>
                   </span>
-                  <span className="text-zinc-400 font-medium">Acoustics</span>
+                  <span className="text-zinc-400 font-medium hidden sm:inline">Acoustics</span>
                 </div>
               </div>
             </div>

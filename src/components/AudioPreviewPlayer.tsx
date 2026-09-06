@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Volume2, VolumeX, Sparkles, Disc } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Sparkles } from 'lucide-react';
 
 interface Track {
   id: string;
@@ -21,7 +21,7 @@ export default function AudioPreviewPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTrack, setActiveTrack] = useState<Track>(TRACKS[0]);
   const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+  const [volume] = useState(0.5);
 
   // Web Audio synth references
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -145,23 +145,23 @@ export default function AudioPreviewPlayer() {
       <div className="absolute -top-12 -right-12 w-36 h-36 bg-purple-600/20 rounded-full blur-2xl pointer-events-none" />
       <div className="absolute -bottom-12 -left-12 w-36 h-36 bg-pink-600/20 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         {/* Left: Disc Info & Equalizer */}
-        <div className="flex items-center gap-4 w-full md:w-auto">
+        <div className="flex items-center gap-3.5 sm:gap-4 w-full md:w-auto">
           {/* Animated Turntable Icon */}
           <button
             onClick={togglePlay}
             aria-label={isPlaying ? 'Pause DJ mix preview' : 'Play DJ mix preview'}
-            className={`relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 shrink-0 ${
+            className={`relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300 shrink-0 ${
               isPlaying
                 ? 'bg-gradient-to-tr from-pink-500 to-purple-600 text-white shadow-lg shadow-purple-600/50 scale-105'
                 : 'bg-zinc-800 hover:bg-zinc-700 text-purple-400 border border-zinc-700'
             }`}
           >
             {isPlaying ? (
-              <Pause className="w-6 h-6 fill-current" />
+              <Pause className="w-5 h-5 sm:w-6 sm:h-6 fill-current" />
             ) : (
-              <Play className="w-6 h-6 fill-current translate-x-0.5" />
+              <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current translate-x-0.5" />
             )}
             {isPlaying && (
               <span className="absolute inset-0 rounded-full border-2 border-purple-400 animate-ping opacity-30" />
@@ -169,22 +169,22 @@ export default function AudioPreviewPlayer() {
           </button>
 
           {/* Track Details */}
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center gap-1">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center gap-1 shrink-0">
                 <Sparkles className="w-3 h-3" /> Live Sound Preview
               </span>
               <span className="text-xs text-zinc-500">{activeTrack.bpm} BPM</span>
             </div>
-            <h4 className="text-sm sm:text-base font-bold text-white mt-1 leading-tight">
+            <h4 className="text-sm sm:text-base font-bold text-white mt-1 leading-tight truncate">
               {activeTrack.name}
             </h4>
-            <p className="text-xs text-zinc-400">{activeTrack.genre} • DJ Mantu Signature Mix</p>
+            <p className="text-xs text-zinc-400 truncate">{activeTrack.genre} • DJ Mantu Signature Mix</p>
           </div>
         </div>
 
         {/* Center: Equalizer Visualizer */}
-        <div className="flex items-end gap-1.5 h-8 px-4 py-1 bg-zinc-950/60 rounded-xl border border-zinc-800">
+        <div className="flex items-end gap-1.5 h-8 px-4 py-1 bg-zinc-950/60 rounded-xl border border-zinc-800 self-center md:self-auto">
           <div className={`w-1.5 bg-gradient-to-t from-purple-500 to-pink-500 rounded-full ${isPlaying ? 'animate-eq-1' : 'h-2'}`} />
           <div className={`w-1.5 bg-gradient-to-t from-pink-500 to-purple-400 rounded-full ${isPlaying ? 'animate-eq-2' : 'h-3'}`} />
           <div className={`w-1.5 bg-gradient-to-t from-cyan-400 to-purple-500 rounded-full ${isPlaying ? 'animate-eq-3' : 'h-1.5'}`} />
@@ -195,7 +195,7 @@ export default function AudioPreviewPlayer() {
         </div>
 
         {/* Right: Style Selector Chips */}
-        <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto justify-end">
+        <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto justify-start md:justify-end">
           {TRACKS.map((t) => (
             <button
               key={t.id}

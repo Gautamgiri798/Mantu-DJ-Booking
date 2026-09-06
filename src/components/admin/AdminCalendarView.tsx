@@ -450,7 +450,7 @@ export default function AdminCalendarView({ initialRecords }: Props) {
         {/* 3. The Modern Calendar Grid */}
         <div className="space-y-2">
           {/* Day of Week Headers */}
-          <div className="grid grid-cols-7 gap-2 text-center text-xs font-extrabold uppercase tracking-widest py-2">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[10px] sm:text-xs font-extrabold uppercase tracking-wider sm:tracking-widest py-1.5 sm:py-2">
             <span className="text-purple-400">Sun</span>
             <span className="text-zinc-400">Mon</span>
             <span className="text-zinc-400">Tue</span>
@@ -461,17 +461,17 @@ export default function AdminCalendarView({ initialRecords }: Props) {
           </div>
 
           {/* Day Cells Grid */}
-          <div className="grid grid-cols-7 gap-2 sm:gap-2.5">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2.5">
             {/* Trailing days from previous month */}
             {[...Array(firstDayIndex)].map((_, i) => {
               const prevDayNum = daysInPrevMonth - firstDayIndex + 1 + i;
               return (
                 <div
                   key={`prev-${i}`}
-                  className="min-h-[96px] sm:min-h-[112px] p-2.5 rounded-2xl bg-zinc-950/30 border border-white/[0.02] text-zinc-700 select-none flex flex-col justify-between"
+                  className="min-h-12 sm:min-h-[112px] p-1 sm:p-2.5 rounded-xl sm:rounded-2xl bg-zinc-950/30 border border-white/[0.02] text-zinc-700 select-none flex flex-col justify-between"
                 >
-                  <span className="text-xs font-semibold text-zinc-600">{prevDayNum}</span>
-                  <span className="text-[10px] text-zinc-700 italic">Prev Month</span>
+                  <span className="text-[10px] sm:text-xs font-semibold text-zinc-600">{prevDayNum}</span>
+                  <span className="hidden sm:inline text-[10px] text-zinc-700 italic">Prev</span>
                 </div>
               );
             })}
@@ -525,7 +525,7 @@ export default function AdminCalendarView({ initialRecords }: Props) {
                 <div
                   key={dateStr}
                   onClick={() => setSelectedDay(dateStr)}
-                  className={`min-h-[96px] sm:min-h-[112px] p-2.5 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between group relative overflow-hidden ${containerStyle} ${
+                  className={`min-h-12 sm:min-h-[112px] p-1 sm:p-2.5 rounded-xl sm:rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between group relative overflow-hidden ${containerStyle} ${
                     isSelected
                       ? 'ring-2 ring-purple-400 ring-offset-2 ring-offset-[#08080C] scale-[1.02] shadow-xl z-10'
                       : 'hover:scale-[1.015]'
@@ -533,9 +533,9 @@ export default function AdminCalendarView({ initialRecords }: Props) {
                 >
                   {/* Top Bar: Date Number & Status Indicator */}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1 sm:gap-1.5">
                       <span
-                        className={`text-xs sm:text-sm font-black ${
+                        className={`text-[11px] sm:text-sm font-black ${
                           isToday
                             ? 'text-cyan-400'
                             : status === 'BOOKED'
@@ -553,11 +553,11 @@ export default function AdminCalendarView({ initialRecords }: Props) {
                         </span>
                       )}
                     </div>
-                    <span className={`w-2 h-2 rounded-full ${statusDot}`} />
+                    <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${statusDot}`} />
                   </div>
 
-                  {/* Middle / Content Slot */}
-                  <div className="space-y-1">
+                  {/* Middle / Content Slot - hidden on small mobile, details shown in inspector below */}
+                  <div className="space-y-1 hidden sm:block">
                     {status === 'BOOKED' ? (
                       <div className="space-y-0.5">
                         <span className="inline-block px-1.5 py-0.5 rounded-md bg-rose-500/25 border border-rose-500/30 text-[10px] font-bold text-rose-200 truncate max-w-full">

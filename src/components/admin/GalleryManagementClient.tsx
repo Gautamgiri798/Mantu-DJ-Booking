@@ -8,8 +8,6 @@ import {
   X,
   Loader2,
   Image as ImageIcon,
-  MapPin,
-  Calendar,
   Film,
   Play,
   UploadCloud,
@@ -225,12 +223,12 @@ export default function GalleryManagementClient({ initialItems }: Props) {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Filter Tabs */}
-          <div className="inline-flex items-center p-1 rounded-xl bg-zinc-900 border border-zinc-800 text-xs">
+          <div className="inline-flex items-center justify-center p-1 rounded-xl bg-zinc-900 border border-zinc-800 text-xs w-full sm:w-auto">
             <button
               onClick={() => setActiveFilter('ALL')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
+              className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-semibold transition-colors text-center ${
                 activeFilter === 'ALL'
                   ? 'bg-zinc-800 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-white'
@@ -240,7 +238,7 @@ export default function GalleryManagementClient({ initialItems }: Props) {
             </button>
             <button
               onClick={() => setActiveFilter('IMAGE')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
+              className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-semibold transition-colors text-center ${
                 activeFilter === 'IMAGE'
                   ? 'bg-zinc-800 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-white'
@@ -250,7 +248,7 @@ export default function GalleryManagementClient({ initialItems }: Props) {
             </button>
             <button
               onClick={() => setActiveFilter('VIDEO')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
+              className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-semibold transition-colors text-center ${
                 activeFilter === 'VIDEO'
                   ? 'bg-zinc-800 text-white shadow-sm'
                   : 'text-zinc-400 hover:text-white'
@@ -262,7 +260,7 @@ export default function GalleryManagementClient({ initialItems }: Props) {
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-purple-900/40 hover:scale-105 transition-all"
+            className="w-full sm:w-auto min-h-11 justify-center px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-purple-900/40 hover:scale-105 transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>Upload Media</span>
@@ -613,18 +611,18 @@ export default function GalleryManagementClient({ initialItems }: Props) {
                   }
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
               {/* CATEGORY & LOCATION */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="font-semibold text-zinc-300 block mb-1">Category</label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-xs focus:outline-none focus:border-purple-500"
+                    className="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-xs focus:outline-none focus:border-purple-500"
                   >
                     <option value="Weddings">Weddings</option>
                     <option value="Receptions">Receptions</option>
@@ -642,7 +640,7 @@ export default function GalleryManagementClient({ initialItems }: Props) {
                     placeholder="e.g. Brajrajnagar, Jharsuguda"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                   />
                 </div>
               </div>
@@ -654,7 +652,7 @@ export default function GalleryManagementClient({ initialItems }: Props) {
                   type="date"
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 [color-scheme:dark]"
                 />
               </div>
 
@@ -671,7 +669,7 @@ export default function GalleryManagementClient({ initialItems }: Props) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform disabled:opacity-60 disabled:hover:scale-100"
+                  className="w-full py-3.5 min-h-12 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform disabled:opacity-60 disabled:hover:scale-100"
                 >
                   {loading ? (
                     <>

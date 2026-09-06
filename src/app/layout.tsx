@@ -1,5 +1,13 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#08080C',
+  viewportFit: 'cover',
+};
 
 export const metadata: Metadata = {
   title: 'DJ Mantu | Premier Wedding, Reception & Event DJ in Rourkela',
@@ -17,6 +25,16 @@ export const metadata: Metadata = {
     'Event Sound System Rourkela',
   ],
   metadataBase: new URL('http://localhost:3000'),
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'DJ Mantu',
+  },
+  formatDetection: {
+    telephone: true,
+    email: false,
+    address: false,
+  },
   openGraph: {
     title: 'DJ Mantu | Premier Event DJ in Rourkela',
     description:
@@ -33,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark bg-[#08080C] text-white">
+    <html lang="en" className="dark bg-[#08080C] text-white" suppressHydrationWarning>
       <head>
         {/* JSON-LD LocalBusiness & EntertainmentBusiness Schema */}
         <script
@@ -75,7 +93,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#08080C] text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-purple-600 selection:text-white">
+      <body className="bg-[#08080C] text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-purple-600 selection:text-white" suppressHydrationWarning>
         {children}
       </body>
     </html>

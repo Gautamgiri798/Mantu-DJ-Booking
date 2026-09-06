@@ -67,32 +67,32 @@ export default async function AboutPage() {
             {bio}
           </p>
 
-          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-zinc-800 text-center">
-            <div className="p-4 rounded-2xl glass-panel border border-white/5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-4 border-t border-zinc-800 text-center">
+            <div className="p-3.5 sm:p-4 rounded-2xl glass-panel border border-white/5">
               <span className="text-2xl sm:text-3xl font-black text-purple-400 block">10+</span>
               <span className="text-xs text-zinc-400 mt-0.5 block">Years Behind Console</span>
             </div>
-            <div className="p-4 rounded-2xl glass-panel border border-white/5">
+            <div className="p-3.5 sm:p-4 rounded-2xl glass-panel border border-white/5">
               <span className="text-2xl sm:text-3xl font-black text-pink-400 block">650+</span>
               <span className="text-xs text-zinc-400 mt-0.5 block">Events Completed</span>
             </div>
-            <div className="p-4 rounded-2xl glass-panel border border-white/5">
+            <div className="p-3.5 sm:p-4 rounded-2xl glass-panel border border-white/5">
               <span className="text-2xl sm:text-3xl font-black text-cyan-400 block">100%</span>
               <span className="text-xs text-zinc-400 mt-0.5 block">Dancefloor Guarantee</span>
             </div>
           </div>
 
-          <div className="pt-2 flex items-center gap-4">
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
             <Link
               href="/book"
-              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center gap-2"
+              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 min-h-12 active:scale-98 transition-all"
             >
               <span>Book DJ Mantu</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/availability"
-              className="px-6 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 font-semibold text-xs uppercase tracking-wider flex items-center gap-2"
+              className="px-6 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 min-h-12 active:bg-zinc-800 transition-colors"
             >
               <CalendarCheck className="w-4 h-4 text-purple-400" />
               <span>Check Available Dates</span>

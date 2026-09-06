@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Save, CheckCircle, Loader2, Sparkles, Globe, Phone, Mail, MapPin } from 'lucide-react';
+import { Save, CheckCircle, Loader2, Sparkles, Globe, Phone, MapPin } from 'lucide-react';
 
 interface Props {
   initialSettings: Record<string, string>;
@@ -68,7 +68,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['dj_name'] || ''}
               onChange={(e) => handleChange('dj_name', e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
 
@@ -78,7 +78,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['tagline'] || ''}
               onChange={(e) => handleChange('tagline', e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['hero_title'] || ''}
               onChange={(e) => handleChange('hero_title', e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
 
@@ -107,7 +107,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               rows={3}
               value={settings['hero_subtitle'] || ''}
               onChange={(e) => handleChange('hero_subtitle', e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 resize-none"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 resize-none"
             />
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               value={settings['whatsapp'] || ''}
               onChange={(e) => handleChange('whatsapp', e.target.value)}
               placeholder="+91 6372174006"
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
 
@@ -138,7 +138,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               value={settings['phone'] || ''}
               onChange={(e) => handleChange('phone', e.target.value)}
               placeholder="+91 6372174006"
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
         </div>
@@ -158,7 +158,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               value={settings['address'] || ''}
               onChange={(e) => handleChange('address', e.target.value)}
               placeholder="Brajrajnagar, Jharsuguda, Odisha, Pin - 768216"
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
 
@@ -168,7 +168,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['service_areas'] || ''}
               onChange={(e) => handleChange('service_areas', e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
             />
           </div>
         </div>
@@ -183,7 +183,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
             rows={5}
             value={settings['about_bio'] || ''}
             onChange={(e) => handleChange('about_bio', e.target.value)}
-            className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500 leading-relaxed resize-none"
+            className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500 leading-relaxed resize-none"
           />
         </div>
       </div>
@@ -193,7 +193,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-black text-xs uppercase tracking-wider shadow-xl shadow-purple-950 flex items-center gap-2"
+          className="w-full sm:w-auto min-h-12 justify-center px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-black text-xs uppercase tracking-wider shadow-xl shadow-purple-950 flex items-center gap-2"
         >
           {loading ? (
             <>
