@@ -38,7 +38,7 @@
 
 Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, this application marries modern glassmorphism aesthetics with mission-critical features:
 
-- **Instant Client Onboarding**: 4-step wizard with real-time price calculation and WhatsApp lead generation.
+- **Instant Client Onboarding**: 4-step wizard with consultation preferences and direct WhatsApp & Call lead generation.
 - **Real-Time Date Availability Engine**: Visual booking calendar with instant conflict prevention.
 - **Edge-to-Edge Lightbox Media Suite**: Unified gallery supporting high-res photos and video embeds with zero letterboxing.
 - **Executive Administration Suite (`/admin`)**: Analytics, booking status pipeline, calendar blocking, direct media uploads, and live website CMS with automatic ISR cache invalidation.
@@ -53,7 +53,18 @@ Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, t
   - Step 1: Event type, date, time slot, venue city, and guest count.
   - Step 2: Tiered sound & lighting package selection (Club, Wedding, Arena).
   - Step 3: SFX add-ons (Dry Ice Cloud Fog, Cold Pyro Sparkulars, DMX Truss lighting).
-  - Step 4: Customer verification, live instant quotation estimate, celebratory confetti, and one-click WhatsApp forwarding with pre-formatted event specs.
+  - Step 4: Customer verification, celebration scale / discussion preferences, celebratory confetti, and one-click WhatsApp forwarding with pre-formatted event specs.
+
+- **💬 Direct WhatsApp & Call Consultation Model**:
+  - Transparent tailored inquiries: Replaced static public price tags with direct **WhatsApp for Details** and **Call for Details** action buttons across every package card and service item.
+  - Pre-filled WhatsApp chat messages with exact package or service titles for seamless client conversion.
+
+- **🎧 Comprehensive Event Services Catalog (`/services`)**:
+  - **Royal Wedding & Baraat DJ**: Laptop setup for baraats, grand entry music for bride and groom, and regional festive hits (Sambalpuri, Chhattisgarhi, Nagpuri, Odia, Punjabi & Bollywood).
+  - **Private Party**: High-energy sound, ambient party lighting, and custom playlists for birthdays, anniversaries, and farmhouse celebrations.
+  - **College Cultural Fests**: Festival-scale line array audio, high-power multi-beam lasers, and campus crowd EDM fests.
+  - **Wedding Reception Gala**: Sophisticated dinner melodies transitioning smoothly into explosive family dance beats.
+  - **Dry Ice Low Fog & Cold Pyro Sparks**: Fairy-tale cloud entries and indoor-safe cold sparkular pyrotechnics.
 
 - **📅 Real-Time Availability Calendar (`/availability`)**:
   - Interactive monthly calendar showing **Available**, **Booked**, **Pending**, and **Blocked** dates.
@@ -105,7 +116,7 @@ Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, t
   - Automatic cache clearing for Redis and memory layers.
 
 - **📦 Package & Service Catalog Management (`/admin/packages`, `/admin/services`)**:
-  - Update pricing, duration, equipment lists, and features for all sound packages and specialized event services.
+  - Update configurations, duration, equipment lists, and features for all sound packages and specialized event services.
 
 ---
 
@@ -114,26 +125,26 @@ Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, t
 ```mermaid
 flowchart TD
     subgraph Client["Public Visitor"]
-        A[Visitor Browses Site] --> B[Audio Preview Player]
-        A --> C[Dynamic Gallery Lightbox]
-        A --> D[Real-Time Calendar]
-        A --> E[4-Step Booking Wizard]
-        E -->|Submit Booking| F[(Prisma SQLite DB)]
-        E -->|Instant Forward| G[WhatsApp API]
+        A["Visitor Browses Site"] --> B["Audio Preview Player"]
+        A --> C["Dynamic Gallery Lightbox"]
+        A --> D["Real-Time Calendar"]
+        A --> E["4-Step Booking Wizard"]
+        E -->|Submit Booking| F[("Prisma SQLite DB")]
+        E -->|Instant Forward| G["WhatsApp API"]
     end
 
     subgraph Admin["Admin Operations (/admin)"]
-        H[Admin Login] -->|JWT Auth Cookie| I[Dashboard KPIs & Analytics]
-        I --> J[Manage Bookings Pipeline]
-        I --> K[Block/Unblock Calendar Dates]
-        I --> L[Direct Media File Upload]
-        I --> M[Live Content Settings CMS]
+        H["Admin Login"] -->|JWT Auth Cookie| I["Dashboard KPIs & Analytics"]
+        I --> J["Manage Bookings Pipeline"]
+        I --> K["Block/Unblock Calendar Dates"]
+        I --> L["Direct Media File Upload"]
+        I --> M["Live Content Settings CMS"]
     end
 
     subgraph DataEngine["Data Layer & Caching"]
         M -->|Mutate Settings| F
-        M -->|Cache Eviction| N[(Redis / In-Memory Cache)]
-        M -->|Next.js ISR Invalidation| O[revalidatePath('/', 'layout')]
+        M -->|Cache Eviction| N[("Redis / In-Memory Cache")]
+        M -->|Next.js ISR Invalidation| O["revalidatePath('/', 'layout')"]
         O -->|Live Content Display| A
     end
 ```
@@ -185,7 +196,7 @@ Mantu-DJ-Booking/
 │   │   │   │   ├── calendar/  # Date blocking & scheduling view
 │   │   │   │   ├── customers/ # Customer directory
 │   │   │   │   ├── gallery/   # Direct media uploads & gallery CMS
-│   │   │   │   ├── packages/  # Package pricing & equipment manager
+│   │   │   │   ├── packages/  # Package configurations & equipment manager
 │   │   │   │   ├── services/  # Service catalog manager
 │   │   │   │   ├── settings/  # Live website copy & contact settings
 │   │   │   │   └── page.tsx   # Dashboard overview with KPIs & analytics
@@ -302,7 +313,7 @@ http://localhost:3000/admin
 | `GET` / `POST` | `/api/admin/settings`     | Retrieve or update live website settings  | Admin  |
 | `GET` / `POST` | `/api/admin/gallery`      | Retrieve or create gallery items          | Admin  |
 | `POST`         | `/api/admin/upload`       | Direct multipart photo/video media upload | Admin  |
-| `GET` / `POST` | `/api/admin/packages`     | Manage packages & pricing tiers           | Admin  |
+| `GET` / `POST` | `/api/admin/packages`     | Manage packages & equipment specs         | Admin  |
 | `GET` / `POST` | `/api/admin/services`     | Manage services & equipment catalog       | Admin  |
 | `GET` / `POST` | `/api/admin/calendar`     | Manage calendar bookings & date blocks    | Admin  |
 | `POST`         | `/api/admin/cache`        | Purge Redis / memory caches on demand     | Admin  |
