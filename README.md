@@ -399,22 +399,6 @@ http://localhost:3000/admin
 
 ---
 
-## 📍 Contact & Booking Information
-
-<div align="center">
-
-### DJ MANTU
-
-**Western Odisha's Premier Sound & Event Specialist**
-
-📍 **Headquarters**: Brajrajnagar, Jharsuguda, Odisha, Pin - 768216  
-📞 **Phone**: [+91 6372174006](tel:+916372174006)  
-💬 **WhatsApp**: [+91 6372174006](https://wa.me/916372174006)  
-🌐 **Service Areas**: Jharsuguda, Brajrajnagar, Sambalpur, Rourkela, Sundargarh, Bhubaneswar, Cuttack & across Odisha
-
-</div>
-
----
 
 ## 📄 License
 
