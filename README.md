@@ -36,7 +36,7 @@
 
 **DJ Mantu Event Booking Platform** is an enterprise-grade digital portal engineered to streamline the booking and management of weddings, grand receptions, sangeets, college festivals, corporate galas, and VIP celebrations.
 
-Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, this application marries modern glassmorphism aesthetics with mission-critical features:
+Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, this application marries modern dark-mode cyberpunk aesthetics with mission-critical features:
 
 - **Instant Client Onboarding**: 4-step wizard with consultation preferences and direct WhatsApp & Call lead generation.
 - **Real-Time Date Availability Engine**: Visual booking calendar with instant conflict prevention.
@@ -79,14 +79,12 @@ Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, t
   - **Embedded Video Player**: Smooth playback for YouTube URLs and direct uploaded MP4 videos.
   - **Hover-Based Asset Prefetching**: High-resolution assets prefetch into browser memory on thumbnail hover for instantaneous lightbox opening.
 
-- **🎵 Integrated Audio Preview Player**:
-  - Floating music player with live waveforms demonstrating DJ Mantu's signature Bollywood Dance Music (BDM), Punjabi EDM, and Commercial House sets.
-
 - **💬 Floating WhatsApp Concierge**:
   - Animated, responsive WhatsApp CTA widget allowing instant customer communication from any page on the site.
 
-- **🎨 Modern Cyberpunk / Obsidian Aesthetics**:
-  - Deep obsidian backgrounds (`#08080C`), electric violet accents, hot pink gradients, and frosted glass cards (`glass-panel`).
+- **🎨 Dark-Mode Cyberpunk / Obsidian Aesthetics**:
+  - Permanent dark theme with deep obsidian backgrounds (`#08080C`), electric violet accents, hot pink gradients, and frosted glass cards (`glass-panel`).
+  - Animated neon trust bar with live equalizer, glowing badges, and multi-color gradient text.
   - Mobile-first, fully responsive design with fluid touch navigation and smooth micro-animations.
 
 ---
@@ -124,30 +122,67 @@ Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, t
 
 ```mermaid
 flowchart TD
-    subgraph Client["Public Visitor"]
-        A["Visitor Browses Site"] --> B["Audio Preview Player"]
-        A --> C["Dynamic Gallery Lightbox"]
-        A --> D["Real-Time Calendar"]
-        A --> E["4-Step Booking Wizard"]
-        E -->|Submit Booking| F[("Prisma SQLite DB")]
-        E -->|Instant Forward| G["WhatsApp API"]
+    %% 1. Clients Layer
+    subgraph Clients["📱 Experience Layer"]
+        Visitor["🌐 Public Visitor<br/>(Mobile & Desktop Web)"]
+        Admin["👑 System Admin<br/>(/admin Control Center)"]
     end
 
-    subgraph Admin["Admin Operations (/admin)"]
-        H["Admin Login"] -->|JWT Auth Cookie| I["Dashboard KPIs & Analytics"]
-        I --> J["Manage Bookings Pipeline"]
-        I --> K["Block/Unblock Calendar Dates"]
-        I --> L["Direct Media File Upload"]
-        I --> M["Live Content Settings CMS"]
+    %% 2. Next.js Fullstack Engine
+    subgraph Engine["⚡ Next.js 16 Full-Stack Platform"]
+        Frontend["🖥️ Presentation Layer<br/>• Dynamic Hero & Neon Trust Bar<br/>• Edge-to-Edge Lightbox Gallery<br/>• 4-Step Interactive Booking Wizard"]
+        Services["🛡️ Application Services & Handlers<br/>• Booking Pipeline & Status Manager<br/>• Real-Time Date Availability Engine<br/>• Live CMS & Media Upload Dispatcher"]
+        Auth["🔐 Security & Session Guard<br/>• Jose HTTP-Only JWT Cookies<br/>• Bcrypt Password Hashing"]
+        ISR["🔄 On-Demand ISR Engine<br/>revalidatePath('/', 'layout')"]
     end
 
-    subgraph DataEngine["Data Layer & Caching"]
-        M -->|Mutate Settings| F
-        M -->|Cache Eviction| N[("Redis / In-Memory Cache")]
-        M -->|Next.js ISR Invalidation| O["revalidatePath('/', 'layout')"]
-        O -->|Live Content Display| A
+    %% 3. Storage & Persistence
+    subgraph DataTier["💾 Persistence & Caching Tier"]
+        DB[("🗄️ Prisma ORM<br/>SQLite Database")]
+        Cache[("⚡ High-Speed Cache<br/>In-Memory / Redis")]
+        Media["📁 Local Asset Store<br/>/public/uploads/"]
     end
+
+    %% 4. External Communications
+    subgraph External["🚀 External Integrations"]
+        WhatsApp["💬 WhatsApp Business API<br/>Direct Lead & Inquiry Forwarding"]
+    end
+
+    %% Clean Non-Crossing Data Flow
+    Visitor -->|1. Browse & Inquire| Frontend
+    Frontend -->|2. Submit Event Booking| Services
+    Admin -->|Authenticate| Auth
+    Auth -->|Authorize Operations| Services
+    
+    Services -->|Read / Write Data| DB
+    Services -->|Cache & Invalidate| Cache
+    Services -->|Store Media Files| Media
+    Services -->|Trigger Instant Sync| ISR
+    ISR -.->|Zero-Downtime Cache Update| Frontend
+    
+    Frontend -->|Direct Consultation| WhatsApp
+    Services -->|One-Click Inquiry Forward| WhatsApp
+
+    %% Styling for Premium Contrast
+    classDef clientStyle fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#ffffff;
+    classDef engineStyle fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#ffffff;
+    classDef dataStyle fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ffffff;
+    classDef extStyle fill:#451a03,stroke:#fb923c,stroke-width:2px,color:#ffffff;
+
+    class Visitor,Admin clientStyle;
+    class Frontend,Services,Auth,ISR engineStyle;
+    class DB,Cache,Media dataStyle;
+    class WhatsApp extStyle;
 ```
+
+### 🧩 Architectural Layer Breakdown
+
+| Layer | Primary Technologies | Key Responsibilities & Capabilities |
+| :--- | :--- | :--- |
+| **Experience Layer** | React 19, Tailwind CSS v4, Lucide | Mobile-first responsive views (`/`, `/gallery`, `/availability`, `/services`, `/book`) and high-security administrative control portal (`/admin`). |
+| **Core Application Engine** | Next.js 16 (App Router), Node.js | Edge-optimized Server Components, Route Handlers (`/api/*`), automated session validation, and on-demand ISR cache invalidation (`revalidatePath`). |
+| **Persistence & Caching** | Prisma ORM, SQLite (`dev.db`), ioredis | ACID-compliant relational storage for bookings, customers, media items, and CMS copy with sub-millisecond in-memory caching. |
+| **External Integrations** | WhatsApp Business API, Cloud CDN | High-conversion direct lead dispatch, automated pre-formatted WhatsApp chat payloads, and media streaming. |
 
 ---
 
@@ -171,57 +206,81 @@ flowchart TD
 ```
 Mantu-DJ-Booking/
 ├── prisma/
-│   ├── dev.db                 # SQLite database storage
-│   ├── schema.prisma          # Database models (Admin, Booking, Customer, Availability, Package, Service, Gallery, Settings)
-│   └── seed.ts                # Database seed script with production-ready content
+│   ├── dev.db                       # SQLite database storage
+│   ├── schema.prisma                # Database models (Admin, Booking, Customer, Availability, Package, Service, Gallery, Settings)
+│   └── seed.ts                      # Database seed script with production-ready content
 ├── public/
-│   ├── audio/                 # Audio previews & DJ mix tracks
-│   ├── images/                # Brand imagery, avatar & logos
-│   └── uploads/               # User-uploaded gallery photos & video files
+│   ├── audio/                       # Audio previews & DJ mix tracks
+│   ├── images/                      # Brand imagery, avatar & logos
+│   └── uploads/                     # User-uploaded gallery photos & video files
 ├── src/
 │   ├── app/
-│   │   ├── (public)/          # Public routes with shared navigation layout
-│   │   │   ├── about/         # Artist biography, gear specs & experience
-│   │   │   ├── availability/  # Real-time event date availability calendar
-│   │   │   ├── book/          # Interactive multi-step booking wizard
-│   │   │   ├── contact/       # Contact card, address & direct WhatsApp link
-│   │   │   ├── gallery/       # Unified visual gallery & video showcase
-│   │   │   ├── packages/      # Sound & lighting package tiers
-│   │   │   ├── services/      # Individual event services & SFX add-ons
-│   │   │   ├── layout.tsx     # Public layout (Navbar, Floating WhatsApp, Footer)
-│   │   │   └── page.tsx       # Dynamic homepage with live CMS settings
-│   │   ├── admin/             # Executive admin portal
-│   │   │   ├── (dashboard)/   # Authenticated dashboard views
-│   │   │   │   ├── bookings/  # Booking lifecycle pipeline & search
-│   │   │   │   ├── calendar/  # Date blocking & scheduling view
-│   │   │   │   ├── customers/ # Customer directory
-│   │   │   │   ├── gallery/   # Direct media uploads & gallery CMS
-│   │   │   │   ├── packages/  # Package configurations & equipment manager
-│   │   │   │   ├── services/  # Service catalog manager
-│   │   │   │   ├── settings/  # Live website copy & contact settings
-│   │   │   │   └── page.tsx   # Dashboard overview with KPIs & analytics
-│   │   │   └── login/         # Secure JWT login screen
-│   │   └── api/               # API route handlers
-│   │       ├── admin/         # Protected endpoints (bookings, calendar, gallery, packages, services, settings, upload, cache)
-│   │       ├── availability/  # Date check endpoint (/api/availability/check)
-│   │       └── bookings/      # Public booking inquiry submission
-│   ├── components/            # Reusable UI components
-│   │   ├── admin/             # Admin data tables, uploaders & modal forms
-│   │   ├── AudioPreviewPlayer # Floating music sampler with waveforms
-│   │   ├── AvailabilityChecker# Interactive date calendar
-│   │   ├── BookingWizard      # 4-step animated booking wizard
-│   │   ├── FloatingWhatsApp   # Direct conversion WhatsApp floating CTA
-│   │   ├── Footer             # High-impact footer with service area badges
-│   │   ├── GalleryLightbox    # Zero-blank-space photo & video lightbox
-│   │   ├── Navbar             # Responsive backdrop-blur navigation
-│   │   ├── PackageCard        # Tiered package cards with feature lists
-│   │   └── SocialIcons        # Social media vector links
-│   └── lib/                   # Database client, auth utilities, cache layers
-├── .env.example               # Environment variables template
-├── next.config.ts             # Next.js configuration
-├── package.json               # Dependencies & scripts
-├── README.md                  # Project documentation
-└── tsconfig.json              # TypeScript configuration
+│   │   ├── (public)/                # Public routes with shared navigation layout
+│   │   │   ├── about/               # Artist biography, gear specs & experience
+│   │   │   ├── availability/        # Real-time event date availability calendar
+│   │   │   ├── book/                # Interactive multi-step booking wizard
+│   │   │   ├── contact/             # Contact card, address & direct WhatsApp link
+│   │   │   ├── gallery/             # Unified visual gallery & video showcase
+│   │   │   ├── packages/            # Sound & lighting package tiers
+│   │   │   ├── services/            # Individual event services & SFX add-ons
+│   │   │   ├── layout.tsx           # Public layout (Navbar, Floating WhatsApp, Footer)
+│   │   │   └── page.tsx             # Dynamic homepage with live CMS settings
+│   │   ├── admin/                   # Executive admin portal
+│   │   │   ├── (dashboard)/         # Authenticated dashboard views
+│   │   │   │   ├── bookings/        # Booking lifecycle pipeline & search
+│   │   │   │   ├── calendar/        # Date blocking & scheduling view
+│   │   │   │   ├── customers/       # Customer directory
+│   │   │   │   ├── gallery/         # Direct media uploads & gallery CMS
+│   │   │   │   ├── packages/        # Package configurations & equipment manager
+│   │   │   │   ├── services/        # Service catalog manager
+│   │   │   │   ├── settings/        # Live website copy & contact settings
+│   │   │   │   └── page.tsx         # Dashboard overview with KPIs & analytics
+│   │   │   └── login/               # Secure JWT login screen
+│   │   ├── api/                     # API route handlers
+│   │   │   ├── admin/               # Protected endpoints (bookings, calendar, gallery, packages, services, settings, upload, cache)
+│   │   │   ├── availability/        # Date check endpoint (/api/availability/check)
+│   │   │   └── bookings/            # Public booking inquiry submission
+│   │   ├── favicon.ico              # Site favicon
+│   │   ├── globals.css              # Global styles, CSS variables, dark theme & animations
+│   │   ├── layout.tsx               # Root layout (fonts, metadata, dark mode init)
+│   │   ├── robots.ts                # SEO robots.txt generation
+│   │   └── sitemap.ts               # SEO sitemap generation
+│   ├── components/                  # Reusable UI components
+│   │   ├── admin/                   # Admin-specific components
+│   │   │   ├── AdminCalendarView    # Interactive calendar blocking & management
+│   │   │   ├── AdminSidebar         # Admin navigation sidebar
+│   │   │   ├── BookingManagementTable # Booking pipeline data table
+│   │   │   ├── GalleryManagementClient # Gallery upload & CMS client
+│   │   │   ├── PackageManagementClient # Sound package editor
+│   │   │   ├── ServiceManagementClient # Service catalog editor
+│   │   │   └── WebsiteSettingsClient # Live CMS settings editor
+│   │   ├── ArtistBioDisplay         # Artist biography & stats display
+│   │   ├── ArtistHeadlinerCard      # Hero artist profile card
+│   │   ├── AvailabilityChecker      # Interactive date availability calendar
+│   │   ├── BookingWizard            # 4-step animated booking wizard
+│   │   ├── FloatingWhatsApp         # Direct conversion WhatsApp floating CTA
+│   │   ├── Footer                   # High-impact footer with service area badges
+│   │   ├── GalleryLightbox          # Zero-blank-space photo & video lightbox
+│   │   ├── Navbar                   # Responsive backdrop-blur navigation
+│   │   ├── NavigationProgressBar    # Page transition progress indicator
+│   │   ├── PackageCard              # Tiered package cards with feature lists
+│   │   ├── ServiceIcons             # Custom SVG event category icons
+│   │   ├── SocialIcons              # Social media vector links
+│   │   └── SpecializedServicesGrid  # Services page grid layout
+│   └── lib/                         # Utility & infrastructure modules
+│       ├── auth.ts                  # JWT session management & middleware
+│       ├── data.ts                  # Cached data fetching (gallery, settings)
+│       ├── prisma.ts                # Prisma client singleton
+│       ├── redis.ts                 # Redis cache with in-memory fallback
+│       ├── services-data.ts         # Service catalog definitions & icon mapping
+│       └── utils.ts                 # Helper utilities (WhatsApp links, formatting)
+├── .env.example                     # Environment variables template
+├── eslint.config.mjs                # ESLint configuration
+├── next.config.ts                   # Next.js configuration
+├── package.json                     # Dependencies & scripts
+├── postcss.config.mjs               # PostCSS configuration for Tailwind
+├── README.md                        # Project documentation
+└── tsconfig.json                    # TypeScript configuration
 ```
 
 ---
@@ -261,6 +320,10 @@ DATABASE_URL="file:./dev.db"
 JWT_SECRET="dj-mantu-ultra-secure-session-key-2026-event-booking"
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
 REDIS_URL="redis://127.0.0.1:6379"
+
+# Admin Portal Authentication
+ADMIN_EMAIL="admin@djmantu.com"
+ADMIN_PASSWORD="admin123"
 ```
 
 _(Note: If Redis is not running locally, the application automatically uses an in-memory cache)._
@@ -292,12 +355,12 @@ Access the administration suite at:
 http://localhost:3000/admin
 ```
 
-### Default Credentials:
+### Admin Credentials (Configurable in `.env`):
 
-- **Email**: `admin@djmantu.com`
-- **Password**: `admin123`
+- **Email**: `admin@djmantu.com` (configured via `ADMIN_EMAIL` in `.env`)
+- **Password**: `admin123` (change anytime via `ADMIN_PASSWORD` in `.env`)
 
-> ⚠️ _Important: Remember to change the administrator password and update the `JWT_SECRET` prior to deploying to production._
+> 💡 _You can change your password anytime by updating `ADMIN_PASSWORD="your-new-password"` in `.env`. The change takes effect immediately without needing to reset or wipe the database._
 
 ---
 

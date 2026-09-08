@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { verifyPassword, createAdminSession } from '@/lib/auth';
+import { verifyPassword, hashPassword, createAdminSession, getAdminEnvCredentials } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,15 +10,57 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email and password are required.' }, { status: 400 });
     }
 
-    const admin = await prisma.admin.findUnique({
-      where: { email: email.toLowerCase().trim() },
+    const cleanEmail = email.toLowerCase().trim();
+    const envCreds = getAdminEnvCredentials();
+    const isEnvAdminEmail = cleanEmail === envCreds.email;
+
+    let admin = await prisma.admin.findUnique({
+      where: { email: cleanEmail },
     });
+
+    // If admin is not yet in database but matches configured ADMIN_EMAIL from .env
+    if (!admin && isEnvAdminEmail) {
+      const activePassword = envCreds.password || 'admin123';
+      if (password === activePassword) {
+        const passwordHash = await hashPassword(activePassword);
+        admin = await prisma.admin.create({
+          data: {
+            email: envCreds.email,
+            name: 'Mantu (DJ Mantu)',
+            passwordHash,
+            role: 'OWNER',
+          },
+        });
+      }
+    }
 
     if (!admin) {
       return NextResponse.json({ error: 'Invalid admin email or password.' }, { status: 401 });
     }
 
-    const isValid = await verifyPassword(password, admin.passwordHash);
+    // Determine password validity:
+    // 1. If ADMIN_PASSWORD is set in .env and the email matches configured admin email,
+    //    the .env password takes precedence.
+    // 2. Otherwise verify against the database bcrypt hash.
+    let isValid = false;
+
+    if (isEnvAdminEmail && envCreds.password) {
+      if (password === envCreds.password) {
+        isValid = true;
+        // Automatically sync the database password hash if it differs
+        const matchesDbHash = await verifyPassword(password, admin.passwordHash);
+        if (!matchesDbHash) {
+          const updatedHash = await hashPassword(envCreds.password);
+          await prisma.admin.update({
+            where: { id: admin.id },
+            data: { passwordHash: updatedHash },
+          });
+        }
+      }
+    } else {
+      isValid = await verifyPassword(password, admin.passwordHash);
+    }
+
     if (!isValid) {
       return NextResponse.json({ error: 'Invalid admin email or password.' }, { status: 401 });
     }
@@ -55,3 +97,4 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Internal server error during login' }, { status: 500 });
   }
 }
+

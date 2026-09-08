@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Plus, Edit, Trash2, X, Loader2 } from 'lucide-react';
-import { formatCurrency } from '@/lib/utils';
 
 export interface AdminServiceItem {
   id: string;
@@ -198,9 +197,6 @@ export default function ServiceManagementClient({ initialServices }: Props) {
                   </span>
                 </div>
                 <p className="text-xs text-zinc-400 mt-1 line-clamp-2">{s.description}</p>
-                <div className="mt-2 text-xs font-semibold text-zinc-200">
-                  Starts: {s.priceStarting ? formatCurrency(s.priceStarting) : 'Custom'}
-                </div>
               </div>
 
               <div className="pt-3 border-t border-zinc-800 flex items-center justify-end gap-2">
@@ -252,33 +248,20 @@ export default function ServiceManagementClient({ initialServices }: Props) {
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="font-semibold text-zinc-300 block mb-1">Category</label>
-                  <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-xs focus:outline-none focus:border-purple-500"
-                  >
-                    <option value="Wedding">Wedding</option>
-                    <option value="Party">Party</option>
-                    <option value="Reception">Reception</option>
-                    <option value="Sound">Sound System</option>
-                    <option value="Lighting">Lighting</option>
-                    <option value="Special Effects">Special Effects</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="font-semibold text-zinc-300 block mb-1">Starting Price (₹)</label>
-                  <input
-                    type="number"
-                    placeholder="e.g. 15000"
-                    value={formData.priceStarting}
-                    onChange={(e) => setFormData({ ...formData, priceStarting: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
-                  />
-                </div>
+              <div>
+                <label className="font-semibold text-zinc-300 block mb-1">Category</label>
+                <select
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-xs focus:outline-none focus:border-purple-500"
+                >
+                  <option value="Wedding">Wedding</option>
+                  <option value="Party">Party</option>
+                  <option value="Reception">Reception</option>
+                  <option value="Sound">Sound System</option>
+                  <option value="Lighting">Lighting</option>
+                  <option value="Special Effects">Special Effects</option>
+                </select>
               </div>
 
               <div>

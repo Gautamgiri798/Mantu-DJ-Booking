@@ -9,7 +9,6 @@ import {
   CalendarCheck,
   Users,
   Layers,
-  Package,
   Image as ImageIcon,
   Settings,
   LogOut,
@@ -30,6 +29,7 @@ export default function AdminSidebar({
   adminEmail,
   pendingCount = 0,
 }: AdminSidebarProps) {
+  const cleanAdminName = (adminName || '').replace(/\bKumar\b\s*/gi, '').trim() || 'DJ Mantu';
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -45,7 +45,6 @@ export default function AdminSidebar({
     { href: '/admin/calendar', label: 'Calendar', icon: CalendarDays },
     { href: '/admin/customers', label: 'Customers', icon: Users },
     { href: '/admin/services', label: 'Services', icon: Layers },
-    { href: '/admin/packages', label: 'Packages', icon: Package },
     { href: '/admin/gallery', label: 'Gallery', icon: ImageIcon },
     { href: '/admin/settings', label: 'Website Settings', icon: Settings },
   ];
@@ -129,7 +128,7 @@ export default function AdminSidebar({
       {/* User Info & Logout */}
       <div className="pt-4 border-t border-zinc-800 space-y-3">
         <div className="px-2">
-          <p className="text-xs font-bold text-white truncate">{adminName}</p>
+          <p className="text-xs font-bold text-white truncate">{cleanAdminName}</p>
           <p className="text-[11px] text-zinc-500 truncate">{adminEmail}</p>
         </div>
 

@@ -1,17 +1,13 @@
 import React from 'react';
-import prisma from '@/lib/prisma';
 import BookingWizard from '@/components/BookingWizard';
 import { PackageData } from '@/components/PackageCard';
-import { getWebsiteSettingsMap } from '@/lib/data';
+import { getWebsiteSettingsMap, getCachedPackages } from '@/lib/data';
 
-export const revalidate = 10;
+export const revalidate = 60;
 
 export default async function BookPage() {
   const [packages, settingsMap] = await Promise.all([
-    prisma.package.findMany({
-      where: { isActive: true },
-      orderBy: { order: 'asc' },
-    }),
+    getCachedPackages(),
     getWebsiteSettingsMap(),
   ]);
 

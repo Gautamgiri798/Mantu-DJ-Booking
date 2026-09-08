@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'DJ Mantu | Premier Wedding, Reception & Event DJ in Rourkela',
   description:
-    'Turn every moment into an unforgettable memory. High-energy live DJ sets, arena sound systems, intelligent beam lighting, and dry ice low fog for Weddings, Receptions & Parties in Rourkela and Eastern India.',
+    'Turn every moment into an unforgettable memory. High-energy live DJ sets, arena sound systems, intelligent beam lighting, and dry ice low fog for Weddings, Receptions & Parties in Rourkela and Western Odisha.',
   keywords: [
     'DJ in Rourkela',
     'Wedding DJ in Rourkela',
@@ -86,14 +86,20 @@ export default function RootLayout({
                 closes: '23:00',
               },
               sameAs: [
-                'https://instagram.com/djmantu_official',
+                'https://www.instagram.com/awaraboy458/',
                 'https://youtube.com/@djmantu',
               ],
             }),
           }}
         />
+        {/* Reset any local theme override */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{localStorage.removeItem('theme');document.documentElement.classList.remove('light');document.documentElement.classList.add('dark');}catch(e){}`,
+          }}
+        />
       </head>
-      <body className="bg-[#08080C] text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-purple-600 selection:text-white" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col antialiased selection:bg-purple-600 selection:text-white transition-colors duration-300" suppressHydrationWarning>
         {children}
       </body>
     </html>

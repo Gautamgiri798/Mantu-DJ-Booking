@@ -7,18 +7,20 @@ async function main() {
   console.log('Seeding DJ Mantu database...');
 
   // 1. Admin Account
-  const passwordHash = await bcrypt.hash('admin123', 10);
+  const adminEmail = (process.env.ADMIN_EMAIL || 'admin@djmantu.com').toLowerCase().trim();
+  const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+  const passwordHash = await bcrypt.hash(adminPassword, 10);
   await prisma.admin.upsert({
-    where: { email: 'admin@djmantu.com' },
-    update: { passwordHash },
+    where: { email: adminEmail },
+    update: { passwordHash, name: 'Mantu (DJ Mantu)' },
     create: {
-      email: 'admin@djmantu.com',
-      name: 'Mantu Kumar (DJ Mantu)',
+      email: adminEmail,
+      name: 'Mantu (DJ Mantu)',
       passwordHash,
       role: 'OWNER',
     },
   });
-  console.log('Admin account ready: admin@djmantu.com / admin123');
+  console.log(`Admin account ready: ${adminEmail} (password configured via .env)`);
 
   // 2. Website Settings
   const settings = [
@@ -35,17 +37,17 @@ async function main() {
     { key: 'address', value: 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216' },
     {
       key: 'service_areas',
-      value: 'Jharsuguda, Brajrajnagar, Sambalpur, Rourkela, Sundargarh, Bhubaneswar, Cuttack & across Odisha / Western India',
+      value: 'Jharsuguda, Brajrajnagar, Sambalpur, Rourkela, Sundargarh, Bhubaneswar, Cuttack & across Western Odisha and entire Odisha',
     },
     { key: 'experience_years', value: '10+' },
     { key: 'events_completed', value: '650+' },
     { key: 'happy_clients', value: '1,200+' },
-    { key: 'instagram', value: 'https://instagram.com/djmantu_official' },
+    { key: 'instagram', value: 'https://www.instagram.com/awaraboy458/' },
     { key: 'youtube', value: 'https://youtube.com/@djmantu' },
     {
       key: 'about_bio',
       value:
-        'With over a decade of dominating festival stages, luxury destination weddings, and club dancefloors, DJ Mantu is recognized as one of Eastern India’s premier open-format DJs. Specializing in high-energy Bollywood Dance Music (BDM), Punjabi EDM, Commercial House, and nostalgic retro transitions, Mantu delivers an unmatched acoustic experience that keeps guests dancing until the early morning.',
+        'With over a decade of dominating festival stages, luxury destination weddings, and club dancefloors, DJ Mantu is recognized as one of Western Odisha’s premier open-format DJs. Specializing in high-energy Bollywood Dance Music (BDM), signature Sambalpuri beats, Commercial House, and dynamic retro transitions, Mantu delivers an unmatched acoustic experience that keeps guests dancing until the early morning.',
     },
     { key: 'booking_notice', value: 'Advance booking recommended 3-4 weeks prior during wedding seasons.' },
   ];
@@ -58,117 +60,252 @@ async function main() {
     });
   }
 
-  // 3. Services
+  // 3. Services (All 14 Specialized Services)
+  await prisma.service.deleteMany({});
   const services = [
     {
-      title: 'Party & Club DJ',
-      slug: 'party-club-dj',
+      title: 'Party DJ',
+      slug: 'party-dj',
       category: 'Party',
       description:
-        'High-energy sets packed with Punjabi club hits, Bollywood commercial dance numbers, EDM, and hip-hop to set private parties, birthdays, and anniversaries on fire.',
+        'High-voltage live beatmixing engineered for house parties, poolside bashes, rooftop jams, and private celebrations.',
       priceStarting: 15000,
       features: JSON.stringify([
-        'Customized curated playlist matching guest vibe',
-        'Pioneer DJ console & high-definition audio gear',
-        'Live remixing & seamless transitions',
-        'Direct crowd engagement and hype microphone work',
+        'Live Seamless Beatmixing',
+        'Curated High-Energy Playlists',
+        'Club-Grade Punchy Bass',
+        'Synchronized Dance Lights',
       ]),
       iconName: 'Disc',
       imageUrl: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80',
       order: 1,
     },
     {
-      title: 'Royal Wedding & Baraat DJ',
-      slug: 'royal-wedding-baraat',
+      title: 'Reception / Wedding DJ',
+      slug: 'reception-wedding-dj',
       category: 'Wedding',
       description:
-        'Complete high-decibel mobile baraat sound truck, traditional dhol-synth fusion, romantic bridal entry cues, and energetic sangeet night party beats.',
-      priceStarting: 35000,
+        'Grand entry sound cues, warm background music during dinner, followed by an explosive celebration for family and friends.',
+      priceStarting: 25000,
       features: JSON.stringify([
-        'Laptop setup for high-energy Baraat procession',
-        'Grand entry music for bride and groom',
-        'Sangeet and cocktail party dancefloor programming',
-        'Bollywood, Sambalpuri, Chhattisgarhi, Nagpuri, Punjabi, and Odia festive hits',
+        'Grand Couple Entry Cues',
+        'Cinematic Low Fog Cloud FX',
+        'Family & Youth Dance Fusion',
+        'Crystal-Clear Speech Audio',
       ]),
       iconName: 'HeartHandshake',
-      imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80',
+      imageUrl: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=80',
       order: 2,
     },
     {
-      title: 'Wedding Reception Gala',
-      slug: 'wedding-reception-gala',
-      category: 'Reception',
+      title: 'Birthday DJ',
+      slug: 'birthday-dj',
+      category: 'Birthday',
       description:
-        'Sophisticated background dinner melodies transitioning smoothly into an explosive family dance party where all generations dance together.',
-      priceStarting: 25000,
+        'From sweet sixteens to 50th golden jubilees, music and lighting calibrated with hype MCing and crowd favorites.',
+      priceStarting: 15000,
       features: JSON.stringify([
-        'Warm ambient entry music followed by high-tempo dance beats',
-        'Multi-generational music (90s retro to newest chartbusters)',
-        'Wireless Shure microphones for family toasts & speeches',
-        'Coordinated light synchronization with first dances',
+        'Cake-Cutting Fanfares',
+        'Age-Matched Curated Tracks',
+        'Interactive Crowd MCing',
+        'Vibrant Laser & LED Strobes',
       ]),
-      iconName: 'Sparkles',
-      imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80',
+      iconName: 'Flame',
+      imageUrl: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1000&q=80',
       order: 3,
     },
     {
-      title: 'Private Party',
-      slug: 'private-party',
-      category: 'Party',
+      title: 'College / Farewell DJ',
+      slug: 'college-farewell-dj',
+      category: 'College',
       description:
-        'High-energy live sound, ambient party lighting, and curated Bollywood, Punjabi, and EDM tracks custom-tailored for birthdays, anniversaries, farmhouse bashes, and private celebrations.',
-      priceStarting: 20000,
+        'Full festival-grade sonic production for college annual fests, freshers socials, and emotional graduation farewells.',
+      priceStarting: 25000,
       features: JSON.stringify([
-        'Customized high-energy party playlist matching guest vibe',
-        'High-output JBL sound system with deep punchy bass',
-        'Intelligent LED wash & dynamic party beam lights',
-        'Cordless wireless microphones for crowd games & announcements',
+        'Arena Sub-Bass Punch',
+        'Festival EDM & Desi Bass Drops',
+        'Atmospheric Smoke & Haze FX',
+        'Non-Stop High BPM Set',
       ]),
-      iconName: 'Flame',
-      imageUrl: '/images/private-party.jpg',
+      iconName: 'GraduationCap',
+      imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80',
       order: 4,
     },
     {
-      title: 'College Cultural Fests',
-      slug: 'college-cultural-fests',
-      category: 'College',
+      title: 'Club / Night Party DJ',
+      slug: 'club-night-party-dj',
+      category: 'Club',
       description:
-        'High-voltage EDM festival audio, campus open-air crowd hype, cutting-edge laser shows, and youth-centric chartbusters for university fests and annual celebrations.',
-      priceStarting: 25000,
+        'Seamless harmonic transitions, underground techno rhythms, and prime-time commercial anthems crafted for nightlife venues.',
+      priceStarting: 20000,
       features: JSON.stringify([
-        'Festival-scale Line Array concert sound system',
-        'Massive bass subwoofers tuned for large campus crowds',
-        'High-power multi-beam lasers & computerized stage strobe effects',
-        'Youth-anthem playlist featuring Bollywood EDM, Punjabi pop & Commercial hits',
+        'Seamless Harmonic Mixing',
+        'Tech House & Commercial Hits',
+        'Pioneer Nexus Pro Console Setup',
+        'Dynamic Sound Modulation',
       ]),
-      iconName: 'Zap',
-      imageUrl: '/images/college-cultural-fest.jpg',
+      iconName: 'Disc',
+      imageUrl: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80',
       order: 5,
     },
     {
-      title: 'Dry Ice Low Fog & Cold Pyro Sparks',
-      slug: 'atmospheric-effects',
-      category: 'Special Effects',
+      title: 'Baraat DJ',
+      slug: 'baraat-dj',
+      category: 'Baraat',
       description:
-        'Breathtaking cloud-like low fog hugging the dance floor for royal bridal/groom entries, paired with smokeless indoor-safe cold sparkular fireworks.',
-      priceStarting: 10000,
+        'Mobile vehicle sound systems, wireless consoles, and non-stop energetic Sambalpuri & Bollywood tracks keeping the groom’s procession dancing.',
+      priceStarting: 30000,
       features: JSON.stringify([
-        'Genuine dry ice machine producing floor-hugging pure white cloud',
-        'Cold pyro sparkular fountains (100% safe for indoor ballrooms)',
-        'CO2 cryo jet blast cannons for peak song drops',
-        'No burning smell, non-toxic, and event-venue approved',
+        'Mobile Vehicle Sound Rig',
+        'Chest-Thumping Subwoofers',
+        'Wireless Microphones & Mixers',
+        'High-Intensity Street Strobes',
+      ]),
+      iconName: 'Volume2',
+      imageUrl: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80',
+      order: 6,
+    },
+    {
+      title: 'Sangeet DJ',
+      slug: 'sangeet-dj',
+      category: 'Wedding',
+      description:
+        'Specialized music programming for choreographies, family dance face-offs, energetic Sambalpuri beats, and late-night afterparty.',
+      priceStarting: 25000,
+      features: JSON.stringify([
+        'Choreography Rehearsal Support',
+        'Bespoke Family Entry Cuts',
+        'High-Octane Dhol Beats',
+        'Seamless Dancefloor Transitions',
+      ]),
+      iconName: 'Sparkles',
+      imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80',
+      order: 7,
+    },
+    {
+      title: 'Wedding DJ',
+      slug: 'wedding-dj',
+      category: 'Wedding',
+      description:
+        'From sacred phere ambient soundscapes to energetic dinner celebrations, full multi-ceremony audio coverage.',
+      priceStarting: 30000,
+      features: JSON.stringify([
+        'Mandap & Phere Sacred Chants',
+        'Royal Varmala Entry Music',
+        'Intelligent Dynamic Lighting',
+        'Dedicated Sound Technician',
+      ]),
+      iconName: 'HeartHandshake',
+      imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80',
+      order: 8,
+    },
+    {
+      title: 'Anniversary DJ',
+      slug: 'anniversary-dj',
+      category: 'Party',
+      description:
+        'Romantic couple spotlights, golden-era retro classics, 90s/2000s Bollywood nostalgic tracks, and lively family dance music.',
+      priceStarting: 15000,
+      features: JSON.stringify([
+        'Golden Era & Retro Bollywood',
+        'Romantic Slow Dance Cues',
+        'Custom Slide-Show Music Curation',
+        'Warm Acoustic Balancing',
+      ]),
+      iconName: 'Heart',
+      imageUrl: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=80',
+      order: 9,
+    },
+    {
+      title: 'Private Party DJ',
+      slug: 'private-party-dj',
+      category: 'Party',
+      description:
+        'Compact yet devastatingly punchy Pioneer setups for private villas, farmhouses, terrace lounges, and VIP intimate gatherings.',
+      priceStarting: 18000,
+      features: JSON.stringify([
+        'Compact High-Punch Sound',
+        'Vibrant Mood & Uplighting',
+        'Exclusive Bespoke Playlist',
+        'Low-Key Compact Footprint',
       ]),
       iconName: 'Flame',
-      imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80',
-      order: 6,
+      imageUrl: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=80',
+      order: 10,
+    },
+    {
+      title: 'Festival / Cultural Event DJ',
+      slug: 'festival-cultural-event-dj',
+      category: 'Festival',
+      description:
+        'Large-scale sound staging for Dandiya/Garba nights, Holi color fests, Durga Puja celebrations, and cultural carnivals.',
+      priceStarting: 35000,
+      features: JSON.stringify([
+        'Heavy Touring Line Arrays',
+        'Traditional & Synth Fusion',
+        'Multi-Thousand Crowd Coverage',
+        'High-Output Subwoofers',
+      ]),
+      iconName: 'Sparkles',
+      imageUrl: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80',
+      order: 11,
+    },
+    {
+      title: 'DJ + Live Performer',
+      slug: 'dj-live-performer',
+      category: 'Live',
+      description:
+        'Electrifying hybrid showcase pairing DJ Mantu with live dhol players, saxophonists, percussionists, or vocalists.',
+      priceStarting: 35000,
+      features: JSON.stringify([
+        'Live Dhol & Percussion Sync',
+        'Live Instrument Sound Mixing',
+        'Interactive Stage Showmanship',
+        'Unmatched Visual & Audio Energy',
+      ]),
+      iconName: 'Mic',
+      imageUrl: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1000&q=80',
+      order: 12,
+    },
+    {
+      title: 'DJ + Sound & Lighting',
+      slug: 'dj-sound-lighting',
+      category: 'Production',
+      description:
+        'Turnkey arena production: touring line arrays, computerized beam moving heads, LED walls, aluminum trussing, and atmospheric FX.',
+      priceStarting: 45000,
+      features: JSON.stringify([
+        'Touring-Grade Truss Staging',
+        'Moving Head Beam Lights',
+        'Concert Audio Engineering',
+        'Low Fog & Cold Pyro Sparks',
+      ]),
+      iconName: 'Sliders',
+      imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80',
+      order: 13,
+    },
+    {
+      title: 'Corporate Event DJ',
+      slug: 'corporate-event-dj',
+      category: 'Corporate',
+      description:
+        'Sophisticated ambient cocktail jazz and dinner lounge beats transitioning into a high-octane corporate annual gala party.',
+      priceStarting: 25000,
+      features: JSON.stringify([
+        'Podium & Speech Clarity Audio',
+        'Lounge Cocktail Background Sets',
+        'High-Energy Team Dancefloor',
+        'Zero-Feedback Wireless Mics',
+      ]),
+      iconName: 'Briefcase',
+      imageUrl: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=80',
+      order: 14,
     },
   ];
 
   for (const s of services) {
-    await prisma.service.upsert({
-      where: { slug: s.slug },
-      update: s,
-      create: s,
+    await prisma.service.create({
+      data: s,
     });
   }
 

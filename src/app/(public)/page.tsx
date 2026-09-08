@@ -8,44 +8,43 @@ import {
   CalendarCheck,
   Star,
   ShieldCheck,
-  Music4,
-  Flame,
   CheckCircle,
   MapPin,
-  HeartHandshake,
-  Users,
-  Volume2,
-  Zap,
-  Sliders,
   Phone,
 } from 'lucide-react';
+import {
+  RoyalWeddingIcon,
+  WeddingRingsIcon,
+  BirthdayCakeIcon,
+  GraduationCapIcon,
+  BaraatProcessionIcon,
+  AnniversaryMilestoneIcon,
+} from '@/components/ServiceIcons';
 import AvailabilityChecker from '@/components/AvailabilityChecker';
 import GalleryLightbox from '@/components/GalleryLightbox';
-import PackageCard from '@/components/PackageCard';
 import { createWhatsAppLink } from '@/lib/utils';
 import {
   getWebsiteSettingsMap,
-  getCachedServices,
-  getCachedPackages,
   getCachedGallery,
 } from '@/lib/data';
 import { WhatsAppIcon } from '@/components/SocialIcons';
+import { SPECIALIZED_SERVICES, SERVICE_ICONS } from '@/lib/services-data';
 
 export const revalidate = 60;
 
 export default async function HomePage() {
   // Fetch cached dynamic content (Redis with in-memory fallback)
-  const [services, packages, galleryItems, settingsMap] = await Promise.all([
-    getCachedServices(6),
-    getCachedPackages(4),
+  const [galleryItems, settingsMap] = await Promise.all([
     getCachedGallery(9),
     getWebsiteSettingsMap(),
   ]);
 
+  const featuredServices = SPECIALIZED_SERVICES.slice(0, 6);
+
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
   const tagline = settingsMap['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
   const heroTitle = settingsMap['hero_title'] || 'Turn Every Moment Into An Unforgettable Memory';
-  const heroSubtitle = settingsMap['hero_subtitle'] || 'Concert sound engineering, intelligent moving beam lights, and cinematic dry ice low fog tailored for Weddings, Sangeets & Mega Events in Rourkela and across Eastern India.';
+  const heroSubtitle = settingsMap['hero_subtitle'] || 'Concert sound engineering, intelligent moving beam lights, and cinematic dry ice low fog tailored for Weddings, Sangeets & Mega Events in Rourkela and across Western Odisha.';
   const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
   const phone = settingsMap['phone'] || '+91 6372174006';
   const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
@@ -56,12 +55,54 @@ export default async function HomePage() {
   );
 
   const eventCategories = [
-    { name: 'Royal Weddings', tag: 'Baraat & Phere', icon: HeartHandshake, color: 'from-pink-500/20 to-purple-500/20' },
-    { name: 'Receptions & Sangeet', tag: 'Grand Couple Entry', icon: Sparkles, color: 'from-purple-500/20 to-indigo-500/20' },
-    { name: 'Birthday & Private Bashes', tag: 'Club Night Vibe', icon: Flame, color: 'from-amber-500/20 to-rose-500/20' },
-    { name: 'College Festivals', tag: 'Open Air Rave', icon: Music4, color: 'from-cyan-500/20 to-blue-500/20' },
-    { name: 'Corporate Galas', tag: 'Dinner & Dance', icon: Users, color: 'from-emerald-500/20 to-teal-500/20' },
-    { name: 'Anniversary Parties', tag: 'Retro to Modern', icon: Disc3, color: 'from-violet-500/20 to-pink-500/20' },
+    {
+      name: 'Royal Weddings',
+      tag: 'Baraat & Phere',
+      desc: 'Bespoke bridal entry soundtracks, ceremonial acoustic clarity, and high-energy baraat dance sets.',
+      highlights: ['Bridal Entry Sync', 'Mandap Acoustics', 'Dry Ice Low Fog'],
+      icon: RoyalWeddingIcon,
+      slug: 'wedding',
+    },
+    {
+      name: 'Receptions & Sangeet',
+      tag: 'Grand Couple Entry',
+      desc: 'Precision choreography audio sync, ladkiwale vs ladkewale battles, and late-night afterparty mixes.',
+      highlights: ['Choreography Cues', 'Family Dance Battles', 'Stage Beams'],
+      icon: WeddingRingsIcon,
+      slug: 'wedding',
+    },
+    {
+      name: 'Birthday & Private Bashes',
+      tag: 'Club Night Vibe',
+      desc: 'Thumping bass, dynamic moving heads, and trending multi-genre tracks tailored for your crew.',
+      highlights: ['Club Sound Rig', 'Bass Boost', 'Laser Strobe FX'],
+      icon: BirthdayCakeIcon,
+      slug: 'party',
+    },
+    {
+      name: 'College Festivals',
+      tag: 'Open Air Rave',
+      desc: 'Arena-grade line array trussing, festival-style drops, Sambalpuri EDM, and electrifying crowd energy.',
+      highlights: ['Line Array Power', 'Sambalpuri EDM', 'CO2 Jet Blast'],
+      icon: GraduationCapIcon,
+      slug: 'college',
+    },
+    {
+      name: 'Baraat & Roadshows',
+      tag: 'High-Decibel Mobile Sound',
+      desc: 'Heavy-duty mobile sound truck, wireless roaming console, and thunderous non-stop procession rhythms.',
+      highlights: ['Mobile Vehicle Rig', 'Wireless Console', 'Street Strobes'],
+      icon: BaraatProcessionIcon,
+      slug: 'baraat-dj',
+    },
+    {
+      name: 'Anniversary Parties',
+      tag: 'Retro to Modern',
+      desc: 'Sophisticated acoustics blending timeless golden oldies with modern Bollywood and dancefloor classics.',
+      highlights: ['Golden Era Hits', 'Ambient Warmth', 'Speech Audio'],
+      icon: AnniversaryMilestoneIcon,
+      slug: 'party',
+    },
   ];
 
   return (
@@ -147,64 +188,64 @@ export default async function HomePage() {
             </a>
           </div>
 
-          {/* Unified Floating VIP Credential Console */}
+          {/* Trust & Credentials Neon Bar */}
           <div className="relative pt-6 flex items-center justify-center w-full">
-            {/* Ambient Multi-Hue Stage Backlight */}
-            <div className="absolute inset-0 max-w-3xl mx-auto h-14 bg-gradient-to-r from-cyan-500/20 via-purple-600/25 to-pink-600/20 blur-2xl rounded-full pointer-events-none" />
+            {/* Multi-color Ambient Underglow */}
+            <div className="absolute inset-0 max-w-3xl mx-auto h-16 bg-gradient-to-r from-purple-600/15 via-pink-600/10 to-cyan-600/15 blur-3xl rounded-full pointer-events-none" />
 
-            {/* Glowing Border Wrap */}
-            <div className="relative z-10 p-[1px] rounded-2xl sm:rounded-full bg-gradient-to-r from-cyan-500/30 via-purple-500/30 to-pink-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.85)] w-full max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex items-center justify-center gap-2 sm:gap-1 divide-y sm:divide-y-0 sm:divide-x divide-white/10 rounded-2xl sm:rounded-full bg-zinc-950/90 backdrop-blur-2xl px-3 sm:px-6 py-2.5 text-xs text-zinc-300">
-                {/* 1. Location & Tour Radar */}
-                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-1.5">
-                  <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400" />
+            {/* Neon Glassmorphic Capsule */}
+            <div className="relative z-10 w-full max-w-4xl mx-auto rounded-2xl sm:rounded-full bg-zinc-950/80 border border-purple-500/20 shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_60px_rgba(147,51,234,0.08),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl">
+              <div className="grid grid-cols-2 lg:flex items-center justify-between p-2 sm:px-5 sm:py-3 text-xs gap-1">
+                {/* 1. Location with Live Indicator */}
+                <div className="flex items-center gap-2 px-3 py-2 justify-center lg:justify-start">
+                  <span className="flex h-2 w-2 relative shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
                   </span>
-                  <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span className="font-semibold text-white tracking-wide">
+                  <MapPin className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                  <span className="font-bold text-white tracking-wide">
                     {address.split(',')[0] || 'Jharsuguda'}
                   </span>
-                  <span className="text-zinc-400 font-medium">· Pan-Odisha</span>
+                  <span className="text-zinc-400 font-medium text-[11px]">· Pan-Odisha</span>
                 </div>
 
-                {/* 2. Rating & Stars */}
-                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-1.5">
+                {/* 2. Star Rating with Yellow Stars */}
+                <div className="flex items-center gap-2 px-3 py-2 justify-center lg:justify-start">
                   <div className="flex items-center gap-0.5">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <span className="font-extrabold text-amber-300 text-[11px] px-2 py-0.5 rounded-full bg-amber-400/15 border border-amber-400/40 shadow-[0_0_10px_rgba(251,191,36,0.3)]">
-                    4.9 / 5
-                  </span>
-                  <span className="text-zinc-300 font-medium">150+ Reviews</span>
+                  <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400">4.9</span>
+                  <span className="text-zinc-500 font-bold text-[11px]">/5</span>
                 </div>
 
-                {/* 3. Stage Experience */}
-                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 sm:px-4 py-1.5">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-400/40 text-purple-300 font-black text-[11px] shadow-[0_0_12px_rgba(168,85,247,0.3)]">
-                    <ShieldCheck className="w-3 h-3 text-purple-300" />
-                    <span>10+ Years</span>
-                  </span>
-                  <span className="text-zinc-300 font-medium">650+ Events</span>
-                </div>
-
-                {/* 4. Live Equalizer Concert Acoustics */}
-                <div className="flex items-center justify-center sm:justify-start gap-2.5 px-3 sm:px-4 py-1.5">
-                  {/* Live Animated Equalizer */}
-                  <div className="flex items-end gap-[3px] h-3.5 px-1 py-0.5 shrink-0">
-                    <span className="w-1 bg-pink-400 rounded-full animate-mini-eq-1 shadow-[0_0_6px_rgba(244,114,182,0.8)]" />
-                    <span className="w-1 bg-fuchsia-400 rounded-full animate-mini-eq-2 shadow-[0_0_6px_rgba(217,70,239,0.8)]" />
-                    <span className="w-1 bg-purple-400 rounded-full animate-mini-eq-3 shadow-[0_0_6px_rgba(168,85,247,0.8)]" />
-                    <span className="w-1 bg-pink-400 rounded-full animate-mini-eq-4 shadow-[0_0_6px_rgba(244,114,182,0.8)]" />
-                    <span className="w-1 bg-rose-400 rounded-full animate-mini-eq-5 shadow-[0_0_6px_rgba(251,113,133,0.8)]" />
+                {/* 3. Experience with Glowing Badge */}
+                <div className="flex items-center gap-2 px-3 py-2 justify-center lg:justify-start">
+                  <div className="w-7 h-7 rounded-full bg-purple-500/15 border border-purple-500/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
                   </div>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-pink-500/15 border border-pink-400/40 text-pink-300 font-black text-[11px] shadow-[0_0_10px_rgba(236,72,153,0.3)]">
-                    <Volume2 className="w-3 h-3 text-pink-300" />
-                    <span>JBL & Pioneer</span>
+                  <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-cyan-300">10+ Years</span>
+                  <span className="text-zinc-400 font-medium text-[11px]">650+ Events</span>
+                </div>
+
+                {/* 4. Live Animated Equalizer & Touring Badge */}
+                <div className="flex items-center gap-2.5 px-3 py-2 justify-center lg:justify-start">
+                  {/* Animated Equalizer Bars */}
+                  <div className="flex items-end gap-[2px] h-5">
+                    <span className="w-[3px] bg-gradient-to-t from-pink-500 to-fuchsia-400 rounded-full animate-[equalize_0.8s_ease-in-out_infinite_alternate]" style={{ height: '60%' }} />
+                    <span className="w-[3px] bg-gradient-to-t from-pink-500 to-fuchsia-400 rounded-full animate-[equalize_0.6s_ease-in-out_infinite_alternate_0.2s]" style={{ height: '100%' }} />
+                    <span className="w-[3px] bg-gradient-to-t from-pink-500 to-fuchsia-400 rounded-full animate-[equalize_0.7s_ease-in-out_infinite_alternate_0.4s]" style={{ height: '40%' }} />
+                    <span className="w-[3px] bg-gradient-to-t from-pink-500 to-fuchsia-400 rounded-full animate-[equalize_0.9s_ease-in-out_infinite_alternate_0.1s]" style={{ height: '80%' }} />
+                    <span className="w-[3px] bg-gradient-to-t from-pink-500 to-fuchsia-400 rounded-full animate-[equalize_0.5s_ease-in-out_infinite_alternate_0.3s]" style={{ height: '55%' }} />
+                  </div>
+
+                  {/* Touring & Pioneer Neon Badge */}
+                  <span className="px-3 py-1 rounded-full bg-pink-500/15 border border-pink-500/40 text-[11px] font-bold text-pink-300 shadow-[0_0_15px_rgba(236,72,153,0.25)] tracking-wide">
+                    Touring & Pioneer
                   </span>
-                  <span className="text-zinc-400 font-medium hidden sm:inline">Acoustics</span>
+
+                  <span className="text-zinc-400 font-medium text-[11px]">Acoustics</span>
                 </div>
               </div>
             </div>
@@ -212,7 +253,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 2. REAL-TIME AVAILABILITY CHECKER WIDGET */}
       {/* 2. REAL-TIME AVAILABILITY CHECKER WIDGET */}
       <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Subtle Ambient Section Glow */}
@@ -247,34 +287,67 @@ export default async function HomePage() {
 
       {/* 3. EVENT CATEGORIES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-3 mb-12">
-          <span className="text-xs uppercase font-extrabold tracking-widest text-purple-400">
-            Every Occasion Covered
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white">
-            Tailored Experiences For Every Celebration
+        <div className="text-center space-y-3 mb-12 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+            <span>Every Occasion Covered</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-heading">
+            Tailored Experiences For{' '}
+            <span className="bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
+              Every Celebration
+            </span>
           </h2>
-          <p className="text-sm text-zinc-400 max-w-xl mx-auto">
-            From high-voltage wedding baraats to corporate galas, sound and music are programmed specifically for your crowd.
+          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+            From high-voltage wedding baraats and sangeet showdowns to college festivals and private bashes, sound and music are engineered specifically for your crowd.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {eventCategories.map((cat, idx) => {
             const Icon = cat.icon;
             return (
               <Link
                 key={idx}
-                href={`/services#${cat.name.toLowerCase().replace(/[^a-z0-9]/g, '')}`}
-                className="group relative rounded-2xl sm:rounded-3xl glass-panel p-5 sm:p-7 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/40"
+                href={`/services#${cat.slug}`}
+                className="group relative rounded-2xl sm:rounded-3xl bg-zinc-950/70 border border-white/[0.08] hover:border-purple-500/40 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/20 shadow-black/40 overflow-hidden"
               >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${cat.color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}>
-                  <Icon className="w-6 h-6 text-purple-300" />
+                {/* Subtle Ambient Hover Glow */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/5 rounded-full blur-2xl group-hover:bg-purple-600/10 transition-all duration-500 pointer-events-none" />
+
+                <div className="space-y-4 relative z-10">
+                  {/* Top Header Row: Icon & Tag Badge */}
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:bg-purple-500/15 group-hover:border-purple-500/40 group-hover:text-purple-300 shadow-sm">
+                      <Icon className="w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-colors" />
+                    </div>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[10.5px] font-semibold uppercase tracking-wider text-zinc-400 group-hover:text-zinc-200 group-hover:border-white/15 transition-colors">
+                      {cat.tag}
+                    </span>
+                  </div>
+
+                  {/* Title & Description */}
+                  <div className="space-y-1.5 pt-1">
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-300 transition-colors tracking-tight font-heading">
+                      {cat.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                      {cat.desc}
+                    </p>
+                  </div>
+
+                  {/* Feature Highlights Pills */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {cat.highlights.map((pill, pIdx) => (
+                      <span
+                        key={pIdx}
+                        className="inline-flex items-center text-[10.5px] font-medium px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-zinc-400 group-hover:text-zinc-300 group-hover:border-white/10 transition-colors"
+                      >
+                        {pill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-pink-400 transition-colors">
-                  {cat.name}
-                </h3>
-                <p className="text-xs text-zinc-400 mt-1">{cat.tag}</p>
               </Link>
             );
           })}
@@ -294,21 +367,16 @@ export default async function HomePage() {
           </div>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-400 hover:text-purple-300"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-400 hover:text-purple-300 group transition-colors"
           >
-            <span>View All Services</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>View All Services (14 Categories)</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => {
-            let features: string[] = [];
-            try {
-              features = JSON.parse(service.features);
-            } catch {
-              features = [];
-            }
+          {featuredServices.map((service) => {
+            const Icon = SERVICE_ICONS[service.id];
 
             return (
               <div
@@ -328,20 +396,36 @@ export default async function HomePage() {
                     <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-zinc-900/80 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-purple-300 border border-purple-500/30 z-20">
                       {service.category}
                     </span>
+                    {Icon && (
+                      <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-zinc-900/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-purple-300 z-20">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                    )}
                   </div>
                 )}
 
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-pink-300 transition-colors">
-                      {service.title}
-                    </h3>
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-xl font-bold text-white group-hover:text-pink-300 transition-colors">
+                        {service.title}
+                      </h3>
+                      {service.popular && (
+                        <span className="px-2 py-0.5 rounded-full bg-pink-500/15 border border-pink-500/30 text-[10px] font-bold text-pink-300 uppercase tracking-wider shrink-0">
+                          Popular
+                        </span>
+                      )}
+                    </div>
+
                     <p className="text-xs text-zinc-400 mt-2 line-clamp-3 leading-relaxed">
                       {service.description}
                     </p>
 
                     <div className="mt-4 space-y-1.5">
-                      {features.slice(0, 3).map((f, i) => (
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-500 block">
+                        What&apos;s Included:
+                      </span>
+                      {service.features.slice(0, 3).map((f, i) => (
                         <div key={i} className="flex items-center gap-2 text-xs text-zinc-300">
                           <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                           <span className="line-clamp-1">{f}</span>
@@ -366,7 +450,7 @@ export default async function HomePage() {
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1 shadow-md shadow-emerald-950/30 transition-all"
+                        className="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1.5 shadow-md shadow-emerald-950/30 transition-all hover:scale-105"
                         title="WhatsApp for Details"
                       >
                         <WhatsAppIcon className="w-3.5 h-3.5" />
@@ -374,7 +458,7 @@ export default async function HomePage() {
                       </a>
                       <a
                         href={`tel:${phone.replace(/[^0-9+]/g, '')}`}
-                        className="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 flex items-center gap-1 transition-all"
+                        className="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 hover:border-zinc-500 flex items-center gap-1.5 transition-all hover:scale-105"
                         title="Call for Details"
                       >
                         <Phone className="w-3.5 h-3.5 text-cyan-400" />
@@ -389,104 +473,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5. PACKAGES & PRICING */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Ambient Stage Lighting Background Glows */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[650px] sm:w-[850px] h-[400px] bg-gradient-to-b from-purple-600/15 via-pink-600/10 to-transparent blur-3xl -z-10 rounded-full" />
-        <div className="pointer-events-none absolute top-1/3 -right-20 w-80 h-80 bg-cyan-500/10 blur-3xl -z-10 rounded-full" />
-        <div className="pointer-events-none absolute top-1/3 -left-20 w-80 h-80 bg-purple-500/10 blur-3xl -z-10 rounded-full" />
-
-        {/* Header */}
-        <div className="text-center space-y-4 mb-8 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/15 via-purple-500/15 to-pink-500/15 border border-cyan-500/30 text-cyan-300 text-[11px] font-extrabold uppercase tracking-widest backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-            <span>VIP Concert Audio & Lighting · 100% Guaranteed Setup</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight font-heading">
-            Curated DJ <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-pink-400">Event Packages</span>
-          </h2>
-
-          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Battle-tested sound and intelligent lighting setups. Every package includes a professional sound engineer, on-site live setup, and 100% redundant backup hardware. Contact us directly on WhatsApp or call for full details.
-          </p>
-        </div>
-
-        {/* 4-Pillar VIP Event Assurance Bar */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10 max-w-5xl mx-auto">
-          <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-            <div className="text-left">
-              <p className="text-xs font-bold text-white leading-none">All-Inclusive Setups</p>
-              <p className="text-[10px] text-zinc-500 mt-0.5">Setup & transport in radius</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
-            <Volume2 className="w-4 h-4 text-purple-400 shrink-0" />
-            <div className="text-left">
-              <p className="text-xs font-bold text-white leading-none">JBL & Pioneer Audio</p>
-              <p className="text-[10px] text-zinc-500 mt-0.5">High-definition punch</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
-            <Zap className="w-4 h-4 text-pink-400 shrink-0" />
-            <div className="text-left">
-              <p className="text-xs font-bold text-white leading-none">Redundant Backup</p>
-              <p className="text-[10px] text-zinc-500 mt-0.5">Live spare consoles on site</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.02] border border-white/[0.07] backdrop-blur-sm">
-            <Sliders className="w-4 h-4 text-cyan-400 shrink-0" />
-            <div className="text-left">
-              <p className="text-xs font-bold text-white leading-none">Sound Engineer</p>
-              <p className="text-[10px] text-zinc-500 mt-0.5">Live acoustics balancing</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7 items-stretch pt-2">
-          {packages.map((pkg) => (
-            <PackageCard
-              key={pkg.id}
-              pkg={pkg}
-              whatsappNumber={whatsapp}
-              phoneNumber={phone}
-              djName={djName}
-            />
-          ))}
-        </div>
-
-        {/* Custom Rigs / Stadium Banner */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-purple-950/30 via-zinc-900/60 to-cyan-950/20 border border-white/10 backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-1 text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider">
-              <Sparkles className="w-4 h-4" />
-              <span>Need A Bespoke Stadium Stage or Custom Effects?</span>
-            </div>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-xl">
-              We configure multi-tier line arrays, 40ft LED screens, CO2 cold cryo jets, low-lying dry ice fog, and pyrotechnics for multi-day weddings and festivals.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <a
-              href={waBookingLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-emerald-950/40 hover:scale-105 transition-all"
-            >
-              <WhatsAppIcon className="w-4 h-4" />
-              <span>Chat on WhatsApp</span>
-            </a>
-            <Link
-              href="/book"
-              className="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider border border-white/10 transition-colors"
-            >
-              <span>Custom Inquiry</span>
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* 6. FEATURED PORTFOLIO & MEDIA GALLERY */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

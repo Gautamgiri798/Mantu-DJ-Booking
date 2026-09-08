@@ -118,7 +118,7 @@ export default function PackageCard({
     // Keywords to emphasize
     const highlightKeywords = [
       'Pioneer Pro DJ Console',
-      'High-Output JBL SRX Tops',
+      'High-Output Touring SRX Tops',
       'High-Definition Audio Tops',
       'Dual 18" Subwoofers',
       '18" Powered Subwoofer',

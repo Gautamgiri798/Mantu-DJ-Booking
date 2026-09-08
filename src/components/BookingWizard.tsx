@@ -25,7 +25,7 @@ interface BookingWizardProps {
 
 const AVAILABLE_SERVICES = [
   { id: 'dj_performance', label: 'Pro DJ Live Performance' },
-  { id: 'club_sound', label: 'Heavy Bass Sound System (JBL/RCF)' },
+  { id: 'club_sound', label: 'Touring Heavy Bass Sound System (RCF/Dynatech)' },
   { id: 'moving_heads', label: 'Sharpy Moving Head Beam Lights' },
   { id: 'dry_ice_fog', label: 'Dry Ice Low-Lying Cloud Fog (Couple Entry)' },
   { id: 'cold_pyro', label: 'Cold Pyro Sparkular Fountains (Indoor safe)' },

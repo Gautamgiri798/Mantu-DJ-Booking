@@ -159,7 +159,7 @@ export default function FloatingWhatsApp({
         botResponse = {
           id: `bot-${msgCounterRef.current}`,
           sender: 'bot',
-          text: `We offer curated concert setups including JBL/RCF line arrays, Sharpy moving beam lights, dry-ice fog entries, and wireless microphones. Here are our main event tiers:`,
+          text: `We offer curated concert setups including touring-grade line arrays, Sharpy moving beam lights, dry-ice fog entries, and wireless microphones. Here are our main event tiers:`,
           time: formatTime(),
           packageLinks: true,
         };

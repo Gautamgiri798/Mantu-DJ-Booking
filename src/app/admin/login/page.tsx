@@ -64,16 +64,21 @@ export default function AdminLoginPage() {
           </div>
           <h1 className="text-2xl font-black text-white tracking-wide">DJ Owner Portal</h1>
           <p className="text-xs text-zinc-400">
-            Manage bookings, calendar dates, packages & enquiries
+            Manage bookings, calendar dates, services & enquiries
           </p>
         </div>
 
         {/* Quick Credentials Info Badge */}
         <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/30 text-xs text-purple-200 flex items-start gap-2">
           <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
-          <div>
-            <strong className="block text-purple-300">Default Admin Credentials:</strong>
-            Email: <code className="text-white">admin@djmantu.com</code> | Pass: <code className="text-white">admin123</code>
+          <div className="space-y-1">
+            <strong className="block text-purple-300 font-semibold">Admin Authentication:</strong>
+            <p className="text-zinc-300">
+              Default Email: <code className="text-white bg-black/40 px-1 py-0.5 rounded">admin@djmantu.com</code> | Pass: <code className="text-white bg-black/40 px-1 py-0.5 rounded">admin123</code>
+            </p>
+            <p className="text-zinc-400 text-[11px] leading-relaxed">
+              💡 To change your password, update <code className="text-purple-300 font-mono">ADMIN_PASSWORD</code> in your <code className="text-white font-mono">.env</code> file. Changes take effect immediately.
+            </p>
           </div>
         </div>
 

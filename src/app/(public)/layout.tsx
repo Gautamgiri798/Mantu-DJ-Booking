@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import NavigationProgressBar from '@/components/NavigationProgressBar';
 import { getWebsiteSettingsMap } from '@/lib/data';
 
 export default async function PublicLayout({
@@ -19,6 +20,9 @@ export default async function PublicLayout({
 
   return (
     <>
+      <Suspense fallback={null}>
+        <NavigationProgressBar />
+      </Suspense>
       <Navbar djName={djName} phone={phone} whatsapp={whatsapp} />
       <main className="flex-1 pt-20">{children}</main>
       <FloatingWhatsApp whatsapp={whatsapp} djName={djName} />
@@ -32,3 +36,4 @@ export default async function PublicLayout({
     </>
   );
 }
+

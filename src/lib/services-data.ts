@@ -1,0 +1,340 @@
+import React from 'react';
+import {
+  DJTurntableIcon,
+  WeddingRingsIcon,
+  BirthdayCakeIcon,
+  GraduationCapIcon,
+  DiscoClubIcon,
+  CorporateEventIcon,
+  SangeetMusicIcon,
+  RoyalWeddingIcon,
+  AnniversaryMilestoneIcon,
+  PrivatePartyVillaIcon,
+  FestivalCulturalIcon,
+  LivePerformerIcon,
+  SoundLightingRigIcon,
+  BaraatProcessionIcon,
+} from '@/components/ServiceIcons';
+
+export interface SpecializedServiceItem {
+  id: string;
+  emoji: string;
+  title: string;
+  cleanTitle: string;
+  category: 'Weddings & Baraat' | 'Parties & Nightlife' | 'College & Corporate' | 'Live & Production';
+  badge: string;
+  tagline: string;
+  description: string;
+  features: string[];
+  popular?: boolean;
+  accentColor: string;
+  iconBg: string;
+  imageUrl: string;
+}
+
+export const SERVICE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  'party-dj': DJTurntableIcon,
+  'reception-wedding-dj': WeddingRingsIcon,
+  'birthday-dj': BirthdayCakeIcon,
+  'college-farewell-dj': GraduationCapIcon,
+  'club-night-party-dj': DiscoClubIcon,
+  'corporate-event-dj': CorporateEventIcon,
+  'sangeet-dj': SangeetMusicIcon,
+  'wedding-dj': RoyalWeddingIcon,
+  'anniversary-dj': AnniversaryMilestoneIcon,
+  'private-party-dj': PrivatePartyVillaIcon,
+  'festival-cultural-event-dj': FestivalCulturalIcon,
+  'dj-live-performer': LivePerformerIcon,
+  'dj-sound-lighting': SoundLightingRigIcon,
+  'baraat-dj': BaraatProcessionIcon,
+};
+
+export const SPECIALIZED_SERVICES: SpecializedServiceItem[] = [
+  {
+    id: 'party-dj',
+    emoji: '🎉',
+    title: 'Party DJ',
+    cleanTitle: 'Party DJ',
+    category: 'Parties & Nightlife',
+    badge: 'High-Energy Dancefloor',
+    tagline: 'Non-stop commercial, EDM & chart-topping party bangers',
+    description:
+      'High-voltage live beatmixing engineered for house parties, poolside bashes, rooftop jams, and private celebrations.',
+    features: [
+      'Live Seamless Beatmixing',
+      'Curated High-Energy Playlists',
+      'Club-Grade Punchy Bass',
+      'Synchronized Dance Lights',
+    ],
+    popular: true,
+    accentColor: 'text-amber-400 border-amber-500/30',
+    iconBg: 'bg-amber-500/10 text-amber-300 border-amber-500/20 group-hover:bg-amber-500/20 group-hover:border-amber-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'reception-wedding-dj',
+    emoji: '💍',
+    title: 'Reception / Wedding DJ',
+    cleanTitle: 'Reception / Wedding DJ',
+    category: 'Weddings & Baraat',
+    badge: 'Royal Romance',
+    tagline: 'Cinematic grand entries, romantic melodies & royal dancefloor',
+    description:
+      'Grand entry sound cues, warm background music during dinner, followed by an explosive celebration for family and friends.',
+    features: [
+      'Grand Couple Entry Cues',
+      'Cinematic Low Fog Cloud FX',
+      'Family & Youth Dance Fusion',
+      'Crystal-Clear Speech Audio',
+    ],
+    popular: true,
+    accentColor: 'text-purple-400 border-purple-500/30',
+    iconBg: 'bg-purple-500/10 text-purple-300 border-purple-500/20 group-hover:bg-purple-500/20 group-hover:border-purple-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'birthday-dj',
+    emoji: '🥳',
+    title: 'Birthday DJ',
+    cleanTitle: 'Birthday DJ',
+    category: 'Parties & Nightlife',
+    badge: 'Milestone Celebration',
+    tagline: 'Custom setlists & celebratory fanfares for all age milestones',
+    description:
+      'From sweet sixteens to 50th golden jubilees, music and lighting calibrated with hype MCing and crowd favorites.',
+    features: [
+      'Cake-Cutting Fanfares',
+      'Age-Matched Curated Tracks',
+      'Interactive Crowd MCing',
+      'Vibrant Laser & LED Strobes',
+    ],
+    accentColor: 'text-fuchsia-400 border-fuchsia-500/30',
+    iconBg: 'bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/20 group-hover:bg-fuchsia-500/20 group-hover:border-fuchsia-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'college-farewell-dj',
+    emoji: '🎓',
+    title: 'College / Farewell DJ',
+    cleanTitle: 'College / Farewell DJ',
+    category: 'College & Corporate',
+    badge: 'Campus Rave',
+    tagline: 'Massive sub-bass drops, trap & campus festival anthems',
+    description:
+      'Full festival-grade sonic production for college annual fests, freshers socials, and emotional graduation farewells.',
+    features: [
+      'Arena Sub-Bass Punch',
+      'Festival EDM & Desi Bass Drops',
+      'Atmospheric Smoke & Haze FX',
+      'Non-Stop High BPM Set',
+    ],
+    popular: true,
+    accentColor: 'text-cyan-400 border-cyan-500/30',
+    iconBg: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20 group-hover:bg-cyan-500/20 group-hover:border-cyan-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'club-night-party-dj',
+    emoji: '🪩',
+    title: 'Club / Night Party DJ',
+    cleanTitle: 'Club / Night Party DJ',
+    category: 'Parties & Nightlife',
+    badge: 'Nightclub Residency',
+    tagline: 'Deep tech house, commercial club & midnight peak-time drops',
+    description:
+      'Seamless harmonic transitions, underground techno rhythms, and prime-time commercial anthems crafted for nightlife venues.',
+    features: [
+      'Seamless Harmonic Mixing',
+      'Tech House & Commercial Hits',
+      'Pioneer Nexus Pro Console Setup',
+      'Dynamic Sound Modulation',
+    ],
+    accentColor: 'text-indigo-400 border-indigo-500/30',
+    iconBg: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20 group-hover:bg-indigo-500/20 group-hover:border-indigo-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'baraat-dj',
+    emoji: '🥁',
+    title: 'Baraat DJ',
+    cleanTitle: 'Baraat DJ',
+    category: 'Weddings & Baraat',
+    badge: 'Procession Power',
+    tagline: 'High-decibel mobile sound rig & thunderous Sambalpuri Dhol',
+    description:
+      'Mobile vehicle sound systems, wireless consoles, and non-stop energetic Sambalpuri & Bollywood tracks keeping the groom’s procession dancing.',
+    features: [
+      'Mobile Vehicle Sound Rig',
+      'Chest-Thumping Subwoofers',
+      'Wireless Microphones & Mixers',
+      'High-Intensity Street Strobes',
+    ],
+    popular: true,
+    accentColor: 'text-orange-400 border-orange-500/30',
+    iconBg: 'bg-orange-500/10 text-orange-300 border-orange-500/20 group-hover:bg-orange-500/20 group-hover:border-orange-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'sangeet-dj',
+    emoji: '💃',
+    title: 'Sangeet DJ',
+    cleanTitle: 'Sangeet DJ',
+    category: 'Weddings & Baraat',
+    badge: 'Bollywood Showdown',
+    tagline: 'Choreography audio sync, Sambalpuri Dhol & epic dance battles',
+    description:
+      'Precision cueing for family performances with zero awkward pauses, followed by an electrifying ladkiwale vs ladkewale showdown.',
+    features: [
+      'Choreography Audio Cue Sync',
+      'Live Sambalpuri Dhol Fusion',
+      'Trending Bollywood Chartbusters',
+      'Intelligent Moving Beam Lights',
+    ],
+    popular: true,
+    accentColor: 'text-pink-400 border-pink-500/30',
+    iconBg: 'bg-pink-500/10 text-pink-300 border-pink-500/20 group-hover:bg-pink-500/20 group-hover:border-pink-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'wedding-dj',
+    emoji: '👰',
+    title: 'Wedding DJ',
+    cleanTitle: 'Wedding DJ',
+    category: 'Weddings & Baraat',
+    badge: 'Royal Heritage',
+    tagline: 'Sacred Phere acoustics, Varmala cues & heritage melodies',
+    description:
+      'Soulful Shehnai, sitar, and flute melodies for rituals, dramatic cinematic music for Varmala, and balanced acoustic dispersion.',
+    features: [
+      'Sacred Mantra Acoustic Clarity',
+      'Cinematic Varmala Entry FX',
+      'Low Fog Cloud Walking FX',
+      'Even Room Acoustic Dispersion',
+    ],
+    accentColor: 'text-rose-400 border-rose-500/30',
+    iconBg: 'bg-rose-500/10 text-rose-300 border-rose-500/20 group-hover:bg-rose-500/20 group-hover:border-rose-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'anniversary-dj',
+    emoji: '🎂',
+    title: 'Anniversary DJ',
+    cleanTitle: 'Anniversary DJ',
+    category: 'Parties & Nightlife',
+    badge: 'Timeless Romance',
+    tagline: 'Golden 70s, 80s & 90s retro hits to modern chartbusters',
+    description:
+      'A nostalgic musical journey honoring the couple. Blends timeless classics with upbeat modern tracks for all generations.',
+    features: [
+      'Golden Era Retro Hits',
+      'Couple Slow Dance Spotlight',
+      'Multi-Generational Appeal',
+      'Warm Ambient Mood Lighting',
+    ],
+    accentColor: 'text-emerald-400 border-emerald-500/30',
+    iconBg: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'private-party-dj',
+    emoji: '🏠',
+    title: 'Private Party DJ',
+    cleanTitle: 'Private Party DJ',
+    category: 'Parties & Nightlife',
+    badge: 'Exclusive Setting',
+    tagline: 'Bespoke audio configurations for villas, patios & farmhouses',
+    description:
+      'Sleek, compact setups packing full club punch without cluttering intimate venues. 100% personalized setlists.',
+    features: [
+      'Compact High-Output Sound',
+      'Bespoke Playlist Curation',
+      'Zero Aesthetic Venue Clutter',
+      'Lounge-to-Party Transition',
+    ],
+    accentColor: 'text-teal-400 border-teal-500/30',
+    iconBg: 'bg-teal-500/10 text-teal-300 border-teal-500/20 group-hover:bg-teal-500/20 group-hover:border-teal-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'festival-cultural-event-dj',
+    emoji: '🎊',
+    title: 'Festival / Cultural Event DJ',
+    cleanTitle: 'Festival / Cultural Event DJ',
+    category: 'Live & Production',
+    badge: 'Massive Crowd',
+    tagline: 'Arena coverage for Navratri Dandiya, Holi & New Year carnivals',
+    description:
+      'Stadium-scale sound dispersion, vibrant festival lighting, and authentic cultural rhythms paired with modern electronic drops.',
+    features: [
+      'Folk & Dandiya Fusion Beats',
+      'Stadium-Scale Line Arrays',
+      'Synchronized Beam Lasers',
+      'New Year Midnight Countdown FX',
+    ],
+    accentColor: 'text-yellow-400 border-yellow-500/30',
+    iconBg: 'bg-yellow-500/10 text-yellow-300 border-yellow-500/20 group-hover:bg-yellow-500/20 group-hover:border-yellow-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'dj-live-performer',
+    emoji: '🎤',
+    title: 'DJ + Live Performer',
+    cleanTitle: 'DJ + Live Performer',
+    category: 'Live & Production',
+    badge: 'Live Hybrid Act',
+    tagline: 'Live vocals, electric percussion & Dhol acoustic sync',
+    description:
+      'An electrifying hybrid showcase fusing electronic DJ mixing with live Dhol players, percussionists, and charismatic vocal MCing.',
+    features: [
+      'Live Dhol & Percussionist Jam',
+      'High-Energy Hypeman & MC',
+      'Acoustic-Electronic Sync',
+      'Unmatched Stage Chemistry',
+    ],
+    popular: true,
+    accentColor: 'text-violet-400 border-violet-500/30',
+    iconBg: 'bg-violet-500/10 text-violet-300 border-violet-500/20 group-hover:bg-violet-500/20 group-hover:border-violet-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'dj-sound-lighting',
+    emoji: '🔊',
+    title: 'DJ + Sound & Lighting',
+    cleanTitle: 'DJ + Sound & Lighting',
+    category: 'Live & Production',
+    badge: 'Full Turnkey Rig',
+    tagline: 'Touring line arrays, Sharpy moving beams & atmosphere hazers',
+    description:
+      'Complete all-in-one hardware production rig with dedicated acoustic engineers, moving heads, trussing, and atmospheric FX.',
+    features: [
+      'Touring Line Array Acoustics',
+      'Sharpy Moving Head Beams',
+      'Atmospheric Haze & Fog',
+      'Dedicated On-Site Sound Engineer',
+    ],
+    popular: true,
+    accentColor: 'text-sky-400 border-sky-500/30',
+    iconBg: 'bg-sky-500/10 text-sky-300 border-sky-500/20 group-hover:bg-sky-500/20 group-hover:border-sky-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80',
+  },
+  {
+    id: 'corporate-event-dj',
+    emoji: '🏢',
+    title: 'Corporate Event DJ',
+    cleanTitle: 'Corporate Event DJ',
+    category: 'College & Corporate',
+    badge: 'Executive Gala',
+    tagline: 'Polished keynote audio, award stingers & gala celebration',
+    description:
+      'Sophisticated ambient lounge soundscapes during ceremonies, transitioning smoothly into a lively dance party for the team.',
+    features: [
+      'High-Clarity Wireless Microphones',
+      'Walk-Up Stingers & Fanfares',
+      'Curated Lounge & Deep House',
+      'Inclusive Celebration Dancefloor',
+    ],
+    accentColor: 'text-blue-400 border-blue-500/30',
+    iconBg: 'bg-blue-500/10 text-blue-300 border-blue-500/20 group-hover:bg-blue-500/20 group-hover:border-blue-500/40',
+    imageUrl: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1000&q=80',
+  },
+];

@@ -32,14 +32,22 @@ export function createWhatsAppLink(phone: string, text: string): string {
 }
 
 export const EVENT_CATEGORIES = [
+  'Party DJ',
+  'Reception / Wedding DJ',
+  'Birthday DJ',
+  'College / Farewell DJ',
+  'Club / Night Party DJ',
+  'Corporate Event DJ',
+  'Sangeet DJ',
+  'Wedding DJ',
+  'Anniversary DJ',
+  'Private Party DJ',
+  'Festival / Cultural Event DJ',
+  'DJ + Live Performer',
+  'DJ + Sound & Lighting',
+  'Baraat DJ',
   'Wedding',
   'Reception',
-  'Sangeet / Haldi',
-  'Birthday Party',
-  'Club & Night Party',
-  'Corporate Event',
-  'College Festival',
-  'Anniversary',
   'Private Celebration',
 ] as const;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Disc3, Phone, MapPin, MessageSquare, Lock } from 'lucide-react';
-import { InstagramIcon, YoutubeIcon, WhatsAppIcon } from '@/components/SocialIcons';
+import { InstagramIcon, WhatsAppIcon } from '@/components/SocialIcons';
 import { createWhatsAppLink } from '@/lib/utils';
 
 interface FooterProps {
@@ -25,7 +25,7 @@ export default function Footer({
   return (
     <footer className="bg-[#050508] border-t border-zinc-800/80 pt-16 pb-[calc(3rem+env(safe-area-inset-bottom,0px))] text-zinc-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-zinc-800/60">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-zinc-800/60">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3 group">
@@ -45,27 +45,18 @@ export default function Footer({
             </Link>
 
             <p className="text-sm leading-relaxed text-zinc-400 max-w-sm">
-              Eastern India’s premier open-format DJ and event sound provider. Specializing in high-energy Bollywood Dance Music (BDM), Punjabi EDM, Royal Weddings, Sangeets, and Mega Arena Experiences.
+              Western Odisha’s premier open-format DJ and live event sound specialist. Specializing in high-energy Bollywood Dance Music (BDM), signature Sambalpuri beats, royal weddings, sangeets, and arena concert experiences.
             </p>
 
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/awaraboy458/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-pink-400 hover:border-pink-500/40 transition-colors"
               >
                 <InstagramIcon className="w-4 h-4" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-                className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-rose-500 hover:border-rose-500/40 transition-colors"
-              >
-                <YoutubeIcon className="w-4 h-4" />
               </a>
               <a
                 href={waLink}
@@ -94,55 +85,18 @@ export default function Footer({
                 </Link>
               </li>
               <li>
-                <Link href="/packages" className="hover:text-purple-400 transition-colors">
-                  Event Packages
-                </Link>
-              </li>
-              <li>
                 <Link href="/gallery" className="hover:text-purple-400 transition-colors">
                   Event Gallery
                 </Link>
               </li>
               <li>
+                <Link href="/contact" className="hover:text-purple-400 transition-colors">
+                  Contact & Bookings
+                </Link>
+              </li>
+              <li>
                 <Link href="/availability" className="text-emerald-400 hover:underline">
                   Check Date Availability
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Event Types */}
-          <div>
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Event Types</h3>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/services#wedding" className="hover:text-pink-400 transition-colors">
-                  Weddings & Sangeet
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#reception" className="hover:text-pink-400 transition-colors">
-                  Wedding Receptions
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#party" className="hover:text-pink-400 transition-colors">
-                  Birthday & Private Bashes
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#college" className="hover:text-pink-400 transition-colors">
-                  College Cultural Fests
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#corporate" className="hover:text-pink-400 transition-colors">
-                  Corporate Galas & Meets
-                </Link>
-              </li>
-              <li>
-                <Link href="/book" className="hover:text-pink-400 transition-colors font-medium text-purple-300">
-                  Custom Sound & Trussing
                 </Link>
               </li>
             </ul>
