@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Disc3, Menu, X, Phone, CalendarCheck } from 'lucide-react';
+import { Disc3, Menu, X, Phone, CalendarCheck, Shield } from 'lucide-react';
 import { createWhatsAppLink } from '@/lib/utils';
 import { WhatsAppIcon } from '@/components/SocialIcons';
 
@@ -14,8 +14,8 @@ interface NavbarProps {
 }
 
 export default function Navbar({
-  phone = '+91 6372174006',
-  whatsapp = '+91 6372174006',
+  phone = '+91 9337828746',
+  whatsapp = '+91 9337828746',
   djName = 'DJ MANTU',
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -173,6 +173,20 @@ export default function Navbar({
                 <WhatsAppIcon className="w-3.5 h-3.5" />
               </a>
             </div>
+
+            {/* DJ Owner Login */}
+            <Link
+              href="/admin/login"
+              prefetch={true}
+              onMouseEnter={() => handleWarmup('/admin/login')}
+              onTouchStart={() => handleWarmup('/admin/login')}
+              className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-950/70 backdrop-blur-xl border border-white/[0.08] hover:border-amber-500/30 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_20px_rgba(217,170,73,0.15)] transition-all duration-300"
+            >
+              <div className="w-5 h-5 rounded-full bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20 flex items-center justify-center group-hover:from-amber-500/30 group-hover:to-amber-600/20 transition-all">
+                <Shield className="w-2.5 h-2.5 text-amber-400/80 group-hover:text-amber-300 transition-colors" />
+              </div>
+              <span className="text-[11px] font-semibold tracking-wide text-zinc-500 group-hover:text-amber-200/80 transition-colors">Owner Portal</span>
+            </Link>
           </div>
 
           {/* Mobile Hamburger Toggle */}
@@ -270,6 +284,15 @@ export default function Navbar({
                   <span>WhatsApp</span>
                 </a>
               </div>
+              <Link
+                href="/admin/login"
+                prefetch={true}
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center gap-2.5 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-amber-950/30 to-amber-900/20 border border-amber-700/20 text-amber-300/70 min-h-[42px] active:bg-amber-950/40 transition-colors"
+              >
+                <Shield className="w-3.5 h-3.5 text-amber-500/60" />
+                <span>Owner Portal</span>
+              </Link>
             </div>
           </div>
         </>

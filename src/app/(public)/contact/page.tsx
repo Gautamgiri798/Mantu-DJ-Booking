@@ -20,8 +20,8 @@ export default async function ContactPage() {
   const settingsMap = await getWebsiteSettingsMap();
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
-  const phone = settingsMap['phone'] || '+91 6372174006';
-  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
+  const phone = settingsMap['phone'] || '+91 9337828746';
+  const whatsapp = settingsMap['whatsapp'] || '+91 9337828746';
   const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
   const instagramUrl = settingsMap['instagram'] || 'https://www.instagram.com/awaraboy458/';
   const instagramHandle = instagramUrl.includes('instagram.com/')

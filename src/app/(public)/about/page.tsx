@@ -427,7 +427,7 @@ export default async function AboutPage() {
         <div className="lg:col-span-5 flex justify-center items-center">
           <ArtistHeadlinerCard
             djName={djName}
-            whatsapp={settingsMap['whatsapp'] || '+91 6372174006'}
+            whatsapp={settingsMap['whatsapp'] || '+91 9337828746'}
             location={settingsMap['address'] || 'Rourkela • Jharsuguda • Odisha'}
             instagramUrl={settingsMap['instagram'] || 'https://www.instagram.com/awaraboy458/'}
             instagramHandle={settingsMap['instagram_handle'] || '@awaraboy458'}

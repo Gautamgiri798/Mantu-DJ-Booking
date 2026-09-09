@@ -28,7 +28,7 @@ interface ArtistHeadlinerCardProps {
 
 export default function ArtistHeadlinerCard({
   djName = 'DJ Mantu',
-  whatsapp = '+91 6372174006',
+  whatsapp = '+91 9337828746',
   location = 'Rourkela • Sundargarh • Odisha',
   instagramUrl = 'https://www.instagram.com/awaraboy458/',
   instagramHandle = '@awaraboy458',

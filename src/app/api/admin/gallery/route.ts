@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
         mediaType: isVideo ? 'VIDEO' : 'IMAGE',
         videoUrl: isVideo ? videoUrl?.trim() : null,
         eventDate: eventDate || null,
-        location: location || 'Rourkela',
+        location: location?.trim() || 'Jharsuguda',
       },
     });
 

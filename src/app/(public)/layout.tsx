@@ -14,8 +14,8 @@ export default async function PublicLayout({
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
   const tagline = settingsMap['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
-  const phone = settingsMap['phone'] || '+91 6372174006';
-  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
+  const phone = settingsMap['phone'] || '+91 9337828746';
+  const whatsapp = settingsMap['whatsapp'] || '+91 9337828746';
   const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
 
   return (

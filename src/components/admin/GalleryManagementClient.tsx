@@ -287,58 +287,71 @@ export default function GalleryManagementClient({ initialItems }: Props) {
             return (
               <div
                 key={item.id}
-                className="group relative rounded-2xl overflow-hidden glass-panel border border-white/10 aspect-square shadow-lg"
+                className="group relative rounded-2xl overflow-hidden glass-panel border border-white/10 shadow-lg flex flex-col"
               >
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/20 opacity-90" />
+                {/* Image Container */}
+                <div className="relative aspect-square overflow-hidden">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
 
-                {/* Video Play Overlay */}
-                {isVideo && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-10 h-10 rounded-full bg-pink-600/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <Play className="w-4 h-4 fill-current translate-x-0.5" />
+                  {/* Video Play Overlay */}
+                  {isVideo && (
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <div className="w-10 h-10 rounded-full bg-pink-600/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <Play className="w-4 h-4 fill-current translate-x-0.5" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Top Badges */}
+                  <div className="absolute top-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="px-2 py-0.5 rounded-md bg-black/80 text-[10px] font-bold text-purple-300 backdrop-blur-md border border-white/10 shadow-sm">
+                        {item.category}
+                      </span>
+                      {isVideo ? (
+                        <span className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-pink-950/90 text-[10px] font-extrabold text-pink-300 backdrop-blur-md border border-pink-500/30 shadow-sm">
+                          <Film className="w-2.5 h-2.5" />
+                          Video
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-900/90 text-[10px] font-bold text-zinc-300 backdrop-blur-md border border-white/10 shadow-sm">
+                          <ImageIcon className="w-2.5 h-2.5" />
+                          Photo
+                        </span>
+                      )}
                     </div>
                   </div>
-                )}
-
-                {/* Top Badges */}
-                <div className="absolute top-2 left-2 flex items-center gap-1">
-                  <span className="px-2 py-0.5 rounded bg-black/80 text-[10px] font-bold text-purple-300 backdrop-blur-sm border border-white/10">
-                    {item.category}
-                  </span>
-                  {isVideo ? (
-                    <span className="flex items-center gap-1 px-2 py-0.5 rounded bg-pink-950/90 text-[10px] font-extrabold text-pink-300 backdrop-blur-sm border border-pink-500/30">
-                      <Film className="w-2.5 h-2.5" />
-                      Video
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-1 px-2 py-0.5 rounded bg-zinc-900/90 text-[10px] font-bold text-zinc-300 backdrop-blur-sm border border-white/10">
-                      <ImageIcon className="w-2.5 h-2.5" />
-                      Photo
-                    </span>
-                  )}
                 </div>
 
-                {/* Delete Button */}
-                <button
-                  onClick={() => handleDelete(item.id, isVideo)}
-                  className="absolute top-2 right-2 p-1.5 rounded-lg bg-rose-950/90 text-rose-300 hover:bg-rose-900 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
-                  title={`Delete ${isVideo ? 'video' : 'photo'}`}
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
-
-                {/* Bottom Information */}
-                <div className="absolute bottom-2 left-2 right-2 text-left space-y-0.5">
-                  <h4 className="text-xs font-bold text-white truncate">{item.title}</h4>
-                  <div className="flex items-center justify-between text-[10px] text-zinc-400">
-                    <span>{item.location || 'Rourkela'}</span>
-                    {item.eventDate && <span>{item.eventDate}</span>}
+                {/* Bottom Info & Action Bar */}
+                <div className="p-2.5 sm:p-3 bg-zinc-950/95 border-t border-white/5 flex items-center justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-xs font-bold text-white truncate" title={item.title}>
+                      {item.title}
+                    </h4>
+                    <div className="flex items-center gap-1.5 text-[10px] text-zinc-400 mt-0.5">
+                      <span className="truncate">{item.location || 'Jharsuguda'}</span>
+                      {item.eventDate && (
+                        <>
+                          <span className="text-zinc-600">•</span>
+                          <span className="shrink-0 text-zinc-400">{item.eventDate}</span>
+                        </>
+                      )}
+                    </div>
                   </div>
+                  {/* Delete Button */}
+                  <button
+                    onClick={() => handleDelete(item.id, isVideo)}
+                    className="shrink-0 p-1.5 sm:p-2 rounded-lg bg-rose-500/10 hover:bg-rose-500/25 active:bg-rose-500/30 text-rose-400 hover:text-rose-200 border border-rose-500/20 active:scale-95 transition-all shadow-sm"
+                    title={`Delete ${isVideo ? 'video' : 'photo'}`}
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             );

@@ -64,7 +64,7 @@ export default function RootLayout({
               image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7',
               '@id': 'http://localhost:3000',
               url: 'http://localhost:3000',
-              telephone: '+916372174006',
+              telephone: '+919337828746',
               priceRange: 'Contact for details',
               address: {
                 '@type': 'PostalAddress',

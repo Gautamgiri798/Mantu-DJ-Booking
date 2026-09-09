@@ -32,8 +32,8 @@ async function main() {
       value:
         'Electrifying live DJ performances, arena-grade JBL sound, intelligent moving beam lights, and cinematic low-lying dry ice fog for Weddings, Receptions, Sangeets & Grand Parties.',
     },
-    { key: 'phone', value: '+91 6372174006' },
-    { key: 'whatsapp', value: '+91 6372174006' },
+    { key: 'phone', value: '+91 9337828746' },
+    { key: 'whatsapp', value: '+91 9337828746' },
     { key: 'address', value: 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216' },
     {
       key: 'service_areas',
@@ -407,85 +407,8 @@ async function main() {
   }
 
   // 5. Gallery Items
-  const galleryItems = [
-    {
-      title: 'Electrifying Sangeet Night Dance Floor',
-      category: 'Weddings',
-      imageUrl: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-08-15',
-      location: 'Mayfair World Cup Village, Rourkela',
-      isFeatured: true,
-      order: 1,
-    },
-    {
-      title: 'Royal Couple Entry with Dry Ice Cloud Fog',
-      category: 'Weddings',
-      imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-08-02',
-      location: 'Hotel Radhika Regency, Rourkela',
-      isFeatured: true,
-      order: 2,
-    },
-    {
-      title: 'College Annual Fest Rave & EDM Night',
-      category: 'Parties',
-      imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-07-28',
-      location: 'NIT Rourkela Open Air Theatre',
-      isFeatured: true,
-      order: 3,
-    },
-    {
-      title: 'Grand Wedding Reception Lighting & Setup',
-      category: 'Receptions',
-      imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-07-12',
-      location: 'Civic Centre Banquet, Rourkela',
-      isFeatured: true,
-      order: 4,
-    },
-    {
-      title: 'Corporate Annual Gala & Awards Night',
-      category: 'Corporate',
-      imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-06-25',
-      location: 'SAIL Rourkela Steel Plant Club',
-      isFeatured: true,
-      order: 5,
-    },
-    {
-      title: 'Intense Moving Head Light Beam Show',
-      category: 'Parties',
-      imageUrl: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-06-18',
-      location: 'Panposh Farmhouse, Rourkela',
-      isFeatured: true,
-      order: 6,
-    },
-    {
-      title: 'VIP 25th Silver Jubilee Anniversary Party',
-      category: 'Birthdays',
-      imageUrl: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-05-30',
-      location: 'Hotel The Central Park, Rourkela',
-      isFeatured: false,
-      order: 7,
-    },
-    {
-      title: 'Pioneer DJ Console In Action',
-      category: 'Parties',
-      imageUrl: 'https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=1200&q=80',
-      eventDate: '2026-05-14',
-      location: 'Koel River Resort, Rourkela',
-      isFeatured: false,
-      order: 8,
-    },
-  ];
+  // Kept empty so DJ owner/admin can upload and manage their real event media directly
 
-  await prisma.galleryItem.deleteMany({});
-  for (const item of galleryItems) {
-    await prisma.galleryItem.create({ data: item });
-  }
 
   // 6. Video Items
   const videoItems = [
@@ -572,94 +495,9 @@ async function main() {
     await prisma.review.create({ data: r });
   }
 
-  // 8. Sample Bookings & Availability Entries
-  const existingCustomer = await prisma.customer.create({
-    data: {
-      name: 'Sunil Kumar Dash',
-      phone: '+91 94370 11223',
-      email: 'sunil.dash@gmail.com',
-      whatsapp: '+91 94370 11223',
-      notes: 'VIP client, referred by Mayfair banquet manager',
-    },
-  });
+  // 8. Bookings & Availability Entries
+  // Kept clean so the website starts brand new for genuine incoming bookings and calendar dates.
 
-  const weddingPackage = await prisma.package.findFirst({ where: { slug: 'royal-wedding-extravaganza' } });
-  const premiumPackage = await prisma.package.findFirst({ where: { slug: 'premium-club-vibe' } });
-
-  // Confirmed booking for 2026-09-20 (matches PRD example: Reception 20 September 2026)
-  const booking1 = await prisma.booking.create({
-    data: {
-      bookingCode: 'DJ-2026-001',
-      customerId: existingCustomer.id,
-      eventType: 'Reception',
-      eventDate: new Date('2026-09-20T19:00:00Z'),
-      dateString: '2026-09-20',
-      startTime: '19:00',
-      endTime: '23:30',
-      venue: 'Hotel Radhika Regency Banquet',
-      city: 'Rourkela',
-      guestCount: 350,
-      budgetRange: '₹30,000 - ₹45,000',
-      status: 'CONFIRMED',
-      packageId: weddingPackage?.id,
-      services: JSON.stringify(['DJ Performance', 'Concert Sound System', 'Intelligent Moving Head Lights', 'Dry Ice Low Fog']),
-      totalAmount: 45000,
-      customerNotes: 'Need couple entry romantic track with dry ice fog at 8:15 PM sharp.',
-      adminNotes: 'Advance ₹15,000 received via UPI. Sound check scheduled at 4:30 PM.',
-    },
-  });
-
-  // Availability entries
-  await prisma.availability.upsert({
-    where: { date: '2026-09-20' },
-    update: { status: 'BOOKED', reason: 'Wedding Reception - Sunil Dash', bookingId: booking1.id },
-    create: { date: '2026-09-20', status: 'BOOKED', reason: 'Wedding Reception - Sunil Dash', bookingId: booking1.id },
-  });
-
-  // Pending booking for 2026-09-24 (matches PRD example: Amit Birthday)
-  const customer2 = await prisma.customer.create({
-    data: {
-      name: 'Amit Sharma',
-      phone: '+91 97780 44556',
-      email: 'amit.sharma99@outlook.com',
-      whatsapp: '+91 97780 44556',
-      notes: 'New enquiry through website form',
-    },
-  });
-
-  const booking2 = await prisma.booking.create({
-    data: {
-      bookingCode: 'DJ-2026-002',
-      customerId: customer2.id,
-      eventType: 'Birthday Party',
-      eventDate: new Date('2026-09-24T18:30:00Z'),
-      dateString: '2026-09-24',
-      startTime: '18:30',
-      endTime: '22:30',
-      venue: 'Koel View Club Lawn',
-      city: 'Rourkela',
-      guestCount: 120,
-      budgetRange: '₹20,000 - ₹30,000',
-      status: 'PENDING',
-      packageId: premiumPackage?.id,
-      services: JSON.stringify(['DJ Performance', 'Party Lighting', 'Fog Machine']),
-      totalAmount: 25000,
-      customerNotes: '25th Birthday celebration. Lots of Punjabi and 2010s club dance hits required.',
-    },
-  });
-
-  await prisma.availability.upsert({
-    where: { date: '2026-09-24' },
-    update: { status: 'PENDING', reason: 'Enquiry Pending - Amit Sharma', bookingId: booking2.id },
-    create: { date: '2026-09-24', status: 'PENDING', reason: 'Enquiry Pending - Amit Sharma', bookingId: booking2.id },
-  });
-
-  // Blocked date for 2026-10-02 (Gandhi Jayanti / Personal Maintenance)
-  await prisma.availability.upsert({
-    where: { date: '2026-10-02' },
-    update: { status: 'BLOCKED', reason: 'Equipment Maintenance & Upgrades' },
-    create: { date: '2026-10-02', status: 'BLOCKED', reason: 'Equipment Maintenance & Upgrades' },
-  });
 
   console.log('Database seeding completed successfully!');
 }

@@ -848,7 +848,7 @@ export default function AdminCalendarView({ initialRecords }: Props) {
                 <input
                   type="tel"
                   required
-                  placeholder="e.g. 6372174006"
+                  placeholder="e.g. 9337828746"
                   value={offlineForm.phone}
                   onChange={(e) => setOfflineForm({ ...offlineForm, phone: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-sm focus:outline-none focus:border-purple-500"

@@ -23,7 +23,7 @@ interface AvailabilityCheckerProps {
 }
 
 export default function AvailabilityChecker({
-  whatsapp = '+91 6372174006',
+  whatsapp = '+91 9337828746',
   defaultDate,
   compact = false,
 }: AvailabilityCheckerProps) {
@@ -34,7 +34,7 @@ export default function AvailabilityChecker({
 
   const [date, setDate] = useState<string>(defaultDate || minDate);
   const [eventType, setEventType] = useState<string>('Royal Wedding / Reception');
-  const [location, setLocation] = useState<string>('Rourkela');
+  const [location, setLocation] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<{
     checked: boolean;
@@ -153,7 +153,7 @@ export default function AvailabilityChecker({
                   setLocation(e.target.value);
                   setResult(null);
                 }}
-                placeholder="e.g. Rourkela, Jharsuguda"
+                placeholder="e.g. Jharsuguda"
                 required
                 className="w-full px-4 py-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-purple-500 focus:bg-zinc-900 focus:ring-2 focus:ring-purple-500/20 text-white font-medium text-base sm:text-sm transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] min-h-12"
               />

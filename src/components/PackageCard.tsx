@@ -37,8 +37,8 @@ interface PackageCardProps {
 
 export default function PackageCard({
   pkg,
-  whatsappNumber = '+91 6372174006',
-  phoneNumber = '+91 6372174006',
+  whatsappNumber = '+91 9337828746',
+  phoneNumber = '+91 9337828746',
   djName = 'DJ Mantu',
 }: PackageCardProps) {
   const cleanPhone = phoneNumber.replace(/[^0-9+]/g, '');

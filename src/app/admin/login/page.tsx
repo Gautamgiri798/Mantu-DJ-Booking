@@ -68,19 +68,6 @@ export default function AdminLoginPage() {
           </p>
         </div>
 
-        {/* Quick Credentials Info Badge */}
-        <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/30 text-xs text-purple-200 flex items-start gap-2">
-          <Sparkles className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <strong className="block text-purple-300 font-semibold">Admin Authentication:</strong>
-            <p className="text-zinc-300">
-              Default Email: <code className="text-white bg-black/40 px-1 py-0.5 rounded">admin@djmantu.com</code> | Pass: <code className="text-white bg-black/40 px-1 py-0.5 rounded">admin123</code>
-            </p>
-            <p className="text-zinc-400 text-[11px] leading-relaxed">
-              💡 To change your password, update <code className="text-purple-300 font-mono">ADMIN_PASSWORD</code> in your <code className="text-white font-mono">.env</code> file. Changes take effect immediately.
-            </p>
-          </div>
-        </div>
 
         {error && (
           <div className="p-3 rounded-xl bg-rose-950/40 border border-rose-500/50 text-rose-300 text-xs flex items-center gap-2">

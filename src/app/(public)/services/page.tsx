@@ -12,8 +12,8 @@ export const revalidate = 60;
 export default async function ServicesPage() {
   const settingsMap = await getWebsiteSettingsMap();
 
-  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
-  const phone = settingsMap['phone'] || '+91 6372174006';
+  const whatsapp = settingsMap['whatsapp'] || '+91 9337828746';
+  const phone = settingsMap['phone'] || '+91 9337828746';
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
 
   return (

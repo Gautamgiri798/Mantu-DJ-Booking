@@ -45,8 +45,8 @@ export default async function HomePage() {
   const tagline = settingsMap['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
   const heroTitle = settingsMap['hero_title'] || 'Turn Every Moment Into An Unforgettable Memory';
   const heroSubtitle = settingsMap['hero_subtitle'] || 'Concert sound engineering, intelligent moving beam lights, and cinematic dry ice low fog tailored for Weddings, Sangeets & Mega Events in Rourkela and across Western Odisha.';
-  const whatsapp = settingsMap['whatsapp'] || '+91 6372174006';
-  const phone = settingsMap['phone'] || '+91 6372174006';
+  const whatsapp = settingsMap['whatsapp'] || '+91 9337828746';
+  const phone = settingsMap['phone'] || '+91 9337828746';
   const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
 
   const waBookingLink = createWhatsAppLink(

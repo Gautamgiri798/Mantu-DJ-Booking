@@ -43,7 +43,7 @@ const BUDGET_TIERS = [
   'Custom Requirements & Consultation',
 ];
 
-function BookingWizardContent({ packages, whatsappNumber = '+91 6372174006', djName = 'DJ Mantu' }: BookingWizardProps) {
+function BookingWizardContent({ packages, whatsappNumber = '+91 9337828746', djName = 'DJ Mantu' }: BookingWizardProps) {
   const searchParams = useSearchParams();
 
   const [step, setStep] = useState<number>(1);
@@ -74,7 +74,7 @@ function BookingWizardContent({ packages, whatsappNumber = '+91 6372174006', djN
       startTime: '19:00',
       endTime: '23:30',
       venue: '',
-      city: urlCity || 'Rourkela',
+      city: urlCity || '',
       guestCount: '250',
       packageId: urlPkg || '',
       selectedServices: ['dj_performance', 'club_sound', 'moving_heads'],
@@ -95,12 +95,42 @@ function BookingWizardContent({ packages, whatsappNumber = '+91 6372174006', djN
     });
   };
 
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; whatsapp?: string }>({});
+
+  const validateName = (name: string): string | undefined => {
+    const trimmed = name.trim();
+    if (!trimmed) return 'Name is required.';
+    if (trimmed.length < 3) return 'Name must be at least 3 characters.';
+    if (!/^[A-Za-z\s.]+$/.test(trimmed)) return 'Name can only contain letters and spaces.';
+    return undefined;
+  };
+
+  const validatePhone = (phone: string): string | undefined => {
+    const digits = phone.replace(/\D/g, '');
+    if (!digits) return 'Phone number is required.';
+    if (digits.length !== 10) return 'Phone number must be exactly 10 digits.';
+    if (!/^[6-9]/.test(digits)) return 'Enter a valid Indian mobile number.';
+    return undefined;
+  };
+
+  const validateWhatsapp = (whatsapp: string): string | undefined => {
+    if (!whatsapp.trim()) return undefined; // optional field
+    const digits = whatsapp.replace(/\D/g, '');
+    if (digits.length !== 10) return 'WhatsApp number must be exactly 10 digits.';
+    if (!/^[6-9]/.test(digits)) return 'Enter a valid Indian mobile number.';
+    return undefined;
+  };
+
   const handleNext = () => {
     if (step === 1) {
-      if (!formData.name.trim() || !formData.phone.trim()) {
-        alert('Please provide your name and phone number.');
+      const nameErr = validateName(formData.name);
+      const phoneErr = validatePhone(formData.phone);
+      const whatsappErr = validateWhatsapp(formData.whatsapp);
+      if (nameErr || phoneErr || whatsappErr) {
+        setErrors({ name: nameErr, phone: phoneErr, whatsapp: whatsappErr });
         return;
       }
+      setErrors({});
     }
     if (step === 2) {
       if (!formData.eventDate || !formData.venue.trim()) {
@@ -284,9 +314,14 @@ Please confirm availability and discuss next steps.`;
                   required
                   placeholder="e.g. Rahul Sharma"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/[^A-Za-z\s.]/g, '');
+                    setFormData({ ...formData, name: val });
+                    if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+                  }}
+                  className={`w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border ${errors.name ? 'border-rose-500' : 'border-zinc-700'} text-white text-base sm:text-sm focus:outline-none focus:border-purple-500`}
                 />
+                {errors.name && <p className="text-rose-400 text-xs mt-1">{errors.name}</p>}
               </div>
 
               <div>
@@ -297,10 +332,16 @@ Please confirm availability and discuss next steps.`;
                   type="tel"
                   required
                   placeholder="e.g. 9876543210"
+                  maxLength={10}
                   value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                    setFormData({ ...formData, phone: val });
+                    if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
+                  }}
+                  className={`w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border ${errors.phone ? 'border-rose-500' : 'border-zinc-700'} text-white text-base sm:text-sm focus:outline-none focus:border-purple-500`}
                 />
+                {errors.phone && <p className="text-rose-400 text-xs mt-1">{errors.phone}</p>}
               </div>
 
               <div>
@@ -310,10 +351,16 @@ Please confirm availability and discuss next steps.`;
                 <input
                   type="tel"
                   placeholder="e.g. 9876543210"
+                  maxLength={10}
                   value={formData.whatsapp}
-                  onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                    setFormData({ ...formData, whatsapp: val });
+                    if (errors.whatsapp) setErrors((prev) => ({ ...prev, whatsapp: undefined }));
+                  }}
+                  className={`w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border ${errors.whatsapp ? 'border-rose-500' : 'border-zinc-700'} text-white text-base sm:text-sm focus:outline-none focus:border-purple-500`}
                 />
+                {errors.whatsapp && <p className="text-rose-400 text-xs mt-1">{errors.whatsapp}</p>}
               </div>
             </div>
           </div>
@@ -398,23 +445,14 @@ Please confirm availability and discuss next steps.`;
                 <label className="text-xs font-semibold text-zinc-300 block mb-1">City / Region</label>
                 <input
                   type="text"
-                  placeholder="e.g. Rourkela"
+                  placeholder="e.g. Jharsuguda"
                   value={formData.city}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                   className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
 
-              <div className="sm:col-span-2">
-                <label className="text-xs font-semibold text-zinc-300 block mb-1">Expected Guests</label>
-                <input
-                  type="number"
-                  placeholder="e.g. 300"
-                  value={formData.guestCount}
-                  onChange={(e) => setFormData({ ...formData, guestCount: e.target.value })}
-                  className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
-                />
-              </div>
+
             </div>
           </div>
         )}
@@ -562,7 +600,7 @@ Please confirm availability and discuss next steps.`;
                 </p>
                 <p className="text-zinc-300">
                   <strong>Event:</strong> {formData.eventType} on <strong>{formData.eventDate}</strong> at{' '}
-                  {formData.venue}, {formData.city} ({formData.guestCount} guests)
+                  {formData.venue}, {formData.city}
                 </p>
                 <p className="text-zinc-300">
                   <strong>Selected Services:</strong> {formData.selectedServices.length} items chosen

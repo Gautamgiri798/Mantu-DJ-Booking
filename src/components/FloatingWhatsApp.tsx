@@ -48,7 +48,7 @@ const EVENT_PILLS = [
 ];
 
 export default function FloatingWhatsApp({
-  whatsapp = '+91 6372174006',
+  whatsapp = '+91 9337828746',
   djName = 'DJ Mantu',
 }: FloatingWhatsAppProps) {
   const [viewState, setViewState] = useState<ViewState>('BUTTON');

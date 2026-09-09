@@ -45,7 +45,7 @@ interface Props {
 
 export default function SpecializedServicesGrid({
   whatsapp,
-  phone = '+91 6372174006',
+  phone = '+91 9337828746',
   djName,
 }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');

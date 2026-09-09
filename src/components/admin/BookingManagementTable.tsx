@@ -14,13 +14,13 @@ import {
   Calendar,
   Clock,
   MapPin,
-  Users,
   AlertCircle,
   Sparkles,
   TrendingUp,
   Check,
   Copy,
   Music,
+  ChevronDown,
 } from 'lucide-react';
 import { formatCurrency, formatDate, createWhatsAppLink, BOOKING_STATUSES } from '@/lib/utils';
 
@@ -506,7 +506,21 @@ export default function BookingManagementTable({ initialBookings }: Props) {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/[0.06]">
-              {filteredBookings.length === 0 ? (
+              {bookings.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="py-20 text-center text-zinc-500">
+                    <div className="space-y-3 max-w-md mx-auto px-4">
+                      <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mx-auto shadow-lg shadow-purple-950/50">
+                        <Calendar className="w-6 h-6" />
+                      </div>
+                      <h4 className="font-bold text-white text-base">No Booking Enquiries Yet</h4>
+                      <p className="text-xs text-zinc-400 leading-relaxed">
+                        Your booking database is clean and ready. When visitors submit event inquiries on your website, they will appear here instantly in real-time.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              ) : filteredBookings.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-16 text-center text-zinc-500">
                     <div className="space-y-2 max-w-sm mx-auto">
@@ -568,14 +582,10 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                           <span className="font-bold text-zinc-100 block text-xs tracking-tight">
                             {b.eventType}
                           </span>
-                          {b.guestCount ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] text-zinc-400 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/5">
-                              <Users className="w-3 h-3 text-purple-400" />
-                              <span>~{b.guestCount} guests</span>
-                            </span>
-                          ) : (
-                            <span className="text-[10px] text-zinc-500">Private Celebration</span>
-                          )}
+                          <span className="inline-flex items-center gap-1 text-[11px] text-zinc-400 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/5">
+                            <MapPin className="w-3 h-3 text-purple-400" />
+                            <span>{b.city || 'Jharsuguda'}</span>
+                          </span>
                         </div>
                       </td>
 
@@ -692,32 +702,46 @@ export default function BookingManagementTable({ initialBookings }: Props) {
 
       {/* Luxury Booking Details Drawer */}
       {activeBooking && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex justify-end animate-in fade-in duration-200">
-          <div className="relative w-full max-w-full sm:max-w-xl h-full bg-[#0d0d14] border-l border-white/10 p-5 sm:p-8 pt-[calc(1.25rem+env(safe-area-inset-top,0px))] pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto space-y-6 shadow-2xl animate-in slide-in-from-right duration-300">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex justify-end animate-in fade-in duration-200">
+          <div className="relative w-full max-w-full sm:max-w-xl h-full bg-[#0b0c12] border-l border-white/10 p-5 sm:p-7 pt-[calc(1.25rem+env(safe-area-inset-top,0px))] pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto space-y-5 shadow-2xl animate-in slide-in-from-right duration-300">
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
-              <div className="space-y-0.5">
+            <div className="flex items-start justify-between pb-4 border-b border-white/10">
+              <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase font-extrabold tracking-widest text-purple-400">
+                  <span className="flex items-center gap-1.5 text-[11px] uppercase font-bold tracking-wider text-purple-400">
+                    <Sparkles className="w-3 h-3" />
                     Booking Dossier
                   </span>
                   <span
-                    className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border ${
+                    className={`inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border backdrop-blur-sm ${
                       activeBooking.status === 'CONFIRMED'
-                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                        ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
                         : activeBooking.status === 'PENDING'
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                        : 'bg-zinc-800 text-zinc-400 border-zinc-700'
+                        ? 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+                        : activeBooking.status === 'COMPLETED'
+                        ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30'
+                        : 'bg-zinc-800/80 text-zinc-400 border-zinc-700/50'
                     }`}
                   >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        activeBooking.status === 'CONFIRMED'
+                          ? 'bg-emerald-400 animate-pulse'
+                          : activeBooking.status === 'PENDING'
+                          ? 'bg-amber-400 animate-pulse'
+                          : 'bg-zinc-400'
+                      }`}
+                    />
                     {activeBooking.status}
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-2xl font-black text-white font-mono">{activeBooking.bookingCode}</h3>
+                <div className="flex items-center gap-2.5 pt-0.5">
+                  <h3 className="text-2xl font-black text-white tracking-tight font-mono">
+                    {activeBooking.bookingCode}
+                  </h3>
                   <button
                     onClick={() => copyToClipboard(activeBooking.bookingCode, 'code')}
-                    className="p-1 rounded-md bg-zinc-800 text-zinc-400 hover:text-white"
+                    className="p-1.5 rounded-lg bg-zinc-800/90 hover:bg-zinc-700 text-zinc-400 hover:text-white border border-white/5 transition-all active:scale-95"
                     title="Copy Booking ID"
                   >
                     {copiedField === 'code' ? (
@@ -731,43 +755,61 @@ export default function BookingManagementTable({ initialBookings }: Props) {
 
               <button
                 onClick={() => setActiveBooking(null)}
-                className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+                className="p-2 rounded-xl bg-zinc-900/80 hover:bg-zinc-800 text-zinc-400 hover:text-white border border-white/10 transition-all active:scale-95"
+                title="Close Drawer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Client / Host Card */}
-            <div className="p-5 rounded-2xl glass-panel border border-white/10 bg-white/[0.02] space-y-3">
+            <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/50 border border-white/10 shadow-lg space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">
-                  Client Contact Profile
+                <span className="text-[11px] uppercase font-bold text-zinc-400 tracking-wider">
+                  Client Profile
                 </span>
-                <span className="text-[10px] text-zinc-500">
-                  Booked: {formatDate(activeBooking.createdAt)}
+                <span className="text-[11px] text-zinc-500 font-medium">
+                  Booked on {formatDate(activeBooking.createdAt)}
                 </span>
               </div>
 
               <div className="flex items-center gap-3.5">
                 <div
-                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br border flex items-center justify-center font-black text-base shrink-0 shadow-lg ${getAvatarStyle(
+                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br border flex items-center justify-center font-black text-base shrink-0 shadow-md ${getAvatarStyle(
                     activeBooking.customer.name
                   )}`}
                 >
                   {getInitials(activeBooking.customer.name)}
                 </div>
-                <div>
-                  <h4 className="text-lg font-bold text-white">{activeBooking.customer.name}</h4>
-                  <p className="text-xs text-zinc-400 font-mono">{activeBooking.customer.phone}</p>
+                <div className="min-w-0 flex-1">
+                  <h4 className="text-base font-bold text-white tracking-tight truncate">
+                    {activeBooking.customer.name}
+                  </h4>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <p className="text-xs text-zinc-400 font-mono tracking-wide">
+                      {activeBooking.customer.phone}
+                    </p>
+                    <button
+                      onClick={() => copyToClipboard(activeBooking.customer.phone, 'phone')}
+                      className="p-1 text-zinc-500 hover:text-zinc-300 transition-colors"
+                      title="Copy Phone"
+                    >
+                      {copiedField === 'phone' ? (
+                        <Check className="w-3 h-3 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-3 h-3" />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/5">
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
                 <a
                   href={`tel:${activeBooking.customer.phone.replace(/[^0-9+]/g, '')}`}
-                  className="py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-200 hover:text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+                  className="py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-sm"
                 >
-                  <Phone className="w-4 h-4 text-purple-400" />
+                  <Phone className="w-3.5 h-3.5 text-purple-400" />
                   <span>Call Client</span>
                 </a>
                 <a
@@ -777,135 +819,169 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 rounded-xl bg-emerald-950/70 hover:bg-emerald-900/70 border border-emerald-800/60 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-md"
+                  className="py-2.5 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-sm"
                 >
-                  <MessageSquare className="w-4 h-4 text-emerald-400" />
+                  <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
                   <span>WhatsApp Chat</span>
                 </a>
               </div>
             </div>
 
             {/* Event Itinerary Card */}
-            <div className="p-5 rounded-2xl glass-panel border border-white/10 bg-white/[0.02] space-y-3 text-xs">
-              <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider block">
+            <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/50 border border-white/10 shadow-lg space-y-3.5">
+              <span className="text-[11px] uppercase font-bold text-zinc-400 tracking-wider block">
                 Event Schedule & Venue
               </span>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <span className="text-zinc-500 text-[11px] block">Occasion</span>
-                  <span className="font-bold text-white text-sm block">{activeBooking.eventType}</span>
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
+                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
+                    <Sparkles className="w-3 h-3 text-purple-400" />
+                    <span>Occasion</span>
+                  </div>
+                  <span className="font-bold text-white text-sm block truncate">
+                    {activeBooking.eventType}
+                  </span>
                 </div>
-                <div className="space-y-1">
-                  <span className="text-zinc-500 text-[11px] block">Event Date</span>
-                  <span className="font-bold text-white text-sm block">
+
+                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
+                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
+                    <Calendar className="w-3 h-3 text-pink-400" />
+                    <span>Event Date</span>
+                  </div>
+                  <span className="font-bold text-white text-sm block truncate">
                     {formatDate(activeBooking.eventDate)}
                   </span>
                 </div>
-                <div className="space-y-1">
-                  <span className="text-zinc-500 text-[11px] block">Performance Timing</span>
-                  <span className="font-medium text-zinc-200 block">
-                    {activeBooking.startTime} – {activeBooking.endTime || 'Wrap up late'}
+
+                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
+                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
+                    <Clock className="w-3 h-3 text-cyan-400" />
+                    <span>Performance Hours</span>
+                  </div>
+                  <span className="font-semibold text-zinc-200 text-xs block truncate">
+                    {activeBooking.startTime} – {activeBooking.endTime || 'Late Wrap'}
                   </span>
                 </div>
-                <div className="space-y-1">
-                  <span className="text-zinc-500 text-[11px] block">Expected Crowd</span>
-                  <span className="font-medium text-zinc-200 block">
-                    {activeBooking.guestCount ? `${activeBooking.guestCount} Guests` : 'Not specified'}
+
+                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
+                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
+                    <MapPin className="w-3 h-3 text-emerald-400" />
+                    <span>City</span>
+                  </div>
+                  <span className="font-semibold text-zinc-200 text-xs block truncate">
+                    {activeBooking.city || 'Jharsuguda'}
                   </span>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-white/5 space-y-1">
-                <span className="text-zinc-500 text-[11px] block">Location & Venue</span>
-                <span className="font-bold text-white block text-sm">
-                  {activeBooking.venue}, {activeBooking.city}
+              <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
+                <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
+                  <MapPin className="w-3 h-3 text-rose-400" />
+                  <span>Venue Location</span>
+                </div>
+                <span className="font-semibold text-white block text-xs sm:text-sm">
+                  {activeBooking.venue}{activeBooking.city ? `, ${activeBooking.city}` : ''}
                 </span>
               </div>
             </div>
 
             {/* Client Notes */}
             {activeBooking.customerNotes && (
-              <div className="p-4 rounded-2xl bg-purple-950/30 border border-purple-500/30 text-xs space-y-1.5">
-                <span className="font-bold text-purple-300 uppercase tracking-wider text-[10px] block flex items-center gap-1.5">
-                  <Music className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Client Entry & Music Instructions:</span>
-                </span>
-                <p className="text-zinc-200 leading-relaxed italic text-xs">
+              <div className="p-4 rounded-2xl bg-purple-950/20 border border-purple-500/25 space-y-2">
+                <div className="flex items-center gap-2 text-purple-300 text-[11px] font-bold uppercase tracking-wider">
+                  <div className="w-6 h-6 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                    <Music className="w-3.5 h-3.5 text-purple-400" />
+                  </div>
+                  <span>Client Entry & Music Instructions</span>
+                </div>
+                <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed pl-8 italic border-l-2 border-purple-500/40 py-0.5">
                   &ldquo;{activeBooking.customerNotes}&rdquo;
                 </p>
               </div>
             )}
 
             {/* Update Form (Status & Agreed Pricing) */}
-            <div className="p-5 rounded-2xl glass-panel border border-white/10 bg-zinc-950/70 space-y-4">
-              <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider block">
+            <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/60 border border-white/10 shadow-lg space-y-4">
+              <span className="text-[11px] uppercase font-bold text-zinc-400 tracking-wider block">
                 Booking Administration & Pricing
               </span>
 
               {/* Status Switcher */}
-              <div>
-                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block mb-1.5">
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-300 block">
                   Update Confirmation Status
                 </label>
-                <select
-                  value={statusInput}
-                  onChange={(e) => setStatusInput(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-xs font-bold uppercase focus:outline-none focus:border-purple-500 shadow-inner"
-                >
-                  {BOOKING_STATUSES.map((s) => (
-                    <option key={s.value} value={s.value}>
-                      {s.label}
-                    </option>
-                  ))}
-                </select>
-                <p className="text-[11px] text-zinc-500 mt-1.5 leading-relaxed">
-                  💡 Marking as <strong className="text-emerald-400">CONFIRMED</strong> automatically locks this date on your public booking calendar as booked.
+                <div className="relative">
+                  <select
+                    value={statusInput}
+                    onChange={(e) => setStatusInput(e.target.value)}
+                    className="w-full appearance-none pl-4 pr-10 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-bold uppercase focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all cursor-pointer shadow-inner"
+                  >
+                    {BOOKING_STATUSES.map((s) => (
+                      <option key={s.value} value={s.value} className="bg-zinc-900 text-white py-1">
+                        {s.label}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="w-4 h-4 text-zinc-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+                <p className="text-[11px] text-zinc-500 flex items-center gap-1.5 pt-0.5">
+                  <span className="text-amber-400">💡</span>
+                  <span>
+                    Marking as <strong className="text-emerald-400 font-semibold">CONFIRMED</strong> automatically locks this date on your public calendar.
+                  </span>
                 </p>
               </div>
 
               {/* Total Agreed Amount */}
-              <div>
-                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block mb-1.5">
-                  Agreed Contract Amount (₹)
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-300 block">
+                  Agreed Contract Amount
                 </label>
-                <input
-                  type="number"
-                  placeholder="e.g. 25000"
-                  value={totalAmountInput}
-                  onChange={(e) => setTotalAmountInput(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-xs focus:outline-none focus:border-purple-500 shadow-inner"
-                />
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-zinc-400">
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    placeholder="e.g. 25000"
+                    value={totalAmountInput}
+                    onChange={(e) => setTotalAmountInput(e.target.value)}
+                    className="w-full pl-8 pr-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-mono font-semibold focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner"
+                  />
+                </div>
               </div>
 
               {/* Private Owner Notes */}
-              <div>
-                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block mb-1.5">
-                  Private Owner Notes (Internal Crew Only)
+              <div className="space-y-1.5">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-300 block">
+                  Private Owner Notes <span className="text-zinc-500 text-[10px] normal-case">(Internal Crew Only)</span>
                 </label>
                 <textarea
                   rows={3}
                   placeholder="e.g. ₹10k advance received via GPay. Crew arrival 4 PM. Line array sound required."
                   value={adminNotesInput}
                   onChange={(e) => setAdminNotesInput(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-xs focus:outline-none focus:border-purple-500 resize-none shadow-inner"
+                  className="w-full p-3 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none shadow-inner leading-relaxed"
                 />
               </div>
 
               {saveError && (
-                <p className="text-xs font-semibold text-rose-400 bg-rose-950/40 border border-rose-800/60 px-3 py-2 rounded-xl">
-                  {saveError}
-                </p>
+                <div className="text-xs font-medium text-rose-400 bg-rose-950/40 border border-rose-800/50 px-3 py-2.5 rounded-xl flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+                  <span>{saveError}</span>
+                </div>
               )}
 
               <div className="flex items-center gap-3 pt-2">
                 <button
                   onClick={handleUpdate}
                   disabled={isUpdating}
-                  className={`flex-1 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all duration-200 ${
+                  className={`flex-1 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all duration-200 active:scale-95 ${
                     saveSuccess
-                      ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/50'
-                      : 'bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:opacity-95 text-white'
+                      ? 'bg-emerald-600 text-white shadow-emerald-950/50'
+                      : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-purple-950/50'
                   }`}
                 >
                   {isUpdating ? (
@@ -925,7 +1001,7 @@ export default function BookingManagementTable({ initialBookings }: Props) {
 
                 <button
                   onClick={() => handleDelete(activeBooking.id)}
-                  className="p-3.5 rounded-xl bg-rose-950/40 text-rose-400 border border-rose-900/60 hover:bg-rose-900/60 transition-colors"
+                  className="p-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 hover:text-rose-200 border border-rose-500/20 active:scale-95 transition-all shadow-sm"
                   title="Delete booking dossier"
                 >
                   <Trash2 className="w-4 h-4" />

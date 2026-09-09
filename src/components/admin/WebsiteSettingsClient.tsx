@@ -69,7 +69,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
   const djName = settings['dj_name'] || 'DJ Mantu';
   const tagline = settings['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
   const heroTitle = settings['hero_title'] || 'Turn Every Moment Into An Unforgettable Memory';
-  const whatsappNum = settings['whatsapp'] || '+91 6372174006';
+  const whatsappNum = settings['whatsapp'] || '+91 9337828746';
 
   const testWaLink = createWhatsAppLink(
     whatsappNum,
@@ -294,7 +294,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['whatsapp'] || ''}
               onChange={(e) => handleChange('whatsapp', e.target.value)}
-              placeholder="+91 6372174006"
+              placeholder="+91 9337828746"
               className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-sm font-mono focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-inner"
             />
             <span className="text-[10px] text-zinc-500 block">
@@ -310,7 +310,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['phone'] || ''}
               onChange={(e) => handleChange('phone', e.target.value)}
-              placeholder="+91 6372174006"
+              placeholder="+91 9337828746"
               className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-sm font-mono focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all shadow-inner"
             />
             <span className="text-[10px] text-zinc-500 block">
