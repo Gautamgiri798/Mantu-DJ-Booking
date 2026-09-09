@@ -9,7 +9,7 @@
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Prisma ORM](https://img.shields.io/badge/Prisma-6.19.3-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL_Neon-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://neon.tech/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 <p align="center">
@@ -25,6 +25,7 @@
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-admin-portal">Admin Portal</a> •
   <a href="#-api-endpoints-overview">API Reference</a> •
+  <a href="#-legal--compliance">Legal</a> •
   <a href="#-contact--booking">Contact</a>
 </p>
 
@@ -34,14 +35,15 @@
 
 ## 🌟 Executive Overview
 
-**DJ Mantu Event Booking Platform** is an enterprise-grade digital portal engineered to streamline the booking and management of weddings, grand receptions, sangeets, college festivals, corporate galas, and VIP celebrations.
+**DJ Mantu Event Booking Platform** is an enterprise-grade digital portal engineered to streamline inquiries, booking workflows, and client management for weddings, royal baraats, receptions, sangeets, college festivals, corporate galas, and private celebrations across Western Odisha and Eastern Chhattisgarh.
 
-Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, this application marries modern dark-mode cyberpunk aesthetics with mission-critical features:
+Powered by **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **PostgreSQL (via Prisma ORM & Neon DB)**, this application pairs a high-voltage obsidian dark-mode aesthetic with mission-critical operational tools:
 
-- **Instant Client Onboarding**: 4-step wizard with consultation preferences and direct WhatsApp & Call lead generation.
-- **Real-Time Date Availability Engine**: Visual booking calendar with instant conflict prevention.
-- **Edge-to-Edge Lightbox Media Suite**: Unified gallery supporting high-res photos and video embeds with zero letterboxing.
-- **Executive Administration Suite (`/admin`)**: Analytics, booking status pipeline, calendar blocking, direct media uploads, and live website CMS with automatic ISR cache invalidation.
+- **⚡ Instant Client Inquiries**: 4-step booking wizard with direct WhatsApp & Call consultation integration.
+- **📅 Real-Time Availability Engine**: Interactive monthly calendar with instant date-conflict prevention.
+- **🖼️ Edge-to-Edge Lightbox Media Suite**: Unified gallery supporting high-res photos and video embeds with zero letterboxing void and dual aspect modes.
+- **🛡️ Executive Administration Suite (`/admin`)**: Analytics KPI dashboard, booking lifecycle pipeline with slide-over dossier drawer, calendar blackout controls, direct media uploads, and live website CMS with automatic ISR cache invalidation.
+- **⚖️ Legal & Contract Suite**: Dedicated Terms of Booking & Performance Agreement (`/terms`) and Digital Personal Data Protection (DPDP) Privacy Policy (`/privacy`).
 
 ---
 
@@ -49,72 +51,78 @@ Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, t
 
 ### 🌐 Public Client Experience
 
-- **⚡ Multi-Step Interactive Booking Wizard (`/book`)**:
-  - Step 1: Event type, date, time slot, venue city, and guest count.
-  - Step 2: Tiered sound & lighting package selection (Club, Wedding, Arena).
-  - Step 3: SFX add-ons (Dry Ice Cloud Fog, Cold Pyro Sparkulars, DMX Truss lighting).
-  - Step 4: Customer verification, celebration scale / discussion preferences, celebratory confetti, and one-click WhatsApp forwarding with pre-formatted event specs.
+- **⚡ 4-Step Interactive Booking Wizard (`/book`)**:
+  - **Step 1: Event Schedule & Location**: Event type, date, time slot, and venue city/address.
+  - **Step 2: Audio & Visual Package**: Tiered sound setups (Club, Wedding, Arena Concert) with full gear specs.
+  - **Step 3: SFX & Atmosphere Add-Ons**: Dry Ice Low Fog Clouds, Cold Pyro Sparkulars, and DMX Truss moving head beams.
+  - **Step 4: Contact & Instant Dispatch**: Name, mobile phone, custom celebration notes, and one-click WhatsApp forwarding with pre-formatted event specs.
 
-- **💬 Direct WhatsApp & Call Consultation Model**:
-  - Transparent tailored inquiries: Replaced static public price tags with direct **WhatsApp for Details** and **Call for Details** action buttons across every package card and service item.
-  - Pre-filled WhatsApp chat messages with exact package or service titles for seamless client conversion.
+- **💬 Direct WhatsApp & Phone Consultation Model**:
+  - High-conversion call-to-actions: **"WhatsApp for Details"** and **"Call for Details"** across all package tiers and service listings.
+  - Pre-filled WhatsApp chat messages with exact package or service titles for immediate personalized quotation.
+  - Dedicated direct hotline: **`+91 9337828746`**.
 
 - **🎧 Comprehensive Event Services Catalog (`/services`)**:
-  - **Royal Wedding & Baraat DJ**: Laptop setup for baraats, grand entry music for bride and groom, and regional festive hits (Sambalpuri, Chhattisgarhi, Nagpuri, Odia, Punjabi & Bollywood).
-  - **Private Party**: High-energy sound, ambient party lighting, and custom playlists for birthdays, anniversaries, and farmhouse celebrations.
-  - **College Cultural Fests**: Festival-scale line array audio, high-power multi-beam lasers, and campus crowd EDM fests.
-  - **Wedding Reception Gala**: Sophisticated dinner melodies transitioning smoothly into explosive family dance beats.
+  - **Royal Wedding & Baraat DJ**: High-impact mobile setup for baraat processions, royal entry anthems, and multi-genre dance anthems (Sambalpuri, Odia, Chhattisgarhi, Nagpuri, Bollywood, Punjabi & EDM).
+  - **Private Parties & Celebrations**: High-energy sound, ambient party lighting, and custom curated playlists for birthdays, anniversaries, and farmhouse nights.
+  - **College Cultural Fests & EDM Nights**: Line array audio reinforcement, multi-beam synchronized lasers, and high-capacity crowd control sound.
+  - **Wedding Reception Gala**: Sophisticated dinner lounge melodies transitioning smoothly into explosive family dance celebrations.
   - **Dry Ice Low Fog & Cold Pyro Sparks**: Fairy-tale cloud entries and indoor-safe cold sparkular pyrotechnics.
 
 - **📅 Real-Time Availability Calendar (`/availability`)**:
-  - Interactive monthly calendar showing **Available**, **Booked**, **Pending**, and **Blocked** dates.
-  - Real-time conflict protection preventing double bookings on the same date.
-  - One-click date selection that directly prefills the booking wizard.
+  - Interactive monthly calendar displaying **Available**, **Booked**, **Pending**, and **Admin Blocked** dates.
+  - Real-time conflict protection preventing double bookings on identical dates.
+  - One-click date selection directly pre-fills the booking wizard.
 
-- **🖼️ Unified Visual & Video Gallery (`/gallery`)**:
-  - Filter items by category (_Weddings, Receptions, Parties, Birthdays, Corporate_).
-  - **Zero-Blank-Space Lightbox**: Photos fit the frame edge-to-edge with no dark letterbox voids.
-  - **Dual Display Modes**: Toggle between **Fill Frame (Full Widescreen)** and **Fit Photo (Snug uncropped frame)**.
+- **🖼️ Unified Visual & Video Showcase (`/gallery`)**:
+  - Filter items by event category (_Weddings, Receptions, Parties, Birthdays, Corporate_).
+  - **Zero-Blank-Space Lightbox**: Photos fit the viewport edge-to-edge without unsightly black letterbox voids.
+  - **Dual Display Modes**: Seamlessly toggle between **Fill Frame (Full Widescreen Immersive)** and **Fit Photo (Snug Uncropped Original)**.
   - **Ambient Glow Backdrop**: Soft, color-matching blurred ambient reflection behind images for an ultra-premium visual feel.
-  - **Embedded Video Player**: Smooth playback for YouTube URLs and direct uploaded MP4 videos.
-  - **Hover-Based Asset Prefetching**: High-resolution assets prefetch into browser memory on thumbnail hover for instantaneous lightbox opening.
+  - **Embedded Video Playback**: Smooth playback for YouTube embeds and uploaded MP4 performance recordings.
+  - **Hover-Based Asset Prefetching**: High-resolution assets prefetch into browser memory on thumbnail hover for instantaneous modal opening.
+
+- **📜 Legal & Compliance Pages**:
+  - **Terms of Booking & Performance Agreement (`/terms`)**: 8-section legal framework covering booking confirmation, payment schedules, technical & power riders, cancellation & refund policies, outdoor weather protocols, sound level compliance, damage liabilities, and force majeure.
+  - **Privacy Policy (`/privacy`)**: Digital Personal Data Protection (DPDP) Act compliant documentation detailing data collection, purpose of use, phone/WhatsApp communication policies, security protocols, and client rights.
 
 - **💬 Floating WhatsApp Concierge**:
-  - Animated, responsive WhatsApp CTA widget allowing instant customer communication from any page on the site.
+  - Pulsing neon WhatsApp quick-action widget floating seamlessly across every page for instant customer access.
 
 - **🎨 Dark-Mode Cyberpunk / Obsidian Aesthetics**:
-  - Permanent dark theme with deep obsidian backgrounds (`#08080C`), electric violet accents, hot pink gradients, and frosted glass cards (`glass-panel`).
-  - Animated neon trust bar with live equalizer, glowing badges, and multi-color gradient text.
-  - Mobile-first, fully responsive design with fluid touch navigation and smooth micro-animations.
+  - Permanent dark theme built on deep obsidian tones (`#08080C`), electric violet accents, hot pink gradients, and frosted glass panels (`glass-panel`).
+  - 100% responsive across mobile phones (360px+), tablets, laptops, and ultra-wide desktop monitors.
 
 ---
 
 ### 🛡️ Executive Administration Suite (`/admin`)
 
 - **📊 Real-Time Analytics Dashboard**:
-  - Key Performance Indicators: Total Bookings, Confirmed Revenue, Pending Inquiries, and Conversion Rates.
-  - Live activity feed showing recent booking requests with instant action buttons.
+  - Key Performance Indicators: Total Inquiries, Confirmed Bookings, Pipeline Volume, and Conversion Rates.
+  - Activity stream featuring recent booking requests with quick-action contact shortcuts.
 
-- **📑 Full Booking Lifecycle Pipeline (`/admin/bookings`)**:
-  - Track booking statuses: `PENDING` ➔ `CONTACTED` ➔ `CONFIRMED` ➔ `COMPLETED` ➔ `CANCELLED`.
-  - Filter bookings by status, search by customer phone or booking reference code (`DJ-YYYY-XXX`).
-  - View comprehensive event details, venue address, client notes, and selected package add-ons.
+- **📑 Upgraded Booking Lifecycle Pipeline (`/admin/bookings`)**:
+  - Full status lifecycle management: `PENDING` ➔ `CONTACTED` ➔ `CONFIRMED` ➔ `COMPLETED` ➔ `CANCELLED`.
+  - Search by client name, mobile phone number, or booking reference code (`DJ-YYYY-XXX`).
+  - Filter bookings by status tab with real-time badge counts.
+  - **Slide-Over Booking Dossier Drawer**: Comprehensive inspection of client contact info, venue address, service/package selections, customer notes, and direct One-Click Call / WhatsApp launch buttons.
 
-- **📆 Interactive Calendar Blocking (`/admin/calendar`)**:
-  - Visual monthly calendar management.
-  - One-click manual date blocking for private bookings, personal leave, or equipment maintenance.
+- **📆 Interactive Calendar Blackout Engine (`/admin/calendar`)**:
+  - Monthly calendar overview with color-coded date statuses.
+  - One-click date blocking for private tour bookings, personal leave, or equipment maintenance.
 
-- **📁 Direct Media Upload & Gallery CMS (`/admin/gallery`)**:
-  - Direct multipart file uploads (`/api/admin/upload`) saved to disk with timestamped filenames.
-  - Add, edit, reorder, or feature photos and video performances without touching code.
+- **📁 Responsive Media Upload & Gallery CMS (`/admin/gallery`)**:
+  - Direct multipart file uploads (`/api/admin/upload`) saved locally to disk with timestamped filenames.
+  - Dedicated mobile & desktop action bar for instant photo/video deletion and featured showcase toggling.
+  - Clean slate database seed ready for fresh, authentic event uploads.
 
-- **⚙️ Live Website Content Sync (`/admin/settings`)**:
-  - Dynamically update Hero Headline, Subtitle, Brand Tagline, Bio, Address, Phone, WhatsApp, and Service Areas.
-  - **Instant Next.js ISR Route Invalidation (`revalidatePath`)**: Edits immediately reflect on the live public site without server restarts or rebuilds.
+- **⚙️ Live Website Content CMS (`/admin/settings`)**:
+  - Dynamically update Hero Headline, Subtitle, Brand Tagline, Artist Bio, Phone, WhatsApp, Base Location, and Service Areas.
+  - **Instant Next.js ISR Route Invalidation (`revalidatePath`)**: Updates immediately reflect on the live public site without server restarts or rebuilds.
   - Automatic cache clearing for Redis and memory layers.
 
 - **📦 Package & Service Catalog Management (`/admin/packages`, `/admin/services`)**:
-  - Update configurations, duration, equipment lists, and features for all sound packages and specialized event services.
+  - Edit equipment lists, duration, sound specifications, and feature highlights for all sound packages and specialized event services.
 
 ---
 
@@ -124,13 +132,13 @@ Powered by **Next.js 16 (App Router)**, **React 19**, and **Tailwind CSS v4**, t
 flowchart TD
     %% 1. Clients Layer
     subgraph Clients["📱 Experience Layer"]
-        Visitor["🌐 Public Visitor<br/>(Mobile & Desktop Web)"]
+        Visitor["🌐 Public Visitor<br/>(Mobile, Tablet & Desktop)"]
         Admin["👑 System Admin<br/>(/admin Control Center)"]
     end
 
     %% 2. Next.js Fullstack Engine
     subgraph Engine["⚡ Next.js 16 Full-Stack Platform"]
-        Frontend["🖥️ Presentation Layer<br/>• Dynamic Hero & Neon Trust Bar<br/>• Edge-to-Edge Lightbox Gallery<br/>• 4-Step Interactive Booking Wizard"]
+        Frontend["🖥️ Presentation Layer<br/>• Dynamic Hero & Neon Trust Bar<br/>• Edge-to-Edge Lightbox Gallery<br/>• 4-Step Interactive Booking Wizard<br/>• Legal & Compliance Pages (/terms, /privacy)"]
         Services["🛡️ Application Services & Handlers<br/>• Booking Pipeline & Status Manager<br/>• Real-Time Date Availability Engine<br/>• Live CMS & Media Upload Dispatcher"]
         Auth["🔐 Security & Session Guard<br/>• Jose HTTP-Only JWT Cookies<br/>• Bcrypt Password Hashing"]
         ISR["🔄 On-Demand ISR Engine<br/>revalidatePath('/', 'layout')"]
@@ -138,18 +146,18 @@ flowchart TD
 
     %% 3. Storage & Persistence
     subgraph DataTier["💾 Persistence & Caching Tier"]
-        DB[("🗄️ Prisma ORM<br/>SQLite Database")]
+        DB[("🗄️ Prisma ORM<br/>PostgreSQL (Neon DB)")]
         Cache[("⚡ High-Speed Cache<br/>In-Memory / Redis")]
         Media["📁 Local Asset Store<br/>/public/uploads/"]
     end
 
     %% 4. External Communications
     subgraph External["🚀 External Integrations"]
-        WhatsApp["💬 WhatsApp Business API<br/>Direct Lead & Inquiry Forwarding"]
+        WhatsApp["💬 WhatsApp Business API<br/>Direct Lead & Inquiry Forwarding<br/>+91 9337828746"]
     end
 
     %% Clean Non-Crossing Data Flow
-    Visitor -->|1. Browse & Inquire| Frontend
+    Visitor -->|1. Browse, Check Dates & Inquire| Frontend
     Frontend -->|2. Submit Event Booking| Services
     Admin -->|Authenticate| Auth
     Auth -->|Authorize Operations| Services
@@ -179,25 +187,25 @@ flowchart TD
 
 | Layer | Primary Technologies | Key Responsibilities & Capabilities |
 | :--- | :--- | :--- |
-| **Experience Layer** | React 19, Tailwind CSS v4, Lucide | Mobile-first responsive views (`/`, `/gallery`, `/availability`, `/services`, `/book`) and high-security administrative control portal (`/admin`). |
+| **Experience Layer** | React 19, Tailwind CSS v4, Lucide React | Mobile-first responsive views (`/`, `/gallery`, `/availability`, `/services`, `/packages`, `/book`, `/terms`, `/privacy`) and executive control portal (`/admin`). |
 | **Core Application Engine** | Next.js 16 (App Router), Node.js | Edge-optimized Server Components, Route Handlers (`/api/*`), automated session validation, and on-demand ISR cache invalidation (`revalidatePath`). |
-| **Persistence & Caching** | Prisma ORM, SQLite (`dev.db`), ioredis | ACID-compliant relational storage for bookings, customers, media items, and CMS copy with sub-millisecond in-memory caching. |
+| **Persistence & Caching** | Prisma ORM 6, PostgreSQL (Neon DB), ioredis | Cloud relational storage with strict relations for bookings, customers, availability, gallery, and CMS settings, backed by in-memory / Redis caching. |
 | **External Integrations** | WhatsApp Business API, Cloud CDN | High-conversion direct lead dispatch, automated pre-formatted WhatsApp chat payloads, and media streaming. |
 
 ---
 
 ## 💻 Tech Stack
 
-| Category           | Technology                                                                                            | Version / Details                                                |
-| :----------------- | :---------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------- |
-| **Framework**      | [Next.js](https://nextjs.org/)                                                                        | `16.3.4` (App Router, Server Actions, Route Handlers)            |
-| **UI Library**     | [React](https://react.dev/)                                                                           | `19.2.8`                                                         |
-| **Styling**        | [Tailwind CSS](https://tailwindcss.com/)                                                              | `v4.0` with PostCSS plugin & CSS variables                       |
-| **Icons & SFX**    | [Lucide React](https://lucide.dev/), [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti) | Dynamic vector icons and celebratory animations                  |
-| **Database & ORM** | [Prisma ORM](https://www.prisma.io/)                                                                  | `6.19.3` with SQLite (Zero-config local setup, PostgreSQL ready) |
-| **Caching Layer**  | [ioredis](https://github.com/redis/ioredis)                                                           | Redis caching with seamless in-memory fallback                   |
-| **Authentication** | [Jose](https://github.com/panva/jose), [Bcryptjs](https://github.com/dcodeIO/bcrypt.js)               | Secure HTTP-only JWT cookies & password hashing                  |
-| **Language**       | [TypeScript](https://www.typescriptlang.org/)                                                         | `5.0` (Strict typing)                                            |
+| Category | Technology | Version / Details |
+| :--- | :--- | :--- |
+| **Framework** | [Next.js](https://nextjs.org/) | `16.3.4` (App Router, Server Actions, Route Handlers) |
+| **UI Library** | [React](https://react.dev/) | `19.2.8` |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | `v4.0` with CSS variables & `@theme` design tokens |
+| **Icons & SFX** | [Lucide React](https://lucide.dev/), [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti) | Dynamic vector icons and celebratory confetti animations |
+| **Database & ORM** | [Prisma ORM](https://www.prisma.io/) | `6.19.3` with **PostgreSQL** (Neon DB serverless connection pool) |
+| **Caching Layer** | [ioredis](https://github.com/redis/ioredis) | Redis caching with automatic sub-millisecond in-memory fallback |
+| **Authentication** | [Jose](https://github.com/panva/jose), [Bcryptjs](https://github.com/dcodeIO/bcrypt.js) | Secure HTTP-only JWT cookies & password hashing |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) | `5.0` (Strict typing mode) |
 
 ---
 
@@ -206,81 +214,82 @@ flowchart TD
 ```
 Mantu-DJ-Booking/
 ├── prisma/
-│   ├── dev.db                       # SQLite database storage
-│   ├── schema.prisma                # Database models (Admin, Booking, Customer, Availability, Package, Service, Gallery, Settings)
-│   └── seed.ts                      # Database seed script with production-ready content
+│   ├── schema.prisma                  # PostgreSQL schema (Admin, Booking, Customer, Availability, Package, Service, Gallery, Settings)
+│   └── seed.ts                        # Clean slate seed script (Admin user, website settings, default packages & services)
 ├── public/
-│   ├── audio/                       # Audio previews & DJ mix tracks
-│   ├── images/                      # Brand imagery, avatar & logos
-│   └── uploads/                     # User-uploaded gallery photos & video files
+│   ├── audio/                         # DJ mix track previews
+│   ├── images/                        # Artist avatar, sound setup photos, logo
+│   └── uploads/                       # User-uploaded gallery photos & video files
 ├── src/
 │   ├── app/
-│   │   ├── (public)/                # Public routes with shared navigation layout
-│   │   │   ├── about/               # Artist biography, gear specs & experience
-│   │   │   ├── availability/        # Real-time event date availability calendar
-│   │   │   ├── book/                # Interactive multi-step booking wizard
-│   │   │   ├── contact/             # Contact card, address & direct WhatsApp link
-│   │   │   ├── gallery/             # Unified visual gallery & video showcase
-│   │   │   ├── packages/            # Sound & lighting package tiers
-│   │   │   ├── services/            # Individual event services & SFX add-ons
-│   │   │   ├── layout.tsx           # Public layout (Navbar, Floating WhatsApp, Footer)
-│   │   │   └── page.tsx             # Dynamic homepage with live CMS settings
-│   │   ├── admin/                   # Executive admin portal
-│   │   │   ├── (dashboard)/         # Authenticated dashboard views
-│   │   │   │   ├── bookings/        # Booking lifecycle pipeline & search
-│   │   │   │   ├── calendar/        # Date blocking & scheduling view
-│   │   │   │   ├── customers/       # Customer directory
-│   │   │   │   ├── gallery/         # Direct media uploads & gallery CMS
-│   │   │   │   ├── packages/        # Package configurations & equipment manager
-│   │   │   │   ├── services/        # Service catalog manager
-│   │   │   │   ├── settings/        # Live website copy & contact settings
-│   │   │   │   └── page.tsx         # Dashboard overview with KPIs & analytics
-│   │   │   └── login/               # Secure JWT login screen
-│   │   ├── api/                     # API route handlers
-│   │   │   ├── admin/               # Protected endpoints (bookings, calendar, gallery, packages, services, settings, upload, cache)
-│   │   │   ├── availability/        # Date check endpoint (/api/availability/check)
-│   │   │   └── bookings/            # Public booking inquiry submission
-│   │   ├── favicon.ico              # Site favicon
-│   │   ├── globals.css              # Global styles, CSS variables, dark theme & animations
-│   │   ├── layout.tsx               # Root layout (fonts, metadata, dark mode init)
-│   │   ├── robots.ts                # SEO robots.txt generation
-│   │   └── sitemap.ts               # SEO sitemap generation
-│   ├── components/                  # Reusable UI components
-│   │   ├── admin/                   # Admin-specific components
-│   │   │   ├── AdminCalendarView    # Interactive calendar blocking & management
-│   │   │   ├── AdminSidebar         # Admin navigation sidebar
-│   │   │   ├── BookingManagementTable # Booking pipeline data table
-│   │   │   ├── GalleryManagementClient # Gallery upload & CMS client
-│   │   │   ├── PackageManagementClient # Sound package editor
-│   │   │   ├── ServiceManagementClient # Service catalog editor
-│   │   │   └── WebsiteSettingsClient # Live CMS settings editor
-│   │   ├── ArtistBioDisplay         # Artist biography & stats display
-│   │   ├── ArtistHeadlinerCard      # Hero artist profile card
-│   │   ├── AvailabilityChecker      # Interactive date availability calendar
-│   │   ├── BookingWizard            # 4-step animated booking wizard
-│   │   ├── FloatingWhatsApp         # Direct conversion WhatsApp floating CTA
-│   │   ├── Footer                   # High-impact footer with service area badges
-│   │   ├── GalleryLightbox          # Zero-blank-space photo & video lightbox
-│   │   ├── Navbar                   # Responsive backdrop-blur navigation
-│   │   ├── NavigationProgressBar    # Page transition progress indicator
-│   │   ├── PackageCard              # Tiered package cards with feature lists
-│   │   ├── ServiceIcons             # Custom SVG event category icons
-│   │   ├── SocialIcons              # Social media vector links
-│   │   └── SpecializedServicesGrid  # Services page grid layout
-│   └── lib/                         # Utility & infrastructure modules
-│       ├── auth.ts                  # JWT session management & middleware
-│       ├── data.ts                  # Cached data fetching (gallery, settings)
-│       ├── prisma.ts                # Prisma client singleton
-│       ├── redis.ts                 # Redis cache with in-memory fallback
-│       ├── services-data.ts         # Service catalog definitions & icon mapping
-│       └── utils.ts                 # Helper utilities (WhatsApp links, formatting)
-├── .env.example                     # Environment variables template
-├── eslint.config.mjs                # ESLint configuration
-├── next.config.ts                   # Next.js configuration
-├── package.json                     # Dependencies & scripts
-├── postcss.config.mjs               # PostCSS configuration for Tailwind
-├── README.md                        # Project documentation
-└── tsconfig.json                    # TypeScript configuration
+│   │   ├── (public)/                  # Public views sharing top navigation & footer
+│   │   │   ├── about/                 # Artist bio, equipment specs & experience
+│   │   │   ├── availability/          # Real-time event date availability calendar
+│   │   │   ├── book/                  # 4-step interactive booking wizard
+│   │   │   ├── contact/               # Contact card, address & direct consultation links
+│   │   │   ├── gallery/               # Unified zero-void lightbox gallery & video player
+│   │   │   ├── packages/              # Sound & lighting package tiers
+│   │   │   ├── privacy/               # Digital Personal Data Protection Privacy Policy
+│   │   │   ├── services/              # Event services catalog & SFX details
+│   │   │   ├── terms/                 # Terms of Booking & Performance Agreement
+│   │   │   ├── layout.tsx             # Public shell (Navbar, Floating WhatsApp, Footer)
+│   │   │   └── page.tsx               # High-energy homepage with live CMS sync
+│   │   ├── admin/                     # Executive administrative portal
+│   │   │   ├── (dashboard)/           # Authenticated admin dashboard
+│   │   │   │   ├── bookings/          # Booking pipeline & slide-over dossier
+│   │   │   │   ├── calendar/          # Date blackout & calendar manager
+│   │   │   │   ├── customers/         # Customer directory & history
+│   │   │   │   ├── gallery/           # Responsive gallery CMS & media uploads
+│   │   │   │   ├── packages/          # Sound package editor & gear manager
+│   │   │   │   ├── services/          # Service catalog & add-on manager
+│   │   │   │   ├── settings/          # Live website copy & contact CMS
+│   │   │   │   └── page.tsx           # Analytics overview with KPI counters
+│   │   │   └── login/                 # Secure JWT login screen
+│   │   ├── api/                       # API route handlers
+│   │   │   ├── admin/                 # Protected endpoints (bookings, calendar, gallery, packages, services, settings, upload, cache)
+│   │   │   ├── availability/          # Real-time date availability check
+│   │   │   └── bookings/              # Public booking inquiry submission
+│   │   ├── favicon.ico                # Site favicon
+│   │   ├── globals.css                # Global styles, CSS variables, dark theme & animations
+│   │   ├── layout.tsx                 # Root layout (fonts, metadata, viewport)
+│   │   ├── robots.ts                  # SEO robots.txt generation
+│   │   └── sitemap.ts                 # SEO sitemap generation
+│   ├── components/                    # Reusable UI component library
+│   │   ├── admin/                     # Admin-specific components
+│   │   │   ├── AdminCalendarView.tsx  # Calendar blackout grid & status controls
+│   │   │   ├── AdminSidebar.tsx       # Desktop & mobile admin navigation
+│   │   │   ├── BookingManagementTable.tsx # Booking pipeline table & slide-over dossier
+│   │   │   ├── GalleryManagementClient.tsx # Media upload form & responsive cards
+│   │   │   ├── PackageManagementClient.tsx # Sound package editor
+│   │   │   ├── ServiceManagementClient.tsx # Service catalog editor
+│   │   │   └── WebsiteSettingsClient.tsx # Live CMS settings editor
+│   │   ├── ArtistBioDisplay.tsx       # Artist biography & stats display
+│   │   ├── ArtistHeadlinerCard.tsx    # Hero artist profile card
+│   │   ├── AvailabilityChecker.tsx    # Interactive date availability calendar
+│   │   ├── BookingWizard.tsx          # 4-step animated booking wizard
+│   │   ├── FloatingWhatsApp.tsx       # Direct conversion WhatsApp floating CTA
+│   │   ├── Footer.tsx                 # High-impact footer with service area badges
+│   │   ├── GalleryLightbox.tsx        # Zero-blank-space photo & video lightbox
+│   │   ├── Navbar.tsx                 # Responsive backdrop-blur navigation
+│   │   ├── NavigationProgressBar.tsx  # Page transition progress indicator
+│   │   ├── PackageCard.tsx            # Tiered package cards with feature lists
+│   │   ├── ServiceIcons.tsx           # Custom SVG event category icons
+│   │   ├── SocialIcons.tsx            # Social media vector links
+│   │   └── SpecializedServicesGrid.tsx# Services page grid layout
+│   └── lib/                           # Utility & infrastructure modules
+│       ├── auth.ts                    # JWT session management & middleware
+│       ├── data.ts                    # Cached data fetching (gallery, settings)
+│       ├── prisma.ts                  # Prisma client singleton
+│       ├── redis.ts                   # Redis cache with in-memory fallback
+│       ├── services-data.ts           # Service catalog definitions & icon mapping
+│       └── utils.ts                   # Helper utilities (WhatsApp links, formatting)
+├── .env.example                       # Environment variables template
+├── eslint.config.mjs                  # ESLint configuration
+├── next.config.ts                     # Next.js configuration
+├── package.json                       # Dependencies & scripts
+├── postcss.config.mjs                 # PostCSS configuration for Tailwind
+├── README.md                          # Project documentation
+└── tsconfig.json                      # TypeScript configuration
 ```
 
 ---
@@ -291,6 +300,7 @@ Mantu-DJ-Booking/
 
 - **Node.js**: `v20.x` or higher
 - **npm**: `v10.x` or higher
+- **PostgreSQL Database**: A hosted PostgreSQL instance (recommended: [Neon DB](https://neon.tech/), [Supabase](https://supabase.com/)) or a local PostgreSQL server.
 
 ### 2. Clone the Repository
 
@@ -313,12 +323,19 @@ Copy the `.env.example` file to `.env`:
 cp .env.example .env
 ```
 
-Default `.env` configuration:
+Configure your `.env` settings:
 
 ```env
-DATABASE_URL="file:./dev.db"
+# PostgreSQL Database Connection (Neon DB / Supabase / Local PostgreSQL)
+DATABASE_URL="postgresql://username:password@ep-example-pooler.region.aws.neon.tech/neondb?sslmode=require"
+
+# JWT Secret for Admin Authentication Session Cookies
 JWT_SECRET="dj-mantu-ultra-secure-session-key-2026-event-booking"
+
+# Public Site URL
 NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+
+# Optional Redis Cache URL (falls back to memory if Redis is unavailable)
 REDIS_URL="redis://127.0.0.1:6379"
 
 # Admin Portal Authentication
@@ -326,16 +343,19 @@ ADMIN_EMAIL="admin@djmantu.com"
 ADMIN_PASSWORD="admin123"
 ```
 
-_(Note: If Redis is not running locally, the application automatically uses an in-memory cache)._
+> 💡 _If Redis is not running locally, the application automatically uses an in-memory cache with zero configuration required._
 
-### 5. Setup Database & Seed Initial Content
+### 5. Push Database Schema & Seed Clean Slate
 
-Generate the Prisma Client and seed the database with initial settings, sound packages, services, and default admin credentials:
+Synchronize the database schema with your PostgreSQL database and seed default settings, packages, services, and the admin account:
 
 ```bash
 npx prisma generate
+npx prisma db push
 npm run db:seed
 ```
+
+> 💡 _`npm run db:seed` provisions a clean slate without mock bookings or demo gallery items, leaving the platform ready for genuine production use._
 
 ### 6. Start the Development Server
 
@@ -366,39 +386,56 @@ http://localhost:3000/admin
 
 ## 📡 API Endpoints Overview
 
-| Method         | Endpoint                  | Description                               | Access |
-| :------------- | :------------------------ | :---------------------------------------- | :----- |
-| `GET`          | `/api/bookings`           | Fetch availability data & bookings        | Public |
-| `POST`         | `/api/bookings`           | Submit a new event booking inquiry        | Public |
-| `GET`          | `/api/availability/check` | Real-time date availability query         | Public |
-| `POST`         | `/api/admin/login`        | Authenticate admin and set JWT cookie     | Public |
-| `POST`         | `/api/admin/logout`       | Clear authentication session              | Admin  |
-| `GET` / `POST` | `/api/admin/settings`     | Retrieve or update live website settings  | Admin  |
-| `GET` / `POST` | `/api/admin/gallery`      | Retrieve or create gallery items          | Admin  |
-| `POST`         | `/api/admin/upload`       | Direct multipart photo/video media upload | Admin  |
-| `GET` / `POST` | `/api/admin/packages`     | Manage packages & equipment specs         | Admin  |
-| `GET` / `POST` | `/api/admin/services`     | Manage services & equipment catalog       | Admin  |
-| `GET` / `POST` | `/api/admin/calendar`     | Manage calendar bookings & date blocks    | Admin  |
-| `POST`         | `/api/admin/cache`        | Purge Redis / memory caches on demand     | Admin  |
+| Method | Endpoint | Description | Access |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/bookings` | Fetch availability data & bookings | Public |
+| `POST` | `/api/bookings` | Submit a new event booking inquiry | Public |
+| `GET` | `/api/availability/check` | Real-time date availability query | Public |
+| `POST` | `/api/admin/login` | Authenticate admin and set JWT cookie | Public |
+| `POST` | `/api/admin/logout` | Clear authentication session cookie | Admin |
+| `GET` / `POST` | `/api/admin/settings` | Retrieve or update live website settings | Admin |
+| `GET` / `POST` | `/api/admin/gallery` | Retrieve or create gallery items | Admin |
+| `POST` | `/api/admin/upload` | Direct multipart photo/video media upload | Admin |
+| `GET` / `POST` | `/api/admin/packages` | Manage packages & equipment specs | Admin |
+| `GET` / `POST` | `/api/admin/services` | Manage services & equipment catalog | Admin |
+| `GET` / `POST` | `/api/admin/calendar` | Manage calendar bookings & date blocks | Admin |
+| `POST` | `/api/admin/cache` | Purge Redis / memory caches on demand | Admin |
 
 ---
 
-## 🚢 Production Deployment
+## ⚖️ Legal & Compliance
 
-### Deploying to Vercel
+The platform includes two dedicated, professionally drafted legal agreements accessible to all clients and event organizers:
 
-1. Push your latest code to your GitHub repository.
-2. Import the project into [Vercel](https://vercel.com/new).
-3. Configure environment variables in the Vercel Dashboard (`JWT_SECRET`, `NEXT_PUBLIC_SITE_URL`, etc.).
-4. For persistent storage in production:
-   - Connect a cloud database (e.g. Supabase, Neon PostgreSQL, or PlanetScale) and update the datasource provider in `prisma/schema.prisma`.
-   - Run Prisma migrations:
-     ```bash
-     npx prisma migrate deploy
-     ```
+1. **Terms of Booking & Performance Agreement (`/terms`)**:
+   - **Section 1: Booking & Confirmation**: Non-refundable token deposit required to lock dates.
+   - **Section 2: Payment Schedule**: 50% advance before sound setup dispatch; remaining 50% upon sound check before performance commences.
+   - **Section 3: Technical & Power Rider**: Minimum dedicated 5 kVA – 15 kVA unshared generator / phase supply requirements.
+   - **Section 4: Cancellation & Rescheduling**: Notice periods, forfeiture terms, and 12-month credit policy for unavoidable date shifts.
+   - **Section 5: Outdoor Events & Inclement Weather**: Waterproof shelter mandates; right to power down in heavy rain/dust to protect equipment.
+   - **Section 6: Sound Levels & Local Ordinances**: Compliance with local administration sound limits and police guidelines.
+   - **Section 7: Equipment Safety & Client Liability**: Client responsibility for crowd/stage damage to sound gear, mixers, and lighting fixtures.
+   - **Section 8: Force Majeure**: Protections against natural disasters, road blockades, or government bans.
+
+2. **Privacy Policy (`/privacy`)**:
+   - Compliant with India's **Digital Personal Data Protection (DPDP) Act**.
+   - Outlines collection of client names, mobile numbers, event locations, and event dates.
+   - Strict zero-sale and zero-spam policy for client contact data.
+   - WhatsApp communication and quote delivery consent guidelines.
 
 ---
 
+## 📞 Contact & Booking
+
+For direct event inquiries, sound system specifications, and custom quotations:
+
+- **Artist & Sound Producer**: DJ Mantu
+- **Direct Phone Hotline**: [**+91 9337828746**](tel:+919337828746)
+- **WhatsApp Concierge**: [**Chat on WhatsApp (+91 9337828746)**](https://wa.me/919337828746?text=Hello%20DJ%20Mantu,%20I%20would%20like%20to%20inquire%20about%20booking%20sound%20and%20DJ%20for%20my%20event.)
+- **Base Studio & Headquarters**: Brajrajnagar, Jharsuguda, Odisha — 768216, India
+- **Active Service Coverage**: Jharsuguda, Sambalpur, Belpahar, Brajrajnagar, Sundargarh, Rourkela, Raigarh, and across Western Odisha & Eastern Chhattisgarh.
+
+---
 
 ## 📄 License
 
