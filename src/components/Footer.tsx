@@ -14,7 +14,7 @@ interface FooterProps {
 
 export default function Footer({
   djName = 'DJ Mantu',
-  tagline = "Rourkela's Premier DJ & Event Sound Specialist",
+  tagline = "Brajrajnagar's Premium DJ & Event Sound Specialist",
   phone = '+91 9337828746',
   whatsapp = '+91 9337828746',
   address = 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216',

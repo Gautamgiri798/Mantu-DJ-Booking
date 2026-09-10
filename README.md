@@ -13,7 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 <p align="center">
-  <b>A production-ready, full-stack booking platform and management suite built for DJ Mantu — Western Odisha's premier open-format DJ, sound engineer, and arena-grade event producer.</b>
+  <b>A production-ready, full-stack booking platform and management suite built for DJ Mantu — Brajrajnagar's Premium DJ & Event Sound Specialist, serving Western Odisha and Eastern Chhattisgarh.</b>
 </p>
 
 <p align="center">
@@ -35,14 +35,14 @@
 
 ## 🌟 Executive Overview
 
-**DJ Mantu Event Booking Platform** is an enterprise-grade digital portal engineered to streamline inquiries, booking workflows, and client management for weddings, royal baraats, receptions, sangeets, college festivals, corporate galas, and private celebrations across Western Odisha and Eastern Chhattisgarh.
+**DJ Mantu Event Booking Platform** is an enterprise-grade digital portal engineered to streamline inquiries, booking workflows, and client management for weddings, royal baraats, receptions, sangeets, college festivals, corporate galas, and private celebrations across Brajrajnagar, Jharsuguda, Sambalpur, Rourkela, Western Odisha, and Eastern Chhattisgarh.
 
 Powered by **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **PostgreSQL (via Prisma ORM & Neon DB)**, this application pairs a high-voltage obsidian dark-mode aesthetic with mission-critical operational tools:
 
 - **⚡ Instant Client Inquiries**: 4-step booking wizard with direct WhatsApp & Call consultation integration.
-- **📅 Real-Time Availability Engine**: Interactive monthly calendar with instant date-conflict prevention.
+- **📅 Real-Time Availability Engine**: Interactive monthly calendar with instant date-conflict prevention and offline booking recording.
 - **🖼️ Edge-to-Edge Lightbox Media Suite**: Unified gallery supporting high-res photos and video embeds with zero letterboxing void and dual aspect modes.
-- **🛡️ Executive Administration Suite (`/admin`)**: Analytics KPI dashboard, booking lifecycle pipeline with slide-over dossier drawer, calendar blackout controls, direct media uploads, and live website CMS with automatic ISR cache invalidation.
+- **🛡️ Executive Administration Suite (`/admin`)**: Analytics KPI dashboard, full in-place booking dossier editor, direct offline booking logging, calendar blackout controls, responsive media uploads, and live website CMS with automatic ISR cache invalidation.
 - **⚖️ Legal & Contract Suite**: Dedicated Terms of Booking & Performance Agreement (`/terms`) and Digital Personal Data Protection (DPDP) Privacy Policy (`/privacy`).
 
 ---
@@ -101,15 +101,19 @@ Powered by **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and *
   - Key Performance Indicators: Total Inquiries, Confirmed Bookings, Pipeline Volume, and Conversion Rates.
   - Activity stream featuring recent booking requests with quick-action contact shortcuts.
 
-- **📑 Upgraded Booking Lifecycle Pipeline (`/admin/bookings`)**:
+- **📑 Full-Control Booking Lifecycle & Dossier Editor (`/admin/bookings`)**:
   - Full status lifecycle management: `PENDING` ➔ `CONTACTED` ➔ `CONFIRMED` ➔ `COMPLETED` ➔ `CANCELLED`.
   - Search by client name, mobile phone number, or booking reference code (`DJ-YYYY-XXX`).
   - Filter bookings by status tab with real-time badge counts.
-  - **Slide-Over Booking Dossier Drawer**: Comprehensive inspection of client contact info, venue address, service/package selections, customer notes, and direct One-Click Call / WhatsApp launch buttons.
+  - **Comprehensive Slide-Over Booking Dossier**: In-place editing for **every option** — Client Name, Phone, WhatsApp, Occasion / Event Type, Event Date, Performance Hours, Venue / Street Address, City / Town, Agreed Amount, Special Music Instructions, and Private Owner Notes.
+  - **Single-Click Real-Time Sync**: Instant database update (`PATCH /api/admin/bookings`), live UI refresh, and automatic public availability calendar date-lock synchronization.
+  - Quick-action **Call Client** and **WhatsApp Chat** buttons directly embedded in the dossier.
 
-- **📆 Interactive Calendar Blackout Engine (`/admin/calendar`)**:
-  - Monthly calendar overview with color-coded date statuses.
-  - One-click date blocking for private tour bookings, personal leave, or equipment maintenance.
+- **📆 Interactive Calendar & Offline Booking Engine (`/admin/calendar`)**:
+  - Monthly calendar overview with color-coded date statuses (`BOOKED`, `PENDING`, `AVAILABLE`, `BLOCKED`).
+  - **Direct Offline Booking Logging**: Record phone or walk-in bookings on any date with separate Venue/Address and optional City fields.
+  - **In-Place Booking Editing & Rescheduling**: Edit or reschedule existing bookings directly from the calendar modal without leaving the page.
+  - One-click date blocking for private tour performances, personal leave, or sound gear maintenance.
 
 - **📁 Responsive Media Upload & Gallery CMS (`/admin/gallery`)**:
   - Direct multipart file uploads (`/api/admin/upload`) saved locally to disk with timestamped filenames.
@@ -393,12 +397,13 @@ http://localhost:3000/admin
 | `GET` | `/api/availability/check` | Real-time date availability query | Public |
 | `POST` | `/api/admin/login` | Authenticate admin and set JWT cookie | Public |
 | `POST` | `/api/admin/logout` | Clear authentication session cookie | Admin |
-| `GET` / `POST` | `/api/admin/settings` | Retrieve or update live website settings | Admin |
+| `GET` / `PATCH` / `DELETE` | `/api/admin/bookings` | Inspect, edit complete dossier, or delete bookings | Admin |
+| `GET` / `POST` | `/api/admin/calendar` | Fetch schedule, block/unblock dates, log offline bookings & edit | Admin |
+| `GET` / `POST` | `/api/admin/settings` | Retrieve or update live website content & branding | Admin |
 | `GET` / `POST` | `/api/admin/gallery` | Retrieve or create gallery items | Admin |
 | `POST` | `/api/admin/upload` | Direct multipart photo/video media upload | Admin |
 | `GET` / `POST` | `/api/admin/packages` | Manage packages & equipment specs | Admin |
 | `GET` / `POST` | `/api/admin/services` | Manage services & equipment catalog | Admin |
-| `GET` / `POST` | `/api/admin/calendar` | Manage calendar bookings & date blocks | Admin |
 | `POST` | `/api/admin/cache` | Purge Redis / memory caches on demand | Admin |
 
 ---

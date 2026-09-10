@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { action, date, reason, customerName, phone, eventType, venue, totalAmount } = body;
+    const { action, date, reason, customerName, phone, eventType, venue, city, totalAmount } = body;
 
     if (!date) {
       return NextResponse.json({ error: 'Date is required (YYYY-MM-DD)' }, { status: 400 });
@@ -104,8 +104,8 @@ export async function POST(request: NextRequest) {
           dateString: date,
           startTime: '19:00',
           endTime: '23:30',
-          venue: venue || 'Client Venue',
-          city: 'Rourkela',
+          venue: venue ? venue.trim() : 'Client Venue',
+          city: city ? city.trim() : '',
           totalAmount: totalAmount ? Number(totalAmount) : null,
           status: 'CONFIRMED',
           adminNotes: reason || 'Booked offline via direct call / WhatsApp',
@@ -129,6 +129,124 @@ export async function POST(request: NextRequest) {
 
       await invalidateAvailabilityCache(date);
       return NextResponse.json({ success: true, booking });
+    }
+
+    if (action === 'EDIT_BOOKING') {
+      const {
+        bookingId,
+        date: originalDate,
+        newDate,
+        customerName,
+        phone,
+        whatsapp,
+        eventType,
+        venue,
+        city,
+        totalAmount,
+        status,
+        reason,
+      } = body;
+
+      if (!bookingId) {
+        return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 });
+      }
+
+      const booking = await prisma.booking.findUnique({
+        where: { id: bookingId },
+        include: { customer: true },
+      });
+
+      if (!booking) {
+        return NextResponse.json({ error: 'Booking record not found' }, { status: 404 });
+      }
+
+      // Update customer info
+      if (customerName || phone || whatsapp) {
+        await prisma.customer.update({
+          where: { id: booking.customerId },
+          data: {
+            name: customerName ? customerName.trim() : booking.customer.name,
+            phone: phone ? phone.trim() : booking.customer.phone,
+            whatsapp: whatsapp !== undefined ? (whatsapp ? whatsapp.trim() : null) : booking.customer.whatsapp,
+          },
+        });
+      }
+
+      const targetDate = newDate || originalDate || booking.dateString;
+      const dateChanged = targetDate !== booking.dateString;
+
+      // Update booking
+      const updatedBooking = await prisma.booking.update({
+        where: { id: bookingId },
+        data: {
+          eventType: eventType || booking.eventType,
+          venue: venue !== undefined ? venue : booking.venue,
+          city: city !== undefined ? city : booking.city,
+          totalAmount:
+            totalAmount !== undefined && totalAmount !== '' && !isNaN(Number(totalAmount))
+              ? Number(totalAmount)
+              : null,
+          adminNotes: reason !== undefined ? reason : booking.adminNotes,
+          status: status || booking.status,
+          dateString: targetDate,
+          eventDate: dateChanged ? new Date(`${targetDate}T19:00:00Z`) : booking.eventDate,
+        },
+        include: { customer: true },
+      });
+
+      // If date was changed, clean up old date lock
+      if (dateChanged) {
+        await prisma.availability.deleteMany({
+          where: { bookingId: booking.id, date: booking.dateString },
+        });
+        await invalidateAvailabilityCache(booking.dateString);
+      }
+
+      // Update or remove availability on target date based on status
+      if (status === 'CANCELLED' || status === 'REJECTED') {
+        await prisma.availability.deleteMany({
+          where: { bookingId: booking.id },
+        });
+      } else {
+        await prisma.availability.upsert({
+          where: { date: targetDate },
+          update: {
+            status: status === 'PENDING' ? 'PENDING' : 'BOOKED',
+            reason: `${updatedBooking.eventType} - ${updatedBooking.customer.name}`,
+            bookingId: booking.id,
+          },
+          create: {
+            date: targetDate,
+            status: status === 'PENDING' ? 'PENDING' : 'BOOKED',
+            reason: `${updatedBooking.eventType} - ${updatedBooking.customer.name}`,
+            bookingId: booking.id,
+          },
+        });
+      }
+
+      await invalidateAvailabilityCache(targetDate);
+      return NextResponse.json({ success: true, booking: updatedBooking });
+    }
+
+    if (action === 'DELETE_BOOKING') {
+      const { bookingId, date: targetDate } = body;
+      if (!bookingId) {
+        return NextResponse.json({ error: 'Booking ID is required' }, { status: 400 });
+      }
+
+      await prisma.availability.deleteMany({
+        where: { bookingId },
+      });
+
+      await prisma.booking.delete({
+        where: { id: bookingId },
+      });
+
+      if (targetDate) {
+        await invalidateAvailabilityCache(targetDate);
+      }
+
+      return NextResponse.json({ success: true, message: 'Booking deleted successfully' });
     }
 
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });

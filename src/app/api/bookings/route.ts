@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
         startTime: startTime || '18:00',
         endTime: endTime || '23:30',
         venue: venue.trim(),
-        city: city ? city.trim() : 'Rourkela',
+        city: city ? city.trim() : '',
         guestCount: guestCount ? Number(guestCount) : null,
         budgetRange: budgetRange || null,
         packageId: packageId || null,

@@ -48,6 +48,8 @@ export async function POST(request: NextRequest) {
 
     // Revalidate Next.js cache for the entire site immediately
     revalidatePath('/', 'layout');
+    revalidatePath('/about');
+    revalidatePath('/');
 
     return NextResponse.json({ success: true, message: 'Settings saved successfully' });
   } catch (error) {

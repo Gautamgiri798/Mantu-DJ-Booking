@@ -106,7 +106,7 @@ export default async function AdminCustomersPage() {
                         Last Celebration:
                       </span>
                       <p className="font-semibold text-white truncate">
-                        {lastBooking.eventType} • {lastBooking.city}
+                        {lastBooking.eventType}{lastBooking.city ? ` • ${lastBooking.city}` : (lastBooking.venue ? ` • ${lastBooking.venue}` : '')}
                       </p>
                       <p className="text-[11px] text-zinc-400">
                         {formatDate(lastBooking.eventDate)} ({lastBooking.status})

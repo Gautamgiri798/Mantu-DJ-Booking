@@ -153,6 +153,10 @@ export default async function AboutPage() {
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
   const bio = settingsMap['about_bio'] || '';
+  const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
+  const experienceYears = settingsMap['experience_years'] || '10+';
+  const eventsCompleted = settingsMap['events_completed'] || '650+';
+  const dancefloorGuarantee = settingsMap['dancefloor_guarantee'] || '100%';
   const serviceAreas = settingsMap['service_areas'] || 'Rourkela, Sundargarh, Sambalpur, Jharsuguda, Bhubaneswar, Cuttack';
 
   const equipmentHighlights = [
@@ -374,6 +378,11 @@ export default async function AboutPage() {
                 {djName}
               </span>
             </h1>
+
+            <div className="flex items-center gap-1.5 text-xs text-zinc-300 font-medium pt-0.5">
+              <MapPin className="w-3.5 h-3.5 text-pink-400 shrink-0" />
+              <span>{address}</span>
+            </div>
           </div>
 
           {/* Lead Story Card */}
@@ -384,21 +393,21 @@ export default async function AboutPage() {
             <div className="p-3 sm:p-3.5 rounded-2xl glass-panel border border-white/10 hover:border-purple-500/40 hover:scale-[1.02] transition-all bg-linear-to-b from-white/3 to-transparent">
               <div className="flex items-center justify-center gap-1.5 text-purple-400 mb-0.5">
                 <Radio className="w-3.5 h-3.5" />
-                <span className="text-xl sm:text-2xl font-black">10+</span>
+                <span className="text-xl sm:text-2xl font-black">{experienceYears}</span>
               </div>
               <span className="text-[11px] text-zinc-400 font-medium block leading-tight">Years Behind Console</span>
             </div>
             <div className="p-3 sm:p-3.5 rounded-2xl glass-panel border border-white/10 hover:border-pink-500/40 hover:scale-[1.02] transition-all bg-linear-to-b from-white/3 to-transparent">
               <div className="flex items-center justify-center gap-1.5 text-pink-400 mb-0.5">
                 <Flame className="w-3.5 h-3.5" />
-                <span className="text-xl sm:text-2xl font-black">650+</span>
+                <span className="text-xl sm:text-2xl font-black">{eventsCompleted}</span>
               </div>
               <span className="text-[11px] text-zinc-400 font-medium block leading-tight">Grand Events Rocked</span>
             </div>
             <div className="p-3 sm:p-3.5 rounded-2xl glass-panel border border-white/10 hover:border-cyan-500/40 hover:scale-[1.02] transition-all bg-linear-to-b from-white/3 to-transparent">
               <div className="flex items-center justify-center gap-1.5 text-cyan-400 mb-0.5">
                 <Award className="w-3.5 h-3.5" />
-                <span className="text-xl sm:text-2xl font-black">100%</span>
+                <span className="text-xl sm:text-2xl font-black">{dancefloorGuarantee}</span>
               </div>
               <span className="text-[11px] text-zinc-400 font-medium block leading-tight">Dancefloor Guarantee</span>
             </div>
@@ -427,8 +436,9 @@ export default async function AboutPage() {
         <div className="lg:col-span-5 flex justify-center items-center">
           <ArtistHeadlinerCard
             djName={djName}
+            imageUrl={settingsMap['about_dj_image'] || settingsMap['dj_photo'] || '/images/dj-mantu-live.jpg'}
             whatsapp={settingsMap['whatsapp'] || '+91 9337828746'}
-            location={settingsMap['address'] || 'Rourkela • Jharsuguda • Odisha'}
+            location={address}
             instagramUrl={settingsMap['instagram'] || 'https://www.instagram.com/awaraboy458/'}
             instagramHandle={settingsMap['instagram_handle'] || '@awaraboy458'}
           />

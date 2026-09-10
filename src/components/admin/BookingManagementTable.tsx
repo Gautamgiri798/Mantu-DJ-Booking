@@ -21,8 +21,9 @@ import {
   Copy,
   Music,
   ChevronDown,
+  User,
 } from 'lucide-react';
-import { formatCurrency, formatDate, createWhatsAppLink, BOOKING_STATUSES } from '@/lib/utils';
+import { formatCurrency, formatDate, createWhatsAppLink, BOOKING_STATUSES, EVENT_CATEGORIES } from '@/lib/utils';
 
 export interface AdminBookingItem {
   id: string;
@@ -105,6 +106,16 @@ export default function BookingManagementTable({ initialBookings }: Props) {
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   // Edit fields for drawer
+  const [customerNameInput, setCustomerNameInput] = useState('');
+  const [phoneInput, setPhoneInput] = useState('');
+  const [whatsappInput, setWhatsappInput] = useState('');
+  const [eventTypeInput, setEventTypeInput] = useState('');
+  const [dateInput, setDateInput] = useState('');
+  const [startTimeInput, setStartTimeInput] = useState('');
+  const [endTimeInput, setEndTimeInput] = useState('');
+  const [venueInput, setVenueInput] = useState('');
+  const [cityInput, setCityInput] = useState('');
+  const [customerNotesInput, setCustomerNotesInput] = useState('');
   const [statusInput, setStatusInput] = useState('');
   const [adminNotesInput, setAdminNotesInput] = useState('');
   const [totalAmountInput, setTotalAmountInput] = useState('');
@@ -117,7 +128,22 @@ export default function BookingManagementTable({ initialBookings }: Props) {
 
   const openDrawer = (b: AdminBookingItem) => {
     setActiveBooking(b);
-    setStatusInput(b.status);
+    setCustomerNameInput(b.customer?.name || '');
+    setPhoneInput(b.customer?.phone || '');
+    setWhatsappInput(b.customer?.whatsapp || b.customer?.phone || '');
+    setEventTypeInput(b.eventType || 'Wedding Reception');
+    const dateVal =
+      b.dateString ||
+      (typeof b.eventDate === 'string'
+        ? b.eventDate.split('T')[0]
+        : new Date(b.eventDate).toISOString().split('T')[0]);
+    setDateInput(dateVal);
+    setStartTimeInput(b.startTime || '19:00');
+    setEndTimeInput(b.endTime || '23:30');
+    setVenueInput(b.venue || '');
+    setCityInput(b.city || '');
+    setCustomerNotesInput(b.customerNotes || '');
+    setStatusInput(b.status || 'PENDING');
     setAdminNotesInput(b.adminNotes || '');
     setTotalAmountInput(b.totalAmount ? String(b.totalAmount) : '');
     setSaveSuccess(false);
@@ -136,8 +162,18 @@ export default function BookingManagementTable({ initialBookings }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: activeBooking.id,
+          customerName: customerNameInput,
+          phone: phoneInput,
+          whatsapp: whatsappInput,
+          eventType: eventTypeInput,
+          dateString: dateInput,
+          startTime: startTimeInput,
+          endTime: endTimeInput,
+          venue: venueInput,
+          city: cityInput,
           status: statusInput,
           adminNotes: adminNotesInput,
+          customerNotes: customerNotesInput,
           totalAmount: totalAmountInput ? Number(totalAmountInput) : null,
         }),
       });
@@ -146,9 +182,22 @@ export default function BookingManagementTable({ initialBookings }: Props) {
         const data = await res.json();
         const updatedBooking = data.booking || {
           ...activeBooking,
+          eventType: eventTypeInput,
+          dateString: dateInput,
+          startTime: startTimeInput,
+          endTime: endTimeInput,
+          venue: venueInput,
+          city: cityInput,
           status: statusInput,
           adminNotes: adminNotesInput,
+          customerNotes: customerNotesInput,
           totalAmount: totalAmountInput ? Number(totalAmountInput) : null,
+          customer: {
+            ...activeBooking.customer,
+            name: customerNameInput,
+            phone: phoneInput,
+            whatsapp: whatsappInput,
+          },
         };
 
         setBookings((prev) =>
@@ -163,7 +212,7 @@ export default function BookingManagementTable({ initialBookings }: Props) {
         }, 3000);
       } else {
         const err = await res.json().catch(() => ({}));
-        setSaveError(err.error || 'Failed to update booking status.');
+        setSaveError(err.error || 'Failed to update booking.');
       }
     } catch {
       setSaveError('Network error updating booking.');
@@ -443,7 +492,7 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                       Venue
                     </span>
                     <span className="font-bold text-zinc-200 block truncate">{b.venue}</span>
-                    <span className="text-[11px] text-cyan-400 font-semibold">{b.city}</span>
+                    {b.city && <span className="text-[11px] text-cyan-400 font-semibold">{b.city}</span>}
                   </div>
                 </div>
 
@@ -582,10 +631,12 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                           <span className="font-bold text-zinc-100 block text-xs tracking-tight">
                             {b.eventType}
                           </span>
-                          <span className="inline-flex items-center gap-1 text-[11px] text-zinc-400 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/5">
-                            <MapPin className="w-3 h-3 text-purple-400" />
-                            <span>{b.city || 'Jharsuguda'}</span>
-                          </span>
+                          {b.city && (
+                            <span className="inline-flex items-center gap-1 text-[11px] text-zinc-400 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/5">
+                              <MapPin className="w-3 h-3 text-purple-400" />
+                              <span>{b.city}</span>
+                            </span>
+                          )}
                         </div>
                       </td>
 
@@ -611,10 +662,12 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                           <span className="truncate block font-semibold text-zinc-200 text-xs">
                             {b.venue}
                           </span>
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-cyan-300 px-2 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-800/40">
-                            <MapPin className="w-2.5 h-2.5 text-cyan-400 shrink-0" />
-                            <span>{b.city}</span>
-                          </span>
+                          {b.city && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-cyan-300 px-2 py-0.5 rounded-full bg-cyan-950/40 border border-cyan-800/40">
+                              <MapPin className="w-2.5 h-2.5 text-cyan-400 shrink-0" />
+                              <span>{b.city}</span>
+                            </span>
+                          )}
                         </div>
                       </td>
 
@@ -762,7 +815,7 @@ export default function BookingManagementTable({ initialBookings }: Props) {
               </button>
             </div>
 
-            {/* Client / Host Card */}
+            {/* 1. Client / Host Profile Card */}
             <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/50 border border-white/10 shadow-lg space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] uppercase font-bold text-zinc-400 tracking-wider">
@@ -773,40 +826,10 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                 </span>
               </div>
 
-              <div className="flex items-center gap-3.5">
-                <div
-                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br border flex items-center justify-center font-black text-base shrink-0 shadow-md ${getAvatarStyle(
-                    activeBooking.customer.name
-                  )}`}
-                >
-                  {getInitials(activeBooking.customer.name)}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h4 className="text-base font-bold text-white tracking-tight truncate">
-                    {activeBooking.customer.name}
-                  </h4>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <p className="text-xs text-zinc-400 font-mono tracking-wide">
-                      {activeBooking.customer.phone}
-                    </p>
-                    <button
-                      onClick={() => copyToClipboard(activeBooking.customer.phone, 'phone')}
-                      className="p-1 text-zinc-500 hover:text-zinc-300 transition-colors"
-                      title="Copy Phone"
-                    >
-                      {copiedField === 'phone' ? (
-                        <Check className="w-3 h-3 text-emerald-400" />
-                      ) : (
-                        <Copy className="w-3 h-3" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2.5 pt-1">
+              {/* Quick Actions (Call & WhatsApp) */}
+              <div className="grid grid-cols-2 gap-2.5">
                 <a
-                  href={`tel:${activeBooking.customer.phone.replace(/[^0-9+]/g, '')}`}
+                  href={`tel:${phoneInput.replace(/[^0-9+]/g, '')}`}
                   className="py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-sm"
                 >
                   <Phone className="w-3.5 h-3.5 text-purple-400" />
@@ -814,8 +837,8 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                 </a>
                 <a
                   href={createWhatsAppLink(
-                    activeBooking.customer.whatsapp || activeBooking.customer.phone,
-                    `Hello ${activeBooking.customer.name}, DJ Mantu here regarding your booking (${activeBooking.bookingCode}) for ${activeBooking.eventType} on ${activeBooking.dateString}.`
+                    whatsappInput || phoneInput,
+                    `Hello ${customerNameInput || activeBooking.customer.name}, DJ Mantu here regarding your booking (${activeBooking.bookingCode}) for ${eventTypeInput} on ${dateInput}.`
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -825,81 +848,172 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                   <span>WhatsApp Chat</span>
                 </a>
               </div>
+
+              {/* Client Info Inputs */}
+              <div className="space-y-3 pt-1 border-t border-white/5">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
+                    <User className="w-3 h-3 text-purple-400" />
+                    <span>Client / Host Name</span>
+                    <span className="text-purple-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={customerNameInput}
+                    onChange={(e) => setCustomerNameInput(e.target.value)}
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-semibold focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
+                      <Phone className="w-3 h-3 text-purple-400" />
+                      <span>Phone Number</span>
+                      <span className="text-purple-400">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={phoneInput}
+                      onChange={(e) => setPhoneInput(e.target.value)}
+                      placeholder="e.g. 9876543210"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-mono focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
+                      <MessageSquare className="w-3 h-3 text-emerald-400" />
+                      <span>WhatsApp Number</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={whatsappInput}
+                      onChange={(e) => setWhatsappInput(e.target.value)}
+                      placeholder="e.g. 9876543210"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-mono focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Event Itinerary Card */}
+            {/* 2. Event Itinerary & Location Card */}
             <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/50 border border-white/10 shadow-lg space-y-3.5">
               <span className="text-[11px] uppercase font-bold text-zinc-400 tracking-wider block">
                 Event Schedule & Venue
               </span>
 
-              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
                     <Sparkles className="w-3 h-3 text-purple-400" />
-                    <span>Occasion</span>
+                    <span>Occasion / Event Type</span>
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={eventTypeInput}
+                      onChange={(e) => setEventTypeInput(e.target.value)}
+                      className="w-full appearance-none pl-3.5 pr-8 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-semibold focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all cursor-pointer shadow-inner"
+                    >
+                      {Array.from(new Set([eventTypeInput, ...EVENT_CATEGORIES].filter(Boolean))).map((cat) => (
+                        <option key={cat} value={cat} className="bg-zinc-900 text-white py-1">
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-zinc-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
-                  <span className="font-bold text-white text-sm block truncate">
-                    {activeBooking.eventType}
-                  </span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
                     <Calendar className="w-3 h-3 text-pink-400" />
                     <span>Event Date</span>
-                  </div>
-                  <span className="font-bold text-white text-sm block truncate">
-                    {formatDate(activeBooking.eventDate)}
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
-                    <Clock className="w-3 h-3 text-cyan-400" />
-                    <span>Performance Hours</span>
-                  </div>
-                  <span className="font-semibold text-zinc-200 text-xs block truncate">
-                    {activeBooking.startTime} – {activeBooking.endTime || 'Late Wrap'}
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
-                    <MapPin className="w-3 h-3 text-emerald-400" />
-                    <span>City</span>
-                  </div>
-                  <span className="font-semibold text-zinc-200 text-xs block truncate">
-                    {activeBooking.city || 'Jharsuguda'}
-                  </span>
+                  </label>
+                  <input
+                    type="date"
+                    value={dateInput}
+                    onChange={(e) => setDateInput(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-semibold focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all [color-scheme:dark] shadow-inner"
+                  />
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-zinc-950/70 border border-white/5 space-y-1">
-                <div className="flex items-center gap-1.5 text-zinc-500 text-[10px] uppercase font-bold">
-                  <MapPin className="w-3 h-3 text-rose-400" />
-                  <span>Venue Location</span>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-cyan-400" />
+                    <span>Start Time</span>
+                  </label>
+                  <input
+                    type="time"
+                    value={startTimeInput}
+                    onChange={(e) => setStartTimeInput(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-semibold focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all [color-scheme:dark] shadow-inner"
+                  />
                 </div>
-                <span className="font-semibold text-white block text-xs sm:text-sm">
-                  {activeBooking.venue}{activeBooking.city ? `, ${activeBooking.city}` : ''}
-                </span>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-cyan-400" />
+                    <span>End Time</span>
+                  </label>
+                  <input
+                    type="time"
+                    value={endTimeInput}
+                    onChange={(e) => setEndTimeInput(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs font-semibold focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all [color-scheme:dark] shadow-inner"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-rose-400" />
+                    <span>Venue / Address</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={venueInput}
+                    onChange={(e) => setVenueInput(e.target.value)}
+                    placeholder="e.g. Gandhi Chowk"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-emerald-400" />
+                    <span>City / Town</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={cityInput}
+                    onChange={(e) => setCityInput(e.target.value)}
+                    placeholder="e.g. Brajrajnagar"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-inner"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Client Notes */}
-            {activeBooking.customerNotes && (
-              <div className="p-4 rounded-2xl bg-purple-950/20 border border-purple-500/25 space-y-2">
-                <div className="flex items-center gap-2 text-purple-300 text-[11px] font-bold uppercase tracking-wider">
-                  <div className="w-6 h-6 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                    <Music className="w-3.5 h-3.5 text-purple-400" />
-                  </div>
-                  <span>Client Entry & Music Instructions</span>
-                </div>
-                <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed pl-8 italic border-l-2 border-purple-500/40 py-0.5">
-                  &ldquo;{activeBooking.customerNotes}&rdquo;
-                </p>
-              </div>
-            )}
+            {/* 3. Client Special Instructions Card */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/50 border border-white/10 shadow-lg space-y-2">
+              <label className="text-[11px] font-bold uppercase tracking-wider text-purple-300 flex items-center gap-2">
+                <Music className="w-3.5 h-3.5 text-purple-400" />
+                <span>Client Entry & Music Instructions</span>
+              </label>
+              <textarea
+                rows={2}
+                value={customerNotesInput}
+                onChange={(e) => setCustomerNotesInput(e.target.value)}
+                placeholder="Client song preferences, specific entry times, sound notes..."
+                className="w-full p-3 rounded-xl bg-zinc-950 border border-zinc-700/80 hover:border-zinc-600 text-white text-xs focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none shadow-inner leading-relaxed"
+              />
+            </div>
 
             {/* Update Form (Status & Agreed Pricing) */}
             <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900/60 border border-white/10 shadow-lg space-y-4">
@@ -995,7 +1109,7 @@ export default function BookingManagementTable({ initialBookings }: Props) {
                       <span>Saved Successfully!</span>
                     </>
                   ) : (
-                    <span>Save Changes</span>
+                    <span>Save All Changes</span>
                   )}
                 </button>
 

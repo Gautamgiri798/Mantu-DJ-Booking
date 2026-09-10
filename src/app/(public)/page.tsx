@@ -42,12 +42,14 @@ export default async function HomePage() {
   const featuredServices = SPECIALIZED_SERVICES.slice(0, 6);
 
   const djName = settingsMap['dj_name'] || 'DJ Mantu';
-  const tagline = settingsMap['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
+  const tagline = settingsMap['tagline'] || "Brajrajnagar's Premium DJ & Event Sound Specialist";
   const heroTitle = settingsMap['hero_title'] || 'Turn Every Moment Into An Unforgettable Memory';
   const heroSubtitle = settingsMap['hero_subtitle'] || 'Concert sound engineering, intelligent moving beam lights, and cinematic dry ice low fog tailored for Weddings, Sangeets & Mega Events in Rourkela and across Western Odisha.';
   const whatsapp = settingsMap['whatsapp'] || '+91 9337828746';
   const phone = settingsMap['phone'] || '+91 9337828746';
   const address = settingsMap['address'] || 'Brajrajnagar, Jharsuguda, Odisha, Pin - 768216';
+  const experienceYears = settingsMap['experience_years'] || '10+';
+  const eventsCompleted = settingsMap['events_completed'] || '650+';
 
   const waBookingLink = createWhatsAppLink(
     whatsapp,
@@ -225,8 +227,8 @@ export default async function HomePage() {
                   <div className="w-7 h-7 rounded-full bg-purple-500/15 border border-purple-500/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(168,85,247,0.3)]">
                     <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
                   </div>
-                  <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-cyan-300">10+ Years</span>
-                  <span className="text-zinc-400 font-medium text-[11px]">650+ Events</span>
+                  <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-cyan-300">{experienceYears} Years</span>
+                  <span className="text-zinc-400 font-medium text-[11px]">{eventsCompleted} Events</span>
                 </div>
 
                 {/* 4. Live Animated Equalizer & Touring Badge */}

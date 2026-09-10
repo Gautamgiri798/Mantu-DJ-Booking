@@ -40,7 +40,7 @@ model Booking {
   startTime     String // e.g. "19:00"
   endTime       String? // e.g. "23:30"
   venue         String
-  city          String        @default("Rourkela")
+  city          String        @default("")
   guestCount    Int?
   budgetRange   String? // e.g. "₹20,000 - ₹30,000"
   status        String        @default("PENDING") // PENDING, CONTACTED, CONFIRMED, COMPLETED, CANCELLED, REJECTED

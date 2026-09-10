@@ -199,7 +199,7 @@ function BookingWizardContent({ packages, whatsappNumber = '+91 9337828746', djN
 Booking ID: ${confirmedData.bookingCode}
 Event: ${confirmedData.eventType}
 Date: ${confirmedData.eventDate}
-Venue: ${confirmedData.venue}, ${confirmedData.city}
+Venue: ${confirmedData.venue}${confirmedData.city && !confirmedData.venue.toLowerCase().includes(confirmedData.city.toLowerCase()) ? `, ${confirmedData.city}` : ''}
 Please confirm availability and discuss next steps.`;
 
     const waLink = createWhatsAppLink(whatsappNumber, waText);
@@ -246,7 +246,7 @@ Please confirm availability and discuss next steps.`;
             <div>
               <span className="text-zinc-500 block">Location</span>
               <span className="font-semibold text-zinc-200">
-                {confirmedData.venue}, {confirmedData.city}
+                {confirmedData.venue}{confirmedData.city && !confirmedData.venue.toLowerCase().includes(confirmedData.city.toLowerCase()) ? `, ${confirmedData.city}` : ''}
               </span>
             </div>
           </div>
@@ -445,7 +445,7 @@ Please confirm availability and discuss next steps.`;
                 <label className="text-xs font-semibold text-zinc-300 block mb-1">City / Region</label>
                 <input
                   type="text"
-                  placeholder="e.g. Jharsuguda"
+                  placeholder="e.g. Brajrajnagar"
                   value={formData.city}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                   className="w-full px-4 py-3 min-h-12 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-base sm:text-sm focus:outline-none focus:border-purple-500"
@@ -600,7 +600,7 @@ Please confirm availability and discuss next steps.`;
                 </p>
                 <p className="text-zinc-300">
                   <strong>Event:</strong> {formData.eventType} on <strong>{formData.eventDate}</strong> at{' '}
-                  {formData.venue}, {formData.city}
+                  {formData.venue}{formData.city && !formData.venue.toLowerCase().includes(formData.city.toLowerCase()) ? `, ${formData.city}` : ''}
                 </p>
                 <p className="text-zinc-300">
                   <strong>Selected Services:</strong> {formData.selectedServices.length} items chosen

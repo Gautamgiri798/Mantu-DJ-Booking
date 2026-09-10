@@ -27,7 +27,10 @@ export default async function AdminCalendarPage() {
           bookingCode: a.booking.bookingCode,
           eventType: a.booking.eventType,
           venue: a.booking.venue,
+          city: a.booking.city,
           totalAmount: a.booking.totalAmount,
+          status: a.booking.status,
+          adminNotes: a.booking.adminNotes,
           customer: {
             name: a.booking.customer.name,
             phone: a.booking.customer.phone,

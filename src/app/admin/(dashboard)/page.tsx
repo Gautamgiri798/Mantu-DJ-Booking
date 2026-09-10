@@ -376,7 +376,9 @@ export default async function AdminDashboardPage() {
                           <span>•</span>
                           <span className="text-zinc-300">{formatDate(b.eventDate)} ({b.startTime})</span>
                           <span>•</span>
-                          <span className="text-cyan-400 truncate max-w-[200px]">📍 {b.venue}, {b.city}</span>
+                          <span className="text-cyan-400 truncate max-w-[200px]">
+                            📍 {b.venue}{b.city && !b.venue.toLowerCase().includes(b.city.toLowerCase()) ? `, ${b.city}` : ''}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -479,7 +481,7 @@ export default async function AdminDashboardPage() {
                         </div>
 
                         <p className="text-[11px] text-zinc-400 truncate">
-                          📍 {ev.venue}, {ev.city}
+                          📍 {ev.venue}{ev.city && !ev.venue.toLowerCase().includes(ev.city.toLowerCase()) ? `, ${ev.city}` : ''}
                         </p>
 
                         <div className="flex items-center justify-between text-[10px] text-zinc-500 pt-1 border-t border-white/5">

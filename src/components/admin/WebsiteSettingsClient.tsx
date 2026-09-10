@@ -15,6 +15,9 @@ import {
   FileText,
   MessageSquare,
   Check,
+  UploadCloud,
+  Trash2,
+  Camera,
 } from 'lucide-react';
 import { InstagramIcon } from '@/components/SocialIcons';
 import { createWhatsAppLink } from '@/lib/utils';
@@ -27,6 +30,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
   const router = useRouter();
   const [settings, setSettings] = useState<Record<string, string>>(initialSettings);
   const [loading, setLoading] = useState(false);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
@@ -34,6 +38,32 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
     setSettings((prev) => ({ ...prev, [key]: value }));
     setSavedSuccess(false);
     setHasUnsavedChanges(true);
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingPhoto(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to upload photo');
+
+      handleChange('about_dj_image', data.url);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Error uploading photo';
+      alert(message);
+    } finally {
+      setUploadingPhoto(false);
+    }
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -67,7 +97,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
   };
 
   const djName = settings['dj_name'] || 'DJ Mantu';
-  const tagline = settings['tagline'] || "Rourkela's Premier DJ & Event Sound Specialist";
+  const tagline = settings['tagline'] || "Brajrajnagar's Premium DJ & Event Sound Specialist";
   const heroTitle = settings['hero_title'] || 'Turn Every Moment Into An Unforgettable Memory';
   const whatsappNum = settings['whatsapp'] || '+91 9337828746';
 
@@ -173,7 +203,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
               type="text"
               value={settings['tagline'] || ''}
               onChange={(e) => handleChange('tagline', e.target.value)}
-              placeholder="e.g. Rourkela's Premier DJ & Event Sound Specialist"
+              placeholder="e.g. Brajrajnagar's Premium DJ & Event Sound Specialist"
               className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-sm focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all shadow-inner"
             />
             <span className="text-[10px] text-zinc-500 block">
@@ -339,7 +369,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
           <div className="space-y-1.5">
-            <label className="font-bold text-zinc-300 block">Years Experience</label>
+            <label className="font-bold text-zinc-300 block">Years Behind Console</label>
             <input
               type="text"
               value={settings['experience_years'] || ''}
@@ -350,7 +380,7 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
           </div>
 
           <div className="space-y-1.5">
-            <label className="font-bold text-zinc-300 block">Shows Completed</label>
+            <label className="font-bold text-zinc-300 block">Grand Events Rocked</label>
             <input
               type="text"
               value={settings['events_completed'] || ''}
@@ -361,12 +391,12 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
           </div>
 
           <div className="space-y-1.5">
-            <label className="font-bold text-zinc-300 block">Happy Clients / Guests</label>
+            <label className="font-bold text-zinc-300 block">Dancefloor Guarantee</label>
             <input
               type="text"
-              value={settings['happy_clients'] || ''}
-              onChange={(e) => handleChange('happy_clients', e.target.value)}
-              placeholder="e.g. 1,200+"
+              value={settings['dancefloor_guarantee'] || ''}
+              onChange={(e) => handleChange('dancefloor_guarantee', e.target.value)}
+              placeholder="e.g. 100%"
               className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/10 text-white text-sm font-bold focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all shadow-inner"
             />
           </div>
@@ -454,7 +484,97 @@ export default function WebsiteSettingsClient({ initialSettings }: Props) {
         </div>
       </div>
 
-      {/* 7. Artist Biography & Booking Notice */}
+      {/* 7. About Section Artist Stage Photo (Headliner Card) */}
+      <div className="p-6 sm:p-7 rounded-3xl glass-panel border border-white/10 bg-zinc-950/70 space-y-5 shadow-2xl relative overflow-hidden">
+        <div className="flex items-center justify-between pb-3 border-b border-white/5">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 shrink-0">
+              <Camera className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-white">About Page DJ Stage Photo (Headliner Card)</h3>
+              <p className="text-xs text-zinc-400">The portrait photo displayed in the concert card on the /about page</p>
+            </div>
+          </div>
+          <span className="text-[10px] uppercase font-bold text-pink-300 bg-pink-950/50 border border-pink-800/40 px-2.5 py-0.5 rounded-full hidden sm:inline">
+            Stage Visual
+          </span>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-start gap-6">
+          {/* Visual Preview */}
+          <div className="relative w-40 sm:w-48 aspect-[4/3.4] rounded-2xl overflow-hidden border border-white/20 bg-zinc-900 shrink-0 shadow-xl group">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={settings['about_dj_image'] || '/images/dj-mantu-live.jpg'}
+              alt="DJ Stage Card Preview"
+              className="w-full h-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent flex items-end p-2.5">
+              <span className="text-[10px] font-bold text-white">Live Card Preview</span>
+            </div>
+          </div>
+
+          <div className="flex-1 space-y-4 w-full">
+            <div className="space-y-2">
+              <label className="font-bold text-zinc-200 block text-xs">
+                Upload New Stage Portrait
+              </label>
+              <div className="flex flex-wrap items-center gap-3">
+                <label className="cursor-pointer px-4 py-2.5 rounded-xl bg-linear-to-r from-purple-600 via-pink-600 to-cyan-500 hover:opacity-90 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-md active:scale-95">
+                  {uploadingPhoto ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Uploading Media...</span>
+                    </>
+                  ) : (
+                    <>
+                      <UploadCloud className="w-4 h-4" />
+                      <span>Choose Photo From Device</span>
+                    </>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    disabled={uploadingPhoto}
+                    onChange={handlePhotoUpload}
+                    className="hidden"
+                  />
+                </label>
+
+                {settings['about_dj_image'] && (
+                  <button
+                    type="button"
+                    onClick={() => handleChange('about_dj_image', '')}
+                    className="px-3.5 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-white/10 font-bold text-xs flex items-center gap-1.5 transition-all"
+                  >
+                    <Trash2 className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Reset to Default</span>
+                  </button>
+                )}
+              </div>
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                💡 Recommended: Vertical portrait with stage lighting or headphones (around 4:3 or 4:5 ratio).
+              </p>
+            </div>
+
+            <div className="space-y-1.5 pt-1">
+              <label className="font-semibold text-zinc-400 block text-[11px]">
+                Active Image URL or File Path
+              </label>
+              <input
+                type="text"
+                value={settings['about_dj_image'] || ''}
+                onChange={(e) => handleChange('about_dj_image', e.target.value)}
+                placeholder="/images/dj-mantu-live.jpg (Default)"
+                className="w-full px-3.5 py-2 rounded-xl bg-black/60 border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-purple-500 transition-all shadow-inner"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 8. Artist Biography & Booking Notice */}
       <div className="p-6 sm:p-7 rounded-3xl glass-panel border border-white/10 bg-zinc-950/70 space-y-5 shadow-2xl relative overflow-hidden">
         <div className="flex items-center justify-between pb-3 border-b border-white/5">
           <div className="flex items-center gap-3">

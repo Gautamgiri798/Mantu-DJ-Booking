@@ -25,7 +25,7 @@ async function main() {
   // 2. Website Settings
   const settings = [
     { key: 'dj_name', value: 'DJ Mantu' },
-    { key: 'tagline', value: "Rourkela's Premier DJ & Event Sound Specialist" },
+    { key: 'tagline', value: "Brajrajnagar's Premium DJ & Event Sound Specialist" },
     { key: 'hero_title', value: 'Turn Every Moment Into An Unforgettable Memory' },
     {
       key: 'hero_subtitle',
