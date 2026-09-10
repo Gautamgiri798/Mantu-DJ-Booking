@@ -40,11 +40,16 @@ export async function getCachedServices(limit?: number): Promise<Service[]> {
   return cacheFetch<Service[]>(
     cacheKey,
     async () => {
-      return prisma.service.findMany({
-        where: { isActive: true },
-        orderBy: { order: 'asc' },
-        ...(limit ? { take: limit } : {}),
-      });
+      try {
+        return await prisma.service.findMany({
+          where: { isActive: true },
+          orderBy: { order: 'asc' },
+          ...(limit ? { take: limit } : {}),
+        });
+      } catch (error) {
+        console.error('Failed to load services:', error);
+        return [];
+      }
     },
     DEFAULT_CATALOG_TTL
   );
@@ -58,11 +63,16 @@ export async function getCachedPackages(limit?: number): Promise<Package[]> {
   return cacheFetch<Package[]>(
     cacheKey,
     async () => {
-      return prisma.package.findMany({
-        where: { isActive: true },
-        orderBy: { order: 'asc' },
-        ...(limit ? { take: limit } : {}),
-      });
+      try {
+        return await prisma.package.findMany({
+          where: { isActive: true },
+          orderBy: { order: 'asc' },
+          ...(limit ? { take: limit } : {}),
+        });
+      } catch (error) {
+        console.error('Failed to load packages:', error);
+        return [];
+      }
     },
     DEFAULT_CATALOG_TTL
   );
@@ -76,11 +86,16 @@ export async function getCachedGallery(limit?: number, category?: string): Promi
   return cacheFetch<GalleryItem[]>(
     cacheKey,
     async () => {
-      return prisma.galleryItem.findMany({
-        ...(category ? { where: { category } } : {}),
-        orderBy: { order: 'asc' },
-        ...(limit ? { take: limit } : {}),
-      });
+      try {
+        return await prisma.galleryItem.findMany({
+          ...(category ? { where: { category } } : {}),
+          orderBy: { order: 'asc' },
+          ...(limit ? { take: limit } : {}),
+        });
+      } catch (error) {
+        console.error('Failed to load gallery items:', error);
+        return [];
+      }
     },
     DEFAULT_CATALOG_TTL
   );
@@ -94,10 +109,15 @@ export async function getCachedVideos(limit?: number): Promise<VideoItem[]> {
   return cacheFetch<VideoItem[]>(
     cacheKey,
     async () => {
-      return prisma.videoItem.findMany({
-        orderBy: { order: 'asc' },
-        ...(limit ? { take: limit } : {}),
-      });
+      try {
+        return await prisma.videoItem.findMany({
+          orderBy: { order: 'asc' },
+          ...(limit ? { take: limit } : {}),
+        });
+      } catch (error) {
+        console.error('Failed to load videos:', error);
+        return [];
+      }
     },
     DEFAULT_CATALOG_TTL
   );
@@ -111,11 +131,16 @@ export async function getCachedReviews(limit?: number): Promise<Review[]> {
   return cacheFetch<Review[]>(
     cacheKey,
     async () => {
-      return prisma.review.findMany({
-        where: { isPublished: true },
-        orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
-        ...(limit ? { take: limit } : {}),
-      });
+      try {
+        return await prisma.review.findMany({
+          where: { isPublished: true },
+          orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
+          ...(limit ? { take: limit } : {}),
+        });
+      } catch (error) {
+        console.error('Failed to load reviews:', error);
+        return [];
+      }
     },
     DEFAULT_CATALOG_TTL
   );

@@ -4,10 +4,18 @@ import { CalendarCheck } from 'lucide-react';
 import GalleryLightbox from '@/components/GalleryLightbox';
 import { getCachedGallery } from '@/lib/data';
 
+import type { GalleryItem } from '@prisma/client';
+
 export const revalidate = 60;
 
 export default async function GalleryPage() {
-  const galleryItems = await getCachedGallery();
+  let galleryItems: GalleryItem[] = [];
+  try {
+    galleryItems = await getCachedGallery();
+  } catch (error) {
+    console.error('Failed to load gallery items:', error);
+    galleryItems = [];
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
