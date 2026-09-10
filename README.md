@@ -4,6 +4,7 @@
 
 ### _Turn Every Moment Into An Unforgettable Memory_
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-mantu--dj.vercel.app-7928CA?style=for-the-badge&logo=vercel&logoColor=white)](https://mantu-dj.vercel.app/)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.3.4-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.2.8-blue?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -13,12 +14,18 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 <p align="center">
+  🚀 <b>Live Production Website:</b> <a href="https://mantu-dj.vercel.app/" target="_blank"><b>https://mantu-dj.vercel.app</b></a>
+</p>
+
+<p align="center">
   <b>A production-ready, full-stack booking platform and management suite built for DJ Mantu — Brajrajnagar's Premium DJ & Event Sound Specialist, serving Western Odisha and Eastern Chhattisgarh.</b>
 </p>
 
 <p align="center">
+  <a href="https://mantu-dj.vercel.app/">🌐 Live Site</a> •
   <a href="#-executive-overview">Overview</a> •
   <a href="#-key-features">Key Features</a> •
+  <a href="#-live-deployment">Deployment</a> •
   <a href="#-architecture--data-flow">Architecture</a> •
   <a href="#-tech-stack">Tech Stack</a> •
   <a href="#-project-structure">Project Structure</a> •
@@ -119,6 +126,12 @@ Powered by **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and *
   - Dedicated mobile & desktop action bar for instant photo/video deletion and featured showcase toggling.
   - Clean slate database seed ready for fresh, authentic event uploads.
 
+- **👥 Client Directory & Customer CRM (`/admin/customers`)**:
+  - Track complete client history, repeat host tags (`Repeat Host 🌟`), event count, and total spend.
+  - One-click **WhatsApp Chat** and **Call Client** shortcuts.
+  - **Instant Search & Filter Tabs**: Filter between `All`, `With Bookings`, and `0 Bookings` to find any customer in seconds.
+  - **Manual Customer Deletion**: Dedicated delete action with confirmation modal to purge orphaned or inactive customer records.
+
 - **⚙️ Live Website Content CMS (`/admin/settings`)**:
   - Dynamically update Hero Headline, Subtitle, Brand Tagline, Artist Bio, Phone, WhatsApp, Base Location, and Service Areas.
   - **Instant Next.js ISR Route Invalidation (`revalidatePath`)**: Updates immediately reflect on the live public site without server restarts or rebuilds.
@@ -126,6 +139,18 @@ Powered by **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and *
 
 - **📦 Package & Service Catalog Management (`/admin/packages`, `/admin/services`)**:
   - Edit equipment lists, duration, sound specifications, and feature highlights for all sound packages and specialized event services.
+
+---
+
+## 🌐 Live Deployment
+
+The platform is deployed and running live in production on Vercel:
+
+- **🚀 Public Website URL**: [https://mantu-dj.vercel.app](https://mantu-dj.vercel.app)
+- **🔐 Executive Admin Console**: [https://mantu-dj.vercel.app/admin](https://mantu-dj.vercel.app/admin)
+- **⚡ Hosting & Edge Platform**: [Vercel](https://vercel.com/) (Edge-optimized Next.js runtime)
+- **🗄️ Managed Database**: Serverless PostgreSQL via [Neon DB](https://neon.tech/)
+- **🔄 Continuous Delivery**: Automated CI/CD pipeline triggered on every push to the `main` branch
 
 ---
 
@@ -403,6 +428,7 @@ http://localhost:3000/admin
 | `POST` | `/api/admin/upload` | Direct multipart photo/video media upload | Admin |
 | `GET` / `POST` | `/api/admin/packages` | Manage packages & equipment specs | Admin |
 | `GET` / `POST` | `/api/admin/services` | Manage services & equipment catalog | Admin |
+| `GET` / `DELETE` | `/api/admin/customers` | Fetch customer CRM directory or delete client & associated records | Admin |
 | `POST` | `/api/admin/cache` | Purge Redis / memory caches on demand | Admin |
 
 ---
