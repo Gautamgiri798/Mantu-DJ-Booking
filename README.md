@@ -25,8 +25,7 @@
   <a href="#-quick-start">Quick Start</a> •
   <a href="#-admin-portal">Admin Portal</a> •
   <a href="#-api-endpoints-overview">API Reference</a> •
-  <a href="#-legal--compliance">Legal</a> •
-  <a href="#-contact--booking">Contact</a>
+  <a href="#-legal--compliance">Legal</a>
 </p>
 
 ---
@@ -427,18 +426,6 @@ The platform includes two dedicated, professionally drafted legal agreements acc
    - Outlines collection of client names, mobile numbers, event locations, and event dates.
    - Strict zero-sale and zero-spam policy for client contact data.
    - WhatsApp communication and quote delivery consent guidelines.
-
----
-
-## 📞 Contact & Booking
-
-For direct event inquiries, sound system specifications, and custom quotations:
-
-- **Artist & Sound Producer**: DJ Mantu
-- **Direct Phone Hotline**: [**+91 9337828746**](tel:+919337828746)
-- **WhatsApp Concierge**: [**Chat on WhatsApp (+91 9337828746)**](https://wa.me/919337828746?text=Hello%20DJ%20Mantu,%20I%20would%20like%20to%20inquire%20about%20booking%20sound%20and%20DJ%20for%20my%20event.)
-- **Base Studio & Headquarters**: Brajrajnagar, Jharsuguda, Odisha — 768216, India
-- **Active Service Coverage**: Jharsuguda, Sambalpur, Belpahar, Brajrajnagar, Sundargarh, Rourkela, Raigarh, and across Western Odisha & Eastern Chhattisgarh.
 
 ---
 
